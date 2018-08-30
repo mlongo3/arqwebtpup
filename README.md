@@ -15,7 +15,7 @@ Usualmente, estas soluciones están basadas en componentes de electronica y algu
 Estos Garaje están constantemente cerrados (dado que no hay personal presente), y el acceso es por medio de portones automaticos. 
 
 
-#**ENDPOINTS**#
+## **ENDPOINTS**##
 *********
 
 #### Global del Handler
