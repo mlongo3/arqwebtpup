@@ -23,6 +23,8 @@ Estos Garaje están constantemente cerrados (dado que no hay personal presente),
 `Posibles respuestas`
   - 400 Bad Request 
   - 404 Not Found
+  - TBD
+  
  
 ## ALQUILERES ##
 
