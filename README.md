@@ -16,8 +16,10 @@ Posibles respuestas:
 	- 400 Bad Request 
 	- 404 Not Found
 	
+------------------------------------
 
 ALQUILERES:
+---------
 
 GET /api/1/alquileres - Devuelve una lista paginada de los existentes en el sistema
 	- 200 Ok o 206 Partial Content
@@ -61,9 +63,10 @@ PATCH /api/1/alquileres/<ID> - Se actualiza solo los atributos enviados dentro d
 Fuera de estos: 
 	- 405 Method not allowed
 
-----------------------------------------
+------------------------------------
 
 Ususario
+---------
 
 GET - /api/1/usuarios - Devuelve una lista con los usuarios de sistema
 	- 200 Ok 
@@ -105,9 +108,11 @@ PATCH /api/1/usuarios/<ID> - Se actualiza solo los atributos enviados dentro del
 	- 200 Ok - Si lo actualiza correctamente
 	- 404 Not Found - si no se encuentra
 	- 500 Internal Server Error
----------------------------------------------
 
+------------------------------------
+	
 PERSONAS:
+---------
 
 GET /api/1/personas - Devuelve una lista paginada de los existentes en el sistema
 	- 200 Ok o 206 Partial Content
@@ -153,7 +158,9 @@ PATCH /api/1/personas/<ID> - Se actualiza solo los atributos enviados dentro del
 	- 500 Internal Server Error
 
 ------------------------------------
+
 ACCESOS:
+--------
 
 GET /api/1/accesos - Devuelve una lista paginada de los existentes en el sistema
 	- 200 Ok o 206 Partial Content
@@ -215,6 +222,7 @@ Fuera de estos:
 ----------------------------------------
 
 Recursos:
+---------
 
 GET - /api/1/recursos - Devuelve una lista paginada de los existentes en el sistema
 	- 200 Ok o 206 Partial Content
