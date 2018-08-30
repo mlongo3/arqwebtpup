@@ -20,7 +20,7 @@ Estos Garaje están constantemente cerrados (dado que no hay personal presente),
 
 
 #### Global del Handler
-| Posibles respuestas |
+`Posibles respuestas`
   - 400 Bad Request 
   - 404 Not Found
  
