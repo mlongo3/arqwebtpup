@@ -17,7 +17,7 @@ Estos Garaje están constantemente cerrados (dado que no hay personal presente),
 
 *********
 # ENDPOINTS
-*********
+
 
 #### Global del Handler
 | Posibles respuestas |
