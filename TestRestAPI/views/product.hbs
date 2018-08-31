@@ -1,0 +1,18 @@
+<script type="text/javascript">
+	const myHeaders = new Headers();
+	//con la toma de string, le pongo en la cabecera, a la authorization el token que recibió.
+	myHeaders.append('authorization',`Bearer ${localStorage.token}`)
+
+	//vamos a llamar con fetch, a la api la parte de productos
+	//Por mas que sea del tipo get, como tenemos que enviar la cabecera que tenemos que configurar tenemos que agregarle. Pero el header hay que configurarlo previamente.
+
+	fetch('/api/product',{
+		method: 'GET',
+		headers: myHeaders
+	})
+	//cuando esto se llame, va a recibir una promesa con una respuesta.
+	//esta hay que pasarla a formato Json 
+	.then(res => res.json())
+	//y despues otra promesa ya con los datos.
+	.then(data = console.log(data))
+</script>
