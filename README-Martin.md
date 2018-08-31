@@ -21,52 +21,54 @@ Estos Garaje están constantemente cerrados (dado que no hay personal presente),
 
 #### Global del Handler
 `Posibles respuestas`
- - 200 Ok
- - 400 Bad Request 
- - 403 Forbidden
- - 404 Not Found
- - 409 Conflict - Si ya existe uno
- - 500 Internal Server Error
- - TBD
+  - 200 Ok
+  - 400 Bad Request 
+  - 403 Forbidden
+  - 404 Not Found
+  - 409 Conflict - Si ya existe uno
+  - 500 Internal Server Error
+  - TBD
   
  
 ## ALQUILERES ##
 
-**GET** /api/1/alquileres - Devuelve una lista paginada de los existentes en el sistema
+**GET** /api/alquileres - Devuelve una lista paginada de los existentes en el sistema
  - 200 Ok o 206 Partial Content
  - 500 Internal Server Error
   
-**GET** /api/1/alquileres/<ID> - Se obtiene uno especifico por su ID.
+**GET** /api/alquileres/<ID> - Se obtiene uno especifico por su ID.
  - 200 Ok
  - 404 Not Found - Si no lo encuentra
  - 500 Internal Server Error
 
-**GET** /api/1/alquileres/<ID>/personas - Devuelve una lista paginada de las existentes en el sistema uno especifico por su ID.
+**GET** /api/alquileres/<ID>/personas - Devuelve una lista paginada de las existentes en el sistema uno especifico por su ID.
  - 200 Ok
  - 404 Not Found - Si no lo encuentra
  - 500 Internal Server Error
 
-**POST** /api/1/alquileres - Se crea uno nuevo
+**POST** /api/alquileres - Se crea uno nuevo
  - 200 Ok - Si lo crea correctamente
  - 400 Bad Request - si esta mal formado el request o no se puede comprender
  - 409 Conflict - Si ya existe uno
  - 500 Internal Server Error
 
-**DELETE** /api/1/alquileres/<ID> - Se elimina uno especifico
+**DELETE** /api/alquileres/<ID> - Se elimina uno especifico
  - 200 Ok - Si lo elimina correctamente
  - 500 Internal Server Error
   
  
-**DELETE**  /api/1/alquileres/ - Se eliminan todos
+**DELETE**  /api/alquileres/ - Se eliminan todos
+ - 200 Ok - Si los elimina correctamente
  - 403 Forbidden
+ - 500 Internal Server Error
 
-**PUT** /api/1/alquileres/<ID> - Se Actualiza por completo todos los atributos de uno especifico
+**PUT** /api/alquileres/<ID> - Se Actualiza por completo todos los atributos de uno especifico
  - 200 Ok - Si lo actualiza correctamente
  - 404 Not Found - si no se encuentra
  - 500 Internal Server Error
  
 
-**PATCH** /api/1/alquileres/<ID> - Se actualiza solo los atributos enviados dentro del JSON de uno especifico
+**PATCH** /api/alquileres/<ID> - Se actualiza solo los atributos enviados dentro del JSON de uno especifico
  - 200 Ok - Si lo actualiza correctamente
  - 404 Not Found - si no se encuentra
  - 500 Internal Server Error
@@ -76,43 +78,43 @@ Fuera de estos:
 
 ## Usuario ##
 
-**GET** - /api/1/usuarios - Devuelve una lista con los usuarios de sistema
+**GET** - /api/usuarios - Devuelve una lista con los usuarios de sistema
  - 200 Ok 
  - 500 Internal Server Error
 
-**GET** - /api/1/usuarios/<ID> - Devuelve un usuario
- - 200 Ok 
- - 404 Not Found - si no se encuentra
- - 500 Internal Server Error
-
-**GET** - /api/1/usuarios/<ID>/alquileres - Devuelve una lista con los disponibles para uno especifico
+**GET** - /api/usuarios/<ID> - Devuelve un usuario
  - 200 Ok 
  - 404 Not Found - si no se encuentra
  - 500 Internal Server Error
 
-**GET** - /api/1/usuarios/<ID>/personas - Devuelve una lista con los disponibles para uno especifico
+**GET** - /api/usuarios/<ID>/alquileres - Devuelve una lista con los disponibles para uno especifico
  - 200 Ok 
  - 404 Not Found - si no se encuentra
  - 500 Internal Server Error
 
-**POST** /api/1/usuarios - Se crea uno nuevo
+**GET** - /api/usuarios/<ID>/personas - Devuelve una lista con los disponibles para uno especifico
+ - 200 Ok 
+ - 404 Not Found - si no se encuentra
+ - 500 Internal Server Error
+
+**POST** /api/usuarios - Se crea uno nuevo
  - 200 Ok - Si lo crea correctamente
  - 400 Bad Request - si esta mal formado el request o no se puede comprender
  - 409 Conflict - Si ya existe uno
  - 500 Internal Server Error
 
 
-**DELETE** /api/1/usuarios/<ID> - Se elimina uno especifico
+**DELETE** /api/usuarios/<ID> - Se elimina uno especifico
  - 200 Ok - Si lo elimina correctamente
  - 500 Internal Server Error
 
-**PUT** /api/1/usuarios/<ID> - Se Actualiza por completo todos los atributos de uno especifico
+**PUT** /api/usuarios/<ID> - Se Actualiza por completo todos los atributos de uno especifico
  - 200 Ok - Si lo actualiza correctamente
  - 404 Not Found - si no se encuentra
  - 500 Internal Server Error
  
 
-**PATCH** /api/1/usuarios/<ID> - Se actualiza solo los atributos enviados dentro del JSON de uno especifico
+**PATCH** /api/usuarios/<ID> - Se actualiza solo los atributos enviados dentro del JSON de uno especifico
  - 200 Ok - Si lo actualiza correctamente
  - 404 Not Found - si no se encuentra
  - 500 Internal Server Error
@@ -120,37 +122,37 @@ Fuera de estos:
  
 ## PERSONAS: ##
 
-**GET** /api/1/personas - Devuelve una lista paginada de los existentes en el sistema
+**GET** /api/personas - Devuelve una lista paginada de los existentes en el sistema
  - 200 Ok o 206 Partial Content
  - 500 Internal Server Error
   
-**GET** /api/1/personas/<ID> - Se obtiene uno especifico por su ID.
+**GET** /api/personas/<ID> - Se obtiene uno especifico por su ID.
  - 200 Ok
  - 404 Not Found - Si no lo encuentra
  - 500 Internal Server Error
 
-**GET** /api/1/personas/<ID>/accesos - Devuelve una lista paginada de los existentes en el sistemapara un ID especifico.
+**GET** /api/personas/<ID>/accesos - Devuelve una lista paginada de los existentes en el sistemapara un ID especifico.
  - 200 Ok
  - 404 Not Found - Si no lo encuentra
  - 500 Internal Server Error
 
-**GET** /api/1/personas/<ID>/accesos/<ID> - Para una persona especifica devuelve un acceso especifico por su ID.
+**GET** /api/personas/<ID>/accesos/<ID> - Para una persona especifica devuelve un acceso especifico por su ID.
  - 200 Ok
  - 404 Not Found - Si no lo encuentra
  - 500 Internal Server Error
 
 
-**POST** /api/1/personas - Se crea uno nuevo
+**POST** /api/personas - Se crea uno nuevo
  - 200 Ok - Si lo crea correctamente
  - 400 Bad Request - si esta mal formado el request o no se puede comprender
  - 409 Conflict - Si ya existe uno
  - 500 Internal Server Error
 
-**DELETE** /api/1/personas/<ID> - Se elimina uno especifico
+**DELETE** /api/personas/<ID> - Se elimina uno especifico
  - 200 Ok - Si lo elimina correctamente
  - 500 Internal Server Error
 
-**DELETE**  /api/1/personas/ - Se eliminan todos
+**DELETE**  /api/personas - Se eliminan todos
  - 403 Forbidden
 
 **PUT** /api/1/personas/<ID> - Se Actualiza por completo todos los atributos de uno especifico
@@ -158,7 +160,7 @@ Fuera de estos:
  - 404 Not Found - si no se encuentra
  - 500 Internal Server Error
 
-**PATCH** /api/1/personas/<ID> - Se actualiza solo los atributos enviados dentro del JSON de uno especifico
+**PATCH** /api/personas/<ID> - Se actualiza solo los atributos enviados dentro del JSON de uno especifico
  - 200 Ok - Si lo actualiza correctamente
  - 404 Not Found - si no se encuentra
  - 500 Internal Server Error
@@ -166,57 +168,53 @@ Fuera de estos:
 
 ## ACCESOS: ##
 
-**GET** /api/1/accesos - Devuelve una lista paginada de los existentes en el sistema
+**GET** /api/accesos - Devuelve una lista paginada de los existentes en el sistema
  - 200 Ok o 206 Partial Content
  - 500 Internal Server Error
-
-**GET** /api/1/accesos/tarjetas - Devuelve una lista paginada de las existentes en el sistema
- - 200 Ok o 206 Partial Content
- - 500 Internal Server Error
-
-**GET** /api/1/accesos/socialnet - Devuelve una lista paginada de las existentes en el sistema
- - 200 Ok o 206 Partial Content
- - 500 Internal Server Error
-
-**GET** /api/1/accesos/<ID> - Se obtiene una especifica por su ID.
+ 
+ **GET** /api/accesos/<ID> - Se obtiene una especifica por su ID.
  - 200 Ok
  - 404 Not Found - Si no lo encuentra
  - 500 Internal Server Error
 
-**GET** /api/1/accesos/<ID> - Se obtiene uno especifico por su ID.
- - 200 Ok
- - 404 Not Found - Si no lo encuentra
- - 500 Internal Server Error
-
-**POST** /api/1/accesos/tarjetas - Se crea uno nuevo
- - 200 Ok - Si lo crea correctamente
- - 400 Bad Request - si esta mal formado el request o no se puede comprender
- - 409 Conflict - Si ya existe uno
- - 500 Internal Server Error
-
-**POST** /api/1/accesos/socialsnet - Se crea uno nuevo
- - 200 Ok - Si lo crea correctamente
- - 400 Bad Request - si esta mal formado el request o no se puede comprender
- - 409 Conflict - Si ya existe uno
- - 500 Internal Server Error
-
-**DELETE** /api/1/accesos/<ID> - Se elimina uno especifico
+ **DELETE** /api/accesos/<ID> - Se elimina uno especifico
  - 200 Ok - Si lo elimina correctamente
  - 500 Internal Server Error
    
-**DELETE**  /api/1/accesos/ - Se eliminan todos
+**DELETE**  /api/accesos - Se eliminan todos
  - 403 Forbidden
+ - 500 Internal Server Error
 
-**PUT** /api/1/accesos/<ID> - Se Actualiza por completo todos los atributos de uno especifico
+**PUT** /api/accesos/<ID> - Se Actualiza por completo todos los atributos de uno especifico
  - 200 Ok - Si lo actualiza correctamente
  - 404 Not Found - si no se encuentra
  - 500 Internal Server Error
  
-
-**PATCH** /api/1/accesos/<ID> - Se actualiza solo los atributos enviados dentro del JSON de uno especifico
+**PATCH** /api/accesos/<ID> - Se actualiza solo los atributos enviados dentro del JSON de uno especifico
  - 200 Ok - Si lo actualiza correctamente
  - 404 Not Found - si no se encuentra
+ - 500 Internal Server Error 
+ 
+**GET** /api/accesos/tarjetas - Devuelve una lista paginada de las existentes en el sistema
+ - 200 Ok o 206 Partial Content
  - 500 Internal Server Error
+
+**GET** /api/accesos/socialnet - Devuelve una lista paginada de las existentes en el sistema
+ - 200 Ok o 206 Partial Content
+ - 500 Internal Server Error
+
+**POST** /api/accesos/tarjetas - Se crea uno nuevo
+ - 200 Ok - Si lo crea correctamente
+ - 400 Bad Request - si esta mal formado el request o no se puede comprender
+ - 409 Conflict - Si ya existe uno
+ - 500 Internal Server Error
+
+**POST** /api/accesos/socialsnet - Se crea uno nuevo
+ - 200 Ok - Si lo crea correctamente
+ - 400 Bad Request - si esta mal formado el request o no se puede comprender
+ - 409 Conflict - Si ya existe uno
+ - 500 Internal Server Error
+
 
 Fuera de estos: 
  - 405 Method not allowed
@@ -224,63 +222,64 @@ Fuera de estos:
 
 ## Recursos: ##
 
-**GET** - /api/1/recursos - Devuelve una lista paginada de los existentes en el sistema
+**GET** - /api/recursos - Devuelve una lista paginada de los existentes en el sistema
+ - 200 Ok o 206 Partial Content
+ - 500 Internal Server Error
+ 
+ **DELETE**  /api/recursos/ - Se eliminan todos
+ - 403 Forbidden
+
+**GET** /api/recursos/entradas - Devuelve una lista paginada de las existentes en el sistema
  - 200 Ok o 206 Partial Content
  - 500 Internal Server Error
 
-**GET** /api/1/recursos/entradas - Devuelve una lista paginada de las existentes en el sistema
- - 200 Ok o 206 Partial Content
+**DELETE** /api/recursos/entradas/<ID> - Se elimina uno especifico
+ - 200 Ok - Si lo elimina correctamente
  - 500 Internal Server Error
-
-**GET** /api/1/recursos/salidas - Devuelve una lista paginada de las existentes en el sistema
- - 200 Ok o 206 Partial Content
- - 500 Internal Server Error
-
-**POST** /api/1/recursos/entradas - Se crea uno nuevo
+ 
+ **POST** /api/recursos/entradas - Se crea uno nuevo
  - 200 Ok - Si lo crea correctamente
  - 400 Bad Request - si esta mal formado el request o no se puede comprender
  - 409 Conflict - Si ya existe uno
  - 500 Internal Server Error
-
-**POST** /api/1/recursos/salidas - Se crea uno nuevo
- - 200 Ok - Si lo crea correctamente
- - 400 Bad Request - si esta mal formado el request o no se puede comprender
- - 409 Conflict - Si ya existe uno
+ 
+**GET** /api/recursos/salidas - Devuelve una lista paginada de las existentes en el sistema
+ - 200 Ok o 206 Partial Content
  - 500 Internal Server Error
 
-**DELETE** /api/1/recursos/entradas/<ID> - Se elimina uno especifico
- - 200 Ok - Si lo elimina correctamente
- - 500 Internal Server Error
-  
-**DELETE** /api/1/recursos/salidas/<ID> - Se elimina uno especifico
- - 200 Ok - Si lo elimina correctamente
- - 500 Internal Server Error
-
-**DELETE**  /api/1/recursos/ - Se eliminan todos
+ **DELETE**  /api/recursos/entradas - Se eliminan todos
  - 403 Forbidden
 
-**DELETE**  /api/1/recursos/entradas - Se eliminan todos
- - 403 Forbidden
-
-**DELETE**  /api/1/recursos/salidas - Se eliminan todos
- - 403 Forbidden
-
-**PUT** /api/1/recursos/entradas/<ID> - Se Actualiza por completo todos los atributos de uno especifico
+**PUT** /api/recursos/entradas/<ID> - Se Actualiza por completo todos los atributos de uno especifico
  - 200 Ok - Si lo actualiza correctamente
  - 404 Not Found - si no se encuentra
  - 500 Internal Server Error
  
-**PUT** /api/1/recursos/salidas/<ID> - Se Actualiza por completo todos los atributos de uno especifico
+**PATCH** /api/recursos/entradas/<ID> - Se actualiza solo los atributos enviados dentro del JSON de uno especifico
  - 200 Ok - Si lo actualiza correctamente
  - 404 Not Found - si no se encuentra
  - 500 Internal Server Error
 
-**PATCH** /api/1/recursos/entradas/<ID> - Se actualiza solo los atributos enviados dentro del JSON de uno especifico
+**POST** /api/recursos/salidas - Se crea uno nuevo
+ - 200 Ok - Si lo crea correctamente
+ - 400 Bad Request - si esta mal formado el request o no se puede comprender
+ - 409 Conflict - Si ya existe uno
+ - 500 Internal Server Error
+  
+**DELETE** /api/recursos/salidas/<ID> - Se elimina uno especifico
+ - 200 Ok - Si lo elimina correctamente
+ - 500 Internal Server Error
+
+ **DELETE**  /api/recursos/salidas - Se eliminan todos
+ - 403 Forbidden
+ 
+**PUT** /api/recursos/salidas/<ID> - Se Actualiza por completo todos los atributos de uno especifico
  - 200 Ok - Si lo actualiza correctamente
  - 404 Not Found - si no se encuentra
  - 500 Internal Server Error
 
-**PATCH** /api/1/recursos/salidas/<ID> - Se actualiza solo los atributos enviados dentro del JSON de uno especifico
+
+**PATCH** /api/recursos/salidas/<ID> - Se actualiza solo los atributos enviados dentro del JSON de uno especifico
  - 200 Ok - Si lo actualiza correctamente
  - 404 Not Found - si no se encuentra
  - 500 Internal Server Error
