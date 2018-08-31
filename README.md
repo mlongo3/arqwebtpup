@@ -32,7 +32,7 @@ Estos Garaje están constantemente cerrados (dado que no hay personal presente),
  
 ## ALQUILERES ##
 
-**GET** /api/1/alquileres - Devuelve una lista paginada de los existentes en el sistema
+**GET** /api/1/alquileres?order=ASC&limit=10&offset=0 - Devuelve una lista paginada de los existentes en el sistema
  - 200 Ok o 206 Partial Content
  - 500 Internal Server Error
   
@@ -41,7 +41,7 @@ Estos Garaje están constantemente cerrados (dado que no hay personal presente),
  - 404 Not Found - Si no lo encuentra
  - 500 Internal Server Error
 
-**GET** /api/1/alquileres/`<ID>`/personas - Devuelve una lista paginada de las existentes en el sistema uno especifico por su ID.
+**GET** /api/1/alquileres/`<ID>`/personas?order=ASC&limit=10&offset=0 - Devuelve una lista paginada de las existentes en el sistema uno especifico por su ID.
  - 200 Ok
  - 404 Not Found - Si no lo encuentra
  - 500 Internal Server Error
@@ -76,7 +76,7 @@ Fuera de estos:
 
 ## Usuario ##
 
-**GET** - /api/1/usuarios - Devuelve una lista con los usuarios de sistema
+**GET** - /api/1/usuarios?order=ASC&limit=10&offset=0 - Devuelve una lista con los usuarios de sistema
  - 200 Ok 
  - 500 Internal Server Error
 
@@ -85,12 +85,12 @@ Fuera de estos:
  - 404 Not Found - si no se encuentra
  - 500 Internal Server Error
 
-**GET** - /api/1/usuarios/`<ID>`/alquileres - Devuelve una lista con los disponibles para uno especifico
+**GET** - /api/1/usuarios/`<ID>`/alquileres?order=ASC&limit=10&offset=0 - Devuelve una lista con los disponibles para uno especifico
  - 200 Ok 
  - 404 Not Found - si no se encuentra
  - 500 Internal Server Error
 
-**GET** - /api/1/usuarios/`<ID>`/personas - Devuelve una lista con los disponibles para uno especifico
+**GET** - /api/1/usuarios/`<ID>`/personas?order=ASC&limit=10&offset=0 - Devuelve una lista con los disponibles para uno especifico
  - 200 Ok 
  - 404 Not Found - si no se encuentra
  - 500 Internal Server Error
@@ -120,7 +120,7 @@ Fuera de estos:
  
 ## PERSONAS: ##
 
-**GET** /api/1/personas - Devuelve una lista paginada de los existentes en el sistema
+**GET** /api/1/personas?order=ASC&limit=10&offset=0 - Devuelve una lista paginada de los existentes en el sistema
  - 200 Ok o 206 Partial Content
  - 500 Internal Server Error
   
@@ -129,7 +129,7 @@ Fuera de estos:
  - 404 Not Found - Si no lo encuentra
  - 500 Internal Server Error
 
-**GET** /api/1/personas/`<ID>`/accesos - Devuelve una lista paginada de los existentes en el sistemapara un ID especifico.
+**GET** /api/1/personas/`<ID>`/accesos?order=ASC&limit=10&offset=0 - Devuelve una lista paginada de los existentes en el sistemapara un ID especifico.
  - 200 Ok
  - 404 Not Found - Si no lo encuentra
  - 500 Internal Server Error
@@ -166,7 +166,7 @@ Fuera de estos:
 
 ## ACCESOS: ##
 
-**GET** /api/1/accesos - Devuelve una lista paginada de los existentes en el sistema
+**GET** /api/1/accesos?order=ASC&limit=10&offset=0 - Devuelve una lista paginada de los existentes en el sistema
  - 200 Ok o 206 Partial Content
  - 500 Internal Server Error
 
@@ -224,15 +224,15 @@ Fuera de estos:
 
 ## Recursos: ##
 
-**GET** - /api/1/recursos - Devuelve una lista paginada de los existentes en el sistema
+**GET** - /api/1/recursos?order=ASC&limit=10&offset=0 - Devuelve una lista paginada de los existentes en el sistema
  - 200 Ok o 206 Partial Content
  - 500 Internal Server Error
 
-**GET** /api/1/recursos/entradas - Devuelve una lista paginada de las existentes en el sistema
+**GET** /api/1/recursos/entradas?order=ASC&limit=10&offset=0 - Devuelve una lista paginada de las existentes en el sistema
  - 200 Ok o 206 Partial Content
  - 500 Internal Server Error
 
-**GET** /api/1/recursos/salidas - Devuelve una lista paginada de las existentes en el sistema
+**GET** /api/1/recursos/salidas?order=ASC&limit=10&offset=0 - Devuelve una lista paginada de las existentes en el sistema
  - 200 Ok o 206 Partial Content
  - 500 Internal Server Error
 
