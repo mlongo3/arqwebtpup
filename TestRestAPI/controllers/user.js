@@ -17,7 +17,7 @@ function signUp(req,res){
 	
 	user.avatar = user.gravatar();
 
-	user.save(function(err) {
+	 user.save(function(err){
 		if(err) return res.status(500).send({message:`Error al crear el usuario: ${err}`})
 
 		//else
@@ -31,6 +31,7 @@ function signIn(req,res){
 	console.log('------------')
 	console.log('')
 	User.find({ email: req.body.email }, (err, user) => {
+		console.log("body", req.body);
 	
     if (err) return res.status(500).send({ msg: `Error al ingresar: ${err}` })
     	

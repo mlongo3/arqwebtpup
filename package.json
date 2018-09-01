@@ -1,0 +1,19 @@
+{
+  "name": "smartgarage",
+  "version": "1.0.0",
+  "description": "Sistema que permite al dueño tener acceso y manejo a ciertos recursos de un Garaje de forma remota, como así también brindar el acceso de forma segura a sus clientes y tener registros confiables de los sucesos.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mlongo3/arqwebtpup.git"
+  },
+  "author": "MARLON",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mlongo3/arqwebtpup/issues"
+  },
+  "homepage": "https://github.com/mlongo3/arqwebtpup#readme"
+}
