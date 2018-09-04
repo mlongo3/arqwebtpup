@@ -1,3 +1,5 @@
+/*=============================================
+=            Estoy considerando unificar usuario y persona con un nuevo rol            =
 'use strict'
 
 const mongoose = require('mongoose')
@@ -20,3 +22,4 @@ const PersonaSchema = Schema({
 })
 
 module.exports = mongoose.model('Persona',PersonaSchema)
+=============================================*/

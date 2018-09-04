@@ -15,5 +15,10 @@
   "bugs": {
     "url": "https://github.com/mlongo3/arqwebtpup/issues"
   },
-  "homepage": "https://github.com/mlongo3/arqwebtpup#readme"
+  "homepage": "https://github.com/mlongo3/arqwebtpup#readme",
+  "dependencies": {
+    "express": "^4.16.3",
+    "moment": "^2.22.2",
+    "mongoose": "^5.2.12"
+  }
 }

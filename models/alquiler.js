@@ -16,7 +16,7 @@ const AlquilerSchema = Schema({
 	telefono: { type:Number, default: 0},
 	celular: { type:Number, default: 0},	
 	fechaAlta: {type: Date, default: Date.now()},
-	fechaValidez: {type: Date, default: Date.now() + 30},
+	fechaValidez: {type: Date, default: moment().add(30,'days').unix()},
 	usuario: { type: mongoose.Schema.Types.ObjectId, ref: 'User'},
 	alquiler: { type: mongoose.Schema.Types.ObjectId, ref: 'Alquiler'}
 })
