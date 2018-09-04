@@ -16,13 +16,14 @@
 
 	//Datos del formulario y usamos una API de Js que se llama FormData y le pasamos el formulario.
 	//const formData = new FormData(formLogin) 
-	const formData = new URLSearchParams(new FormData(formLogin));
+	//const formData = new URLSearchParams(new FormData(formLogin));
 
 	formLogin.addEventListener('submit', function(event) {
 		event.preventDefault()		
+		const formData = new URLSearchParams(new FormData(formLogin));
 		fetch('/api/signin', {
 			method: 'POST',
-			body: new FormData(formLogin)
+			body: formData
 		})
 		.then(res => res.json())
 		//.then(data => console.log(data))

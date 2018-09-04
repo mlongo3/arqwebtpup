@@ -3,6 +3,7 @@
 const User = require('../models/user.js')
 const service = require('../services/index.js')
 
+
 function signUp(req,res){
 	//console.log(req.body.email + req.body.displayName + req.body.password)
 	console.log('Registrando usuario: ', req.body)
@@ -30,15 +31,14 @@ function signIn(req,res){
 	console.log('Inicianso sesion usuario: ', req.body.email)
 	console.log('------------')
 	console.log('')
-	User.find({ email: req.body.email }, (err, user) => {
-		console.log("body", req.body);
+	User.findOne({ email: req.body.email }, (err, user) => {		
 	
     if (err) return res.status(500).send({ msg: `Error al ingresar: ${err}` })
     	
-    if (!user) return res.status(404).send({ msg: `no existe el usuario: ${req.body.email}` })
+    if (!user) return res.status(404).send({ msg: `No existe el usuario: ${req.body.email}` })
 
-    req.user = user
-return res.status(200).send({ msg: `Te has logueado correctamente ${user.email}`, token: service.createToken(user) })
+    //req.user = user
+	//return res.status(200).send({ msg: `Te has logueado correctamente ${user.email}`, token: service.createToken(user) })
     /*==== ESTO FUNCIONA      
       res.status(200).send({ 
       	msg: 'Te has logueado correctamente', 
@@ -46,16 +46,16 @@ return res.status(200).send({ msg: `Te has logueado correctamente ${user.email}`
     	})
 	=====*/
     
-    /*=============================================
-    =            Section comment block            =
+    ///*=============================================
+    //=            Section comment block            =
     user.comparePassword(req.body.password, (err, isMatch) => {
       if (err) return res.status(500).send({ msg: `Error al ingresar: ${err}` })
-      if (!isMatch) return res.status(404).send({ msg: `Error de contraseña: ${req.body.email}` })
-
-      console.log('por aca vamos')
+      if (!isMatch) return res.status(406).send({ msg: `Error de contraseña: ${req.body.email}` })      
       return res.status(200).send({ msg: 'Te has logueado correctamente', token: service.createToken(user) })
     });
     //=============================================*/
+
+
    	})	
 }
 
