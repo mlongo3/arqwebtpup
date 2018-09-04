@@ -53,7 +53,9 @@ app.get('/login', (req,res) =>{
 	res.render('login')
 })
 
-
+app.get('/listaproductos', (req,res) =>{
+	res.render('product')
+})
 /*=====  End of Login  ======*/
 
 

@@ -1,6 +1,7 @@
 'use strict'
 
 const mongoose = require('mongoose')
+mongoose.set('useFindAndModify', false);
 const Schema = mongoose.Schema
 
 //Creamos el modelo.

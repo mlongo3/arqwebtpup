@@ -1,6 +1,7 @@
 'use strict'
 
 const mongoose = require('mongoose')
+mongoose.set('useFindAndModify', false);
 const Schema = mongoose.Schema
 const bcrypt = require('bcrypt-nodejs') //Para hashear la contraseña
 const crypto = require('crypto')
@@ -10,7 +11,7 @@ const UserSchema = new Schema({
 	email: {type: String, required: true, index: { unique: true }, lowercase:true }, //estandarizamos para que guarde todo en lowecase
 	displayName: String,
 	avatar: String, //voy a guardar la URL no una imagen.
-	password: { type: String, required: true },
+	password: { type: String, select:true, required: true },
 	//password: {type: String, select:true}, //El select false, es para evitar que cada vez que pido el usuario, este campo no lo traiga.
 	signupDate: {type: Date, default: Date.now()},
 	lastLogin: Date
