@@ -23,7 +23,11 @@ mongoose.connect(config.db ,{ useNewUrlParser: true },(err,res) =>{
 	//server
 	// () => es lo mismo que   function()  
 	app.listen(config.port, () => {
-		console.log(`Servidor Web Iniciado: http://localhost:${config.port}`)	
+		console.log('\x1b[42m')
+		console.log('--------------------------------------------')
+		console.log(`Servidor Web Iniciado: http://localhost:${config.port}`)
+		console.log('--------------------------------------------')
+		console.log('\x1b[0m')
 	})
 
 })

@@ -26,15 +26,16 @@ UserSchema.pre('save', function (next) { //ACA SI DEFINIS UN ARROW FUNCTION FALL
 
 	//Si el usuario no modificó la contraseña, que siga. 
 	if (!user.isModified('password')) return next();
-
+	
 	//sino genero el salt
 	bcrypt.genSalt(SALT_WORK_FACTOR, function(err,salt) {
-		if(err) return next(err) //AGREGUE ERR
-
+		
+		if(err) return next() //AGREGUE ERR
+		
 		//sino hashee la password
-		bcrypt.hash(user.password,salt, function(err,hash) {
-			if (err) return next(err)
-
+		bcrypt.hash(user.password,salt,null, function(err,hash) {
+			
+			if (err) return next(err)				
 			//sino hay error
 			user.password = hash //cambiamos la password con el hash que creamos y pasamos a la siguiente funcionalidad.
 			next()

@@ -18,11 +18,11 @@ function signUp(req,res){
 	
 	user.avatar = user.gravatar();
 
-	 user.save(function(err){
-		if(err) return res.status(500).send({message:`Error al crear el usuario: ${err}`})
+	user.save(function(err){
+		if(err) return res.status(500).send({msg:`Error al crear el usuario: ${err}`})
 
 		//else
-		return res.status(201).send({token: service.createToken(user)}) //vamos a usar un servicio para crear un token para el usuario.
+		return res.status(201).send({msg: 'usuario creado correctamente',token: service.createToken(user)}) //vamos a usar un servicio para crear un token para el usuario.
 	})
 }
 

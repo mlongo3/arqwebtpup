@@ -5,7 +5,7 @@ const moment = require('moment')
 const config = require('../config.js')
 
 function createToken(user){
-	//que son los datos que viajan realmente entre el cliente y el servidor. Info basica
+	//que son los datos que viajan realmente entre el cliente y el servidor. Info basica	
 	const payload = {
 		sub: user._id, //ahora vamos a usar el mismo, pero podria ser otro para mejora
 		iat: moment().unix(),//cuando se creo el token requiere instalar moment 

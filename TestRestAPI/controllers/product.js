@@ -18,10 +18,9 @@ function getProduct(req,res){
 function getProducts(req,res){
 	//Al find de product le vamos a pasar un objeto vacio. Esto singnifica que me traiga todos.
 	//y , la funcion de callback. un error y el array de objetos en este caso lo llamamos products
-	Product.find({}, (err,products) => {
+	Product.find({}, (err,products) => {		
 		if (err)  return res.status(500).send({message:`Error al realizar la peticion: ${err}`})
 		if (!products) return res.status(404).send({message: 'No existen productos'})
-
 		res.status(200).send({products})
 	})
 }
