@@ -5,20 +5,11 @@ const Schema = mongoose.Schema
 
 //Creamos el modelo.
 const AlquilerSchema = Schema({
-	nombre: String,
-	email: String,
-	dcalle: String,
-	dnumero: { type:Number, default: 0},
-	dpiso: String,
-	ddepartamento: String,
-	dcodigopostal: String,
-	dlocalidad: String,
-	telefono: { type:Number, default: 0},
-	celular: { type:Number, default: 0},	
+	nombre: {type: String, required: true, index: { unique: true }, lowercase:true },	
 	fechaAlta: {type: Date, default: Date.now()},
 	fechaValidez: {type: Date, default: moment().add(30,'days').unix()},
-	usuario: { type: mongoose.Schema.Types.ObjectId, ref: 'User'},
-	alquiler: { type: mongoose.Schema.Types.ObjectId, ref: 'Alquiler'}
+	usuarioResp: { type: mongoose.Schema.Types.ObjectId, ref: 'User'}, //Usuario responsable
+	usuarios: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User'}]
 })
 
 module.exports = mongoose.model('Alquiler',AlquilerSchema)

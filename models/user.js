@@ -6,8 +6,8 @@ const Schema = mongoose.Schema
 //Creamos el modelo.
 const UserSchema = Schema({		
 	email: {type: String, required: true, index: { unique: true }, lowercase:true }, //estandarizamos para que guarde todo en lowecase	
-	nombre: String,
-	apellido: String,
+	nombre: { type: String, required: true },
+	apellido: { type: String, required: true },
 	displayName: String,
 	password: { type: String, required: true },
 	dcalle: String,
@@ -19,8 +19,13 @@ const UserSchema = Schema({
 	telefono: { type:Number, default: 0},
 	celular: { type:Number, default: 0},	
 	signupDate: {type: Date, default: Date.now()},
+	manager: { type: mongoose.Schema.Types.ObjectId, ref: 'User'},
 	role: {type: String, enum: ['admin','manager','basic'],default: 'basic'} //Admin del sistema, Manager de alquiler, basico de acceso.
-	alquiler: { type: mongoose.Schema.Types.ObjectId, ref: 'Alquiler'}
+	alquiler: {
+		alquiler_id: String,
+		alquiler_Nombre: String
+	}
+	habilitado: {type:Boolean, default: true},
 	lastLogin: Date
 })
 

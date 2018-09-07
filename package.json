@@ -4,6 +4,7 @@
   "description": "Sistema que permite al dueño tener acceso y manejo a ciertos recursos de un Garaje de forma remota, como así también brindar el acceso de forma segura a sus clientes y tener registros confiables de los sucesos.",
   "main": "index.js",
   "scripts": {
+    "start": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -19,6 +20,9 @@
   "dependencies": {
     "express": "^4.16.3",
     "moment": "^2.22.2",
-    "mongoose": "^5.2.12"
+    "mongoose": "^5.2.13"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.4"
   }
 }

@@ -1,5 +1,6 @@
+
 <script type="text/javascript">
-	let productList = document.createElement('ul')
+	let productList = document.createElement('ul')	
 
 	const myHeaders = new Headers();
 	//con la toma de string, le pongo en la cabecera, a la authorization el token que recibió.	
@@ -34,9 +35,7 @@
 		})
 
 		//una vez que recorrio todos los productos.
-		document.body.appendChild(productList)	
-		
-		
+		document.body.appendChild(productList)			
 	})	
 	.catch((error) =>{
 		console.log(`Error durante los Fetch: ${error}`)
