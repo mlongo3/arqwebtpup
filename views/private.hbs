@@ -1,0 +1,22 @@
+<script type="text/javascript">
+	let productList = document.createElement('ul')	
+
+	const myHeaders = new Headers();
+	myHeaders.append('authorization',`Bearer ${localStorage.token}`)
+
+	fetch('/api/private',{
+		method: 'GET',
+		headers: myHeaders
+	})
+	
+	.then(res => {
+		if (res.status >= 400 && res.status < 600) {
+      		throw new Error("No podes por algun error arriba del 4xx");
+	    }
+	    console.log('Entró como tiro con el token.!!!')
+	    return res.json();
+	})			
+	.catch((error) =>{
+		console.log(`Error durante los Fetch: ${error}`)
+	})
+</script>

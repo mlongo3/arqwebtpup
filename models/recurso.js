@@ -12,8 +12,7 @@ const RecursoSchema = Schema({
 	puerto2: {type: Number}
 	puertomodo: {type: String, enum: ['entrada','salida'] , required: true}
 	tiempo: { type:Number, default: 0}, 
-	habilitado: {type:Boolean, default: true},
-	//usuario: { type: mongoose.Schema.Types.ObjectId, ref: 'User'}
+	habilitado: {type:Boolean, default: true}	
 })
 
 module.exports = mongoose.model('Recurso',RecursoSchema)

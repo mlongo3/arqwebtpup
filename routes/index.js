@@ -11,11 +11,15 @@ const api = express.Router()
 
 
 //auth
-api.post('/signup', UserCtrl.signUp)
-api.post('/signin', UserCtrl.signIn)
+api.post('/signup', AuthCtrl.signUp)
+api.post('/signin', AuthCtrl.signIn)
+
+
 
 //usuario
 api.get('/usuarios', auth,UserCtrl.getUsuarios )
+
+/*=============================================
 api.get('/usuarios/:usuarioId',UserCtrl.getUsuario)
 api.post('/usuarios', auth, UserCtrl.saveUsuario)
 api.delete('/usuarios/:usuarioId',auth, UserCtrl.deleteUsuario)
@@ -47,13 +51,13 @@ api.delete('/recursos/:recursoId',auth, RecursoCtrl.deleteRecurso)
 
 
 
-//antes de que se ejecute function, podemos poner cualquier cosa que querramos.
-//ejecuta auth.isAuth, si está todo ok, hace next() y pasa a la function de aqui. 
-//.isAuth, ahora se saca, porque luego del refactor, queda esa unica funcion.
-api.get('/private', auth , (req,res) => {
-	res.status(200).send({message: 'Tienes acceso'})
-}) //esta ruta es para testear el acceso autorizado.
 
+=            ================================*/
+
+//Prueba para testear una ruta privada de acceso con token
+api.get('/private', auth , (req,res) => {
+	res.status(200).send({message: 'Tenes acceso'})
+}) //esta ruta es para testear el acceso autorizado.
 
 
 

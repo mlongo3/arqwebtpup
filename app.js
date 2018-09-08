@@ -18,9 +18,9 @@ app.engine('.hbs', hbs({
 }))
 
 app.set('view engine','.hbs')
-app.use('/api/v1',api)
+app.use('/api',api)
 
-//Rutas Auth
+//Rutas Auth - path de escucha, y que redenderizo.
 app.get('/auth/login', (req,res) =>{
 	res.render('login')
 })
@@ -29,7 +29,13 @@ app.get('/auth/register', (req,res) =>{
 	res.render('register')
 })
 
+app.get('/listausuarios',(req,res) =>{
+	res.render('usuarios')
+})
 
+app.get('/private',(req,res) =>{
+	res.render('private')
+})
 
 
 
