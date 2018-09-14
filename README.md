@@ -90,11 +90,11 @@ Fuera de estos:
  - 404 Not Found - si no se encuentra
  - 500 Internal Server Error
 
-**GET** - /api/usuarios?apellido=`<apellido>`&order=ASC&limit=10&skip=0 - Devuelve una lista con los usuarios de sistema con el apellido especificado
+**GET** - /api/usuarios?apellido=`<apellido>`&order=`<ASC o DSC>`&limit=`<int>`&skip=`<int>` - Devuelve una lista con los usuarios de sistema con el apellido especificado
  - 200 Ok 
  - 500 Internal Server Error
 
- **GET** - /api/usuarios?role=`<role>`&order=ASC&limit=10&skip=0 - Devuelve una lista con los usuarios de sistema con el rol especificado
+ **GET** - /api/usuarios?role=`<role>`&order=`<ASC o DSC>`&limit=`<int>`&skip=`<int>` - Devuelve una lista con los usuarios de sistema con el rol especificado
  - 200 Ok 
  - 500 Internal Server Error
 
