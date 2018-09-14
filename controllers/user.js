@@ -91,8 +91,32 @@ function postUsuario(req,res){
 	}) 
 }
 
+function putUsuario(req,res){
+	let userId = req.params.userId  
+	let update = req.body
+	User.findByIdAndUpdate(userId, update, (err,userUpdated) => {
+		if(err) res.status(500).send({message: `Error al actualizar el usuario: ${err}`})
+
+		console.log('Se actualizó correctamente el usuario')
+		res.status(200).send({user: userUpdated})
+	})
+}
+
+function patchUsuario(req,res){
+	let updateObject = req.body;
+    let userId = req.params.userId
+    User.findByIdAndUpdate(userId, updateObject, (err,userUpdated) => {
+		if(err) res.status(500).send({message: `Error al patchear el usuario: ${err}`})
+
+		console.log('Se Patcheó correctamente el usuario')
+		res.status(200).send({user: userUpdated})
+	})
+}
+
 module.exports = {
 	getUsuarios,
 	getUsuario,
-	postUsuario
+	postUsuario,
+	putUsuario,
+	patchUsuario
 }

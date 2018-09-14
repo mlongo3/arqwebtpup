@@ -18,6 +18,8 @@ api.post('/signin', AuthCtrl.signIn)
 api.get('/usuarios/:userId', auth, UserCtrl.getUsuario )
 api.get('/usuarios', auth, UserCtrl.getUsuarios )
 api.post('/usuarios', auth, UserCtrl.postUsuario )
+api.put('/usuarios/:userId', auth, UserCtrl.putUsuario)
+api.patch('/usuarios/:userId', auth, UserCtrl.patchUsuario)
 
 
 /*
