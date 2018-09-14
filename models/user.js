@@ -11,25 +11,22 @@ const SALT_WORK_FACTOR = 10;
 //Creamos el modelo.
 const UserSchema = Schema({		
 	email: {type: String, required: true, index: { unique: true }, lowercase:true }, //estandarizamos para que guarde todo en lowecase	
-	nombre: { type: String, required: true },
-	apellido: { type: String, required: true },
+	nombre: { type: String, required: true , lowercase:true},
+	apellido: { type: String, required: true , uppercase:true},
 	displayName: String,
 	password: { type: String, required: true },
-	dcalle: String,
+	dcalle: { type: String, lowercase:true},
 	dnumero: { type:Number, default: 0},
 	dpiso: String,
 	ddepartamento: String,
 	dcodigopostal: String,
-	dlocalidad: String,
+	dlocalidad: { type: String, uppercase:true},
 	telefono: { type:Number, default: 0},
 	celular: { type:Number, default: 0},	
 	signupDate: {type: Date, default: Date.now()},
 	manager: { type: mongoose.Schema.Types.ObjectId, ref: 'User'},
 	role: {type: String, enum: ['admin','manager','basic'],default: 'basic'}, //Admin del sistema, Manager de alquiler, basico de acceso.
-	alquiler: { 
-		alquilerId: String, 
-		alquilerNombre: String
-	},
+	alquiler: { type: mongoose.Schema.Types.ObjectId, ref: 'Alquiler'}, //el alquiler con el que quedará registro por asociación cualquier acto.
 	habilitado: {type:Boolean, default: true},
 	avatar: String, //voy a guardar la URL no una imagen.
 	lastLogin: Date
@@ -72,6 +69,50 @@ UserSchema.methods.comparePassword = function (candidatePassword, cb) {
     cb(null, isMatch);
   });
 }
+
+UserSchema.statics.findOneByEmail = function (email, callback) {    
+    this.findOne({ email:email }, callback);
+};
+
+UserSchema.statics.findOneByRole = function (req, callback) {    
+    let skip = 0;
+    let limit = 20;
+    let order = 1;
+
+    if(req.skip){    	    	    	
+    	skip = parseInt(req.skip);    	
+    	if(skip < 0) skip=0;
+    }
+    if(req.limit){
+    	limit = parseInt(req.limit);    	
+    }
+    if(req.order){
+    	if(req.order == 'DSC'){
+    		order = -1;
+    	}
+    }       
+    this.find({ role:req.role }, callback).skip(skip).limit(limit).sort({apellido:order});    
+};
+
+UserSchema.statics.findOneByApellido = function (req, callback) {    
+	let skip = 0;
+    let limit = 20;
+    let order = 1;
+
+    if(req.skip){    	    	    	
+    	skip = parseInt(req.skip);    	
+    	if(skip < 0) skip=0;
+    }
+    if(req.limit){
+    	limit = parseInt(req.limit);    	
+    }
+    if(req.order){
+    	if(req.order == 'DSC'){
+    		order = -1;
+    	}
+    }   
+    this.find({ apellido:req.apellido }, callback).skip(skip).limit(limit).sort({apellido:order,nombre:order});    
+};
 
 module.exports = mongoose.model('User',UserSchema)
 

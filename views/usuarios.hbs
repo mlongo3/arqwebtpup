@@ -15,8 +15,7 @@
 	    }
 	    return res.json();
 	})
-	.then(data =>{	
-		console.log('data')	
+	.then(data =>{			
 			data.usuarios.map(usuario => {
 			let text = document.createTextNode(usuario.displayName)			
 			let elem = document.createElement('li')

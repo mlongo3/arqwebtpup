@@ -11,9 +11,9 @@ function signUp(req,res){
 		nombre: req.body.nombre,
 		apellido: req.body.apellido,
 		displayName: 
-			req.body.apellido.charAt(0).toUpperCase() + req.body.apellido.slice(1) 
+			req.body.apellido.charAt(0).toUpperCase() + req.body.apellido.slice(1).toLowerCase() 
 			+ " " 
-			+ req.body.nombre.charAt(0).toUpperCase() + req.body.nombre.slice(1),
+			+ req.body.nombre.charAt(0).toUpperCase() + req.body.nombre.slice(1).toLowerCase(),
 		password: req.body.password
 	})		
 	

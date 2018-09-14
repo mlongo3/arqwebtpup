@@ -14,10 +14,17 @@ const api = express.Router()
 api.post('/signup', AuthCtrl.signUp)
 api.post('/signin', AuthCtrl.signIn)
 
-
-
 //usuario
-api.get('/usuarios', auth,UserCtrl.getUsuarios )
+api.get('/usuarios/:userId', auth, UserCtrl.getUsuario )
+api.get('/usuarios', auth, UserCtrl.getUsuarios )
+api.post('/usuarios', auth, UserCtrl.postUsuario )
+
+
+/*
+api.get('/usuarios/:userid',  function(request, response){
+  response.send('user ' + request.params.userid);
+});
+*/
 
 /*=============================================
 api.get('/usuarios/:usuarioId',UserCtrl.getUsuario)
