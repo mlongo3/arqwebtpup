@@ -22,20 +22,7 @@ api.put('/usuarios/:userId', auth, UserCtrl.putUsuario)
 api.patch('/usuarios/:userId', auth, UserCtrl.patchUsuario)
 api.delete('/usuarios/:userId', auth, UserCtrl.deleteUsuario)
 
-
 /*
-api.get('/usuarios/:userid',  function(request, response){
-  response.send('user ' + request.params.userid);
-});
-*/
-
-/*=============================================
-api.get('/usuarios/:usuarioId',UserCtrl.getUsuario)
-api.post('/usuarios', auth, UserCtrl.saveUsuario)
-api.delete('/usuarios/:usuarioId',auth, UserCtrl.deleteUsuario)
-api.put('/usuarios/:usuarioId', auth, UserCtrl.updateUsuario)
-api.patch('/usuarios/:usuarioId', auth, UserCtrl.patchUsuario)
-
 //alquiler
 api.get('/alquileres', auth,AlquilerCtrl.getAlquileres )
 api.get('/alquileres/:alquilerId',AlquilerCtrl.getAlquiler)
@@ -59,10 +46,9 @@ api.post('/recursos', auth, RecursoCtrl.saveRecurso)
 api.put('/recursos/:recursoId', auth, RecursoCtrl.updateRecurso)
 api.delete('/recursos/:recursoId',auth, RecursoCtrl.deleteRecurso)
 
+================================*/
 
 
-
-=            ================================*/
 
 //Prueba para testear una ruta privada de acceso con token
 api.get('/private', auth , (req,res) => {
