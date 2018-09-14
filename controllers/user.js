@@ -93,8 +93,8 @@ function postUsuario(req,res){
 
 function putUsuario(req,res){
 	let userId = req.params.userId  
-	let update = req.body
-	User.findByIdAndUpdate(userId, update, (err,userUpdated) => {
+	let updateObject = req.body
+	User.findByIdAndUpdate(userId, updateObject, (err,userUpdated) => {
 		if(err) res.status(500).send({message: `Error al actualizar el usuario: ${err}`})
 
 		console.log('Se actualizó correctamente el usuario')
@@ -102,9 +102,10 @@ function putUsuario(req,res){
 	})
 }
 
-function patchUsuario(req,res){
-	let updateObject = req.body;
+//No veo diferencia para ejecutar con mongoose.
+function patchUsuario(req,res){	
     let userId = req.params.userId
+    let updateObject = req.body;
     User.findByIdAndUpdate(userId, updateObject, (err,userUpdated) => {
 		if(err) res.status(500).send({message: `Error al patchear el usuario: ${err}`})
 
@@ -113,10 +114,22 @@ function patchUsuario(req,res){
 	})
 }
 
+function deleteUsuario(req,res){
+	let userId = req.params.userId	
+
+	User.findByIdAndDelete(userId, (err,user) => {
+		if(err) res.status(500).send({message: `Error al borrar el usuario: ${err}`})
+
+		console.log('Se eliminó el usuario.')
+		res.status(200).send({message: 'El usuario ha sido eliminado'})		
+	})
+}
+
 module.exports = {
 	getUsuarios,
 	getUsuario,
 	postUsuario,
 	putUsuario,
-	patchUsuario
+	patchUsuario,
+	deleteUsuario
 }

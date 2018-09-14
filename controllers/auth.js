@@ -5,7 +5,7 @@ const service = require('../services/index.js')
 
 
 function signUp(req,res){
-	console.log('Registrando usuario: ', req.body)
+	console.log('Registrando usuario: ', req.body.email)
 	const user = new User({
 		email: req.body.email,
 		nombre: req.body.nombre,

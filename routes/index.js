@@ -20,6 +20,7 @@ api.get('/usuarios', auth, UserCtrl.getUsuarios )
 api.post('/usuarios', auth, UserCtrl.postUsuario )
 api.put('/usuarios/:userId', auth, UserCtrl.putUsuario)
 api.patch('/usuarios/:userId', auth, UserCtrl.patchUsuario)
+api.delete('/usuarios/:userId', auth, UserCtrl.deleteUsuario)
 
 
 /*
