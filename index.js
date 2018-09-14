@@ -9,7 +9,8 @@ mongoose.connect(config.db ,{ useNewUrlParser: true },(err,res) =>{
 	}
 	console.log('Conexión a la base de datos establecida...')
 
-	app.listen(config.port, () => {
+	app.listen(config.port, (err) => {
+		if(err) console.log(err)
 		console.log('\x1b[42m')
 		console.log('--------------------------------------------')
 		console.log(`Servidor Web Iniciado: http://localhost:${config.port}`)
