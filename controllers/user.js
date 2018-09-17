@@ -84,7 +84,7 @@ function postUsuario(req,res){
 	//todos los campos que quiera.
 
 	user.save( (err,userStored) => {		
-		if(err) res.status(500).send({message:`Error al guardar en la base de datos: ${err}`})
+		if(err) return res.status(500).send({message:`Error al guardar en la base de datos: ${err}`})
 
 
 		res.status(200).send({product: userStored})
@@ -95,30 +95,21 @@ function putUsuario(req,res){
 	let userId = req.params.userId  
 	let updateObject = req.body
 	User.findByIdAndUpdate(userId, updateObject, (err,userUpdated) => {
-		if(err) res.status(500).send({message: `Error al actualizar el usuario: ${err}`})
+		if(err) return res.status(500).send({message: `Error al actualizar el usuario: ${err}`})
 
 		console.log('Se actualizó correctamente el usuario')
 		res.status(200).send({user: userUpdated})
 	})
 }
 
-//No veo diferencia para ejecutar con mongoose.
-function patchUsuario(req,res){	
-    let userId = req.params.userId
-    let updateObject = req.body;
-    User.findByIdAndUpdate(userId, updateObject, (err,userUpdated) => {
-		if(err) res.status(500).send({message: `Error al patchear el usuario: ${err}`})
+//No veo diferencia para ejecutar con mongoose entre el Put y Patch
 
-		console.log('Se Patcheó correctamente el usuario')
-		res.status(200).send({user: userUpdated})
-	})
-}
 
 function deleteUsuario(req,res){
 	let userId = req.params.userId	
 
 	User.findByIdAndDelete(userId, (err,user) => {
-		if(err) res.status(500).send({message: `Error al borrar el usuario: ${err}`})
+		if(err) return res.status(500).send({message: `Error al borrar el usuario: ${err}`})
 
 		console.log('Se eliminó el usuario.')
 		res.status(200).send({message: 'El usuario ha sido eliminado'})		
@@ -129,7 +120,6 @@ module.exports = {
 	getUsuarios,
 	getUsuario,
 	postUsuario,
-	putUsuario,
-	patchUsuario,
+	putUsuario,	
 	deleteUsuario
 }

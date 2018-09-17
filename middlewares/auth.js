@@ -22,7 +22,6 @@ function isAuth(req,res,next){
 			//console.log(`${response.status}`) //me devuelve el numero del codigo.
 			res.status(response.status).send({message: response.message})	
 		})
-	
 }
 
 module.exports = isAuth

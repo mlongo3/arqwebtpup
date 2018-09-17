@@ -19,8 +19,16 @@ api.get('/usuarios/:userId', auth, UserCtrl.getUsuario )
 api.get('/usuarios', auth, UserCtrl.getUsuarios )
 api.post('/usuarios', auth, UserCtrl.postUsuario )
 api.put('/usuarios/:userId', auth, UserCtrl.putUsuario)
-api.patch('/usuarios/:userId', auth, UserCtrl.patchUsuario)
+api.patch('/usuarios/:userId', auth, UserCtrl.putUsuario)
 api.delete('/usuarios/:userId', auth, UserCtrl.deleteUsuario)
+
+//recurso
+api.get('/recursos', auth,RecursoCtrl.getRecursos )
+api.get('/recursos/:recursoId', auth,RecursoCtrl.getRecurso)
+api.post('/recursos', auth, RecursoCtrl.postRecurso)
+api.put('/recursos/:recursoId', auth, RecursoCtrl.putRecurso)
+api.patch('/recursos/:recursoId', auth, RecursoCtrl.putRecurso)
+api.delete('/recursos/:recursoId',auth, RecursoCtrl.deleteRecurso)
 
 /*
 //alquiler
@@ -39,12 +47,7 @@ api.post('/accesos', auth, AccesoCtrl.saveAcceso)
 api.put('/accesos/:accesoId', auth, AccesoCtrl.updateAcceso)
 api.delete('/accesos/:accesoId',auth, AccesoCtrl.deleteAcceso)
 
-//recurso
-api.get('/recursos', auth,RecursoCtrl.getRecursos )
-api.get('/recursos/:recursoId',RecursoCtrl.getRecurso)
-api.post('/recursos', auth, RecursoCtrl.saveRecurso)
-api.put('/recursos/:recursoId', auth, RecursoCtrl.updateRecurso)
-api.delete('/recursos/:recursoId',auth, RecursoCtrl.deleteRecurso)
+
 
 ================================*/
 
