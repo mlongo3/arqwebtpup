@@ -30,27 +30,23 @@ api.put('/recursos/:recursoId', auth, RecursoCtrl.putRecurso)
 api.patch('/recursos/:recursoId', auth, RecursoCtrl.putRecurso)
 api.delete('/recursos/:recursoId',auth, RecursoCtrl.deleteRecurso)
 
-/*
-//alquiler
-api.get('/alquileres', auth,AlquilerCtrl.getAlquileres )
-api.get('/alquileres/:alquilerId',AlquilerCtrl.getAlquiler)
-api.get('/alquileres/:alquilerId/usuarios',AlquilerCtrl.getAlquilerUsuarios) //Todos los usuarios de un alquiler
-api.post('/alquileres', auth, AlquilerCtrl.saveAlquiler)
-api.delete('/alquileres/:alquilerId',auth, AlquilerCtrl.deleteAlquiler)
-api.put('/alquileres/:alquilerId', auth, AlquilerCtrl.updateAlquiler)
-api.patch('/alquileres/:alquilerId', auth, AlquilerCtrl.patchAlquiler)
-
 //acceso
 api.get('/accesos', auth,AccesoCtrl.getAccesos )
-api.get('/accesos/:accesoId',AccesoCtrl.getAcceso)
-api.post('/accesos', auth, AccesoCtrl.saveAcceso)
-api.put('/accesos/:accesoId', auth, AccesoCtrl.updateAcceso)
+api.get('/accesos/:accesoId',auth,AccesoCtrl.getAcceso)
+api.post('/accesos', auth, AccesoCtrl.postAcceso)
+api.put('/accesos/:accesoId', auth, AccesoCtrl.putAcceso)
 api.delete('/accesos/:accesoId',auth, AccesoCtrl.deleteAcceso)
 
 
 
-================================*/
-
+//alquiler
+api.get('/alquileres', auth,AlquilerCtrl.getAlquileres )
+api.get('/alquileres/:alquilerId',AlquilerCtrl.getAlquiler)
+//api.get('/alquileres/:alquilerId/usuarios',AlquilerCtrl.getAlquilerUsuarios) //Todos los usuarios de un alquiler
+api.post('/alquileres', auth, AlquilerCtrl.postAlquiler)
+api.put('/alquileres/:alquilerId', auth, AlquilerCtrl.putAlquiler)
+api.patch('/alquileres/:alquilerId', auth, AlquilerCtrl.putAlquiler)
+api.delete('/alquileres/:alquilerId',auth, AlquilerCtrl.deleteAlquiler)
 
 
 //Prueba para testear una ruta privada de acceso con token

@@ -90,8 +90,10 @@ function putRecurso(req,res){
 function deleteRecurso(req,res){
 	let recursoId = req.params.recursoId	
 
-	Resource.findByIdAndDelete(recursoId, (err,user) => {
+	Resource.findByIdAndDelete(recursoId, (err,recurso) => {
 		if(err) return res.status(500).send({message: `Error al borrar el recurso: ${err}`})
+
+		if(!recurso) return res.status(401).send({message: 'El objeto no existia'})
 
 		console.log('Se eliminó el recurso.')
 		res.status(200).send({message: 'El recurso ha sido eliminado'})		

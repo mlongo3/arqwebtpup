@@ -111,6 +111,8 @@ function deleteUsuario(req,res){
 	User.findByIdAndDelete(userId, (err,user) => {
 		if(err) return res.status(500).send({message: `Error al borrar el usuario: ${err}`})
 
+		if(!user) return res.status(401).send({message: 'El objeto no existia'})
+			
 		console.log('Se eliminó el usuario.')
 		res.status(200).send({message: 'El usuario ha sido eliminado'})		
 	})

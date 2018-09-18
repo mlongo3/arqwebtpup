@@ -23,7 +23,7 @@ const UserSchema = Schema({
 	dlocalidad: { type: String, uppercase:true},
 	telefono: { type:Number, default: 0},
 	celular: { type:Number, default: 0},	
-	signupDate: {type: Date, default: Date.now()},
+	signupDate: {type: Date, default: Date.now(), required: true},
 	manager: { type: mongoose.Schema.Types.ObjectId, ref: 'User'},
 	role: {type: String, enum: ['admin','manager','basic'],default: 'basic'}, //Admin del sistema, Manager de alquiler, basico de acceso.
 	alquiler: { type: mongoose.Schema.Types.ObjectId, ref: 'Alquiler'}, //el alquiler con el que quedará registro por asociación cualquier acto.
