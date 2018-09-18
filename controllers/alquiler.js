@@ -73,7 +73,7 @@ function putAlquiler(req,res){
 	})
 }
 
-function deletelquiler(req,res){
+function deleteAlquiler(req,res){
 	let alquilerId = req.params.alquilerId	
 	
 	Alquiler.findByIdAndDelete(alquilerId, (err,alquiler) => {
