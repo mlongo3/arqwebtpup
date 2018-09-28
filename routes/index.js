@@ -6,9 +6,13 @@ const UserCtrl = require('../controllers/user.js')
 const AlquilerCtrl = require('../controllers/alquiler.js')
 const AccesoCtrl = require('../controllers/acceso.js')
 const RecursoCtrl = require('../controllers/recurso.js')
+//const PortonCtrl = require('../controllers/porton.js')
 const auth = require('../middlewares/auth.js')
 const api = express.Router()
 
+
+//porton
+//api.post('/porton',PortonCtrl.activarPorton)
 
 //auth
 api.post('/signup', AuthCtrl.signUp)

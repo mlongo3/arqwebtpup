@@ -82,6 +82,8 @@ function putRecurso(req,res){
 	Resource.findByIdAndUpdate(recursoId, updateObject, (err,resourceUpdated) => {
 		if(err) return res.status(500).send({message: `Error al actualizar el recurso: ${err}`})
 
+		if(!resourceUpdated) return res.status(401).send({message: 'El objeto no existia'})
+
 		console.log('Se actualizó correctamente el recurso')
 		res.status(200).send({recurso:resourceUpdated})
 	})
