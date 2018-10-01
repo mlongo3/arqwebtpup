@@ -37,7 +37,9 @@ app.get('/private',(req,res) =>{
 	res.render('private')
 })
 
-
+app.get('/porton',(req,res) =>{
+	res.render('porton')
+})
 
 
 
