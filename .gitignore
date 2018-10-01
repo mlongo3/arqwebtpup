@@ -1,8 +1,5 @@
 # Created by https://www.gitignore.io/api/node
 
-##MisExcepciones###
-!node_modules/onoff/
-
 ### Node ###
 # Logs
 logs
@@ -40,6 +37,7 @@ build/Release
 
 # Dependency directories
 node_modules/*
+!node_modules/onoff/
 jspm_packages/
 
 # TypeScript v1 declaration files
