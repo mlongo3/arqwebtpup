@@ -14,6 +14,7 @@ const api = express.Router()
 //porton - Una vez finalizado cambiar por POST
 api.get('/porton/activar',PortonCtrl.activarPorton)
 api.get('/porton/getestado',PortonCtrl.getEstado)
+api.get('/porton/detener',PortonCtrl.detenerPorton)
 
 //auth
 api.post('/signup', AuthCtrl.signUp)

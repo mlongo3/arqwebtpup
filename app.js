@@ -11,7 +11,7 @@ const api = require('./routes/index.js')
 app.use(bodyParser.urlencoded({extended:true}))
 app.use(bodyParser.json())
 
-
+ 
 app.engine('.hbs', hbs({
 	defaultLayout: 'default',
 	extname: '.hbs'
@@ -41,7 +41,9 @@ app.get('/porton',(req,res) =>{
 	res.render('porton')
 })
 
-
+app.get('/paradaemergencia',(req,res) =>{
+	res.render('paradaemergencia')
+})
 
 
 /*==============================

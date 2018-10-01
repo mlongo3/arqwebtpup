@@ -26,11 +26,19 @@ function getEstado(req,res){
 	return res.status(200).send({message:`${estado}`})
 }
 
+function detenerPorton(req,res){
+	porton.stop( () => {
+		
+	return res.status(200).send({message:'Se detuvo el porton'})
+	});
+}
+
 function verEstado(){
 	return porton.GetEstado()
 }
 
 module.exports = {
 	activarPorton,
-	getEstado
+	getEstado,
+	detenerPorton
 }
