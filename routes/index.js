@@ -7,24 +7,35 @@ const AlquilerCtrl = require('../controllers/alquiler.js')
 const AccesoCtrl = require('../controllers/acceso.js')
 const RecursoCtrl = require('../controllers/recurso.js')
 const PortonCtrl = require('../controllers/porton.js')
+const CamaraCtrl = require('../controllers/camara.js')
+const MovimientoCtrl = require('../controllers/movimiento.js')
 const auth = require('../middlewares/auth.js')
+const autho = require('../middlewares/authorization.js')
 const api = express.Router()
 
 
+//Movimiento
+api.get('/movimiento/estado', MovimientoCtrl.getEstado)
+api.post('/movimiento/desactivar', MovimientoCtrl.Desactivar)
+api.post('/movimiento/activar', MovimientoCtrl.Activar)
+
+//camara
+api.post('/camara/capturar',CamaraCtrl.capturarFotos)
+
 //porton - Una vez finalizado cambiar por POST
-api.get('/porton/activar',PortonCtrl.activarPorton)
+api.post('/porton/activar',PortonCtrl.activarPorton)
 api.get('/porton/getestado',PortonCtrl.getEstado)
-api.get('/porton/detener',PortonCtrl.detenerPorton)
+api.post('/porton/detener',PortonCtrl.detenerPorton)
 
 //auth
 api.post('/signup', AuthCtrl.signUp)
 api.post('/signin', AuthCtrl.signIn)
 
-//usuario
+//usuario 
 api.get('/usuarios/:userId', auth, UserCtrl.getUsuario )
-api.get('/usuarios', auth, UserCtrl.getUsuarios )
-api.post('/usuarios', auth, UserCtrl.postUsuario )
-api.put('/usuarios/:userId', auth, UserCtrl.putUsuario)
+api.get('/usuarios', UserCtrl.getUsuarios )
+api.post('/usuarios', auth, autho, UserCtrl.postUsuario )
+api.put('/usuarios/:userId', auth, autho, UserCtrl.putUsuario)
 api.patch('/usuarios/:userId', auth, UserCtrl.putUsuario)
 api.delete('/usuarios/:userId', auth, UserCtrl.deleteUsuario)
 

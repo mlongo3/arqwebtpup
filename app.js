@@ -8,6 +8,8 @@ const hbs = require('express-handlebars')
 const app = express()
 const api = require('./routes/index.js') 
 
+//app.use(express.static(__dirname + '/views'));
+
 app.use(bodyParser.urlencoded({extended:true}))
 app.use(bodyParser.json())
 
@@ -44,6 +46,7 @@ app.get('/porton',(req,res) =>{
 app.get('/paradaemergencia',(req,res) =>{
 	res.render('paradaemergencia')
 })
+
 
 
 /*==============================

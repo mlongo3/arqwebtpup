@@ -7,8 +7,8 @@ function Luces() {
 	this.secundarias = new Gpio(16, 'out'); 	
 	this.timeoutEncendidoPrimarias = '';
 	this.timeoutEncendidoSecundarias = '';	
-	this.tiempoEncendidasPrimarias = 5000; //5 segundos	
-	this.tiempoEncendidasSecundarias = 2500; //2.5 segundos	- Las secundarias, estarán encendidas la mitad del tiempo que las primarias.	
+	this.tiempoEncendidasPrimarias = 10000; //10 segundos	
+	this.tiempoEncendidasSecundarias = 5000; //5 segundos	- Las secundarias, estarán encendidas la mitad del tiempo que las primarias.	
 }
 
 // class methods - si es necesario ponerlo en el Porton.prototype.cambiar....

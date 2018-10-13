@@ -8,7 +8,7 @@ function createToken(user){
 	const payload = {
 		sub: user._id,
 		iat: moment().unix(),
-		exp: moment().add(60,'seconds').unix(),//add(14,'days')
+		exp: moment().add(32400,'seconds').unix(),//add(14,'days') - ahora esta en 32400 9 horas
 	}
 
 	//codifico con la palabra secreta	
@@ -23,6 +23,8 @@ function decodeToken(token){
 			//console.log(`${config.SECRET_TOKEN}`)
 
 			const payload = jwt.decode(token,config.SECRET_TOKEN) //con esto nos quedaría descodificado.
+
+			//en el payload.sub tengo el id del usuario.
 
 			//Si expiro, ya sale directamente de acá y va al catch.
 			
