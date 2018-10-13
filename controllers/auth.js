@@ -38,10 +38,11 @@ function signIn(req,res){
     	
     if (!user) return res.status(404).send({ msg: `No existe el usuario: ${req.body.email}` })
 
+    //console.log(`Estos son los datos del user que tengo ${user}`)
     user.comparePassword(req.body.password, (err, isMatch) => {
       if (err) return res.status(500).send({ msg: `Error al ingresar: ${err}` })
       if (!isMatch) return res.status(406).send({ msg: `Error de contraseña: ${req.body.email}` })      
-      return res.status(200).send({ msg: 'Te has logueado correctamente', token: service.createToken(user) })
+      return res.status(200).send({ msg: 'Te has logueado correctamente', token: service.createToken(user), rol: `${user.role}`, displayName: `${user.displayName}`})
     });
    	})	
 }

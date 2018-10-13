@@ -34,7 +34,7 @@ const UserSchema = Schema({
 
 UserSchema.pre('save', function (next) { //ACA SI DEFINIS UN ARROW FUNCTION FALLA 
 	var user = this;
-
+	console.log('estoy pasando por acá!!!!!')
 	//Si el usuario no modificó la contraseña, que siga. 
 	if (!user.isModified('password')) return next();
 	
@@ -53,6 +53,7 @@ UserSchema.pre('save', function (next) { //ACA SI DEFINIS UN ARROW FUNCTION FALL
 		})
 	})
 })
+
 
 UserSchema.methods.gravatar = function(){
 	//si el usuario no tiene el mail registrado en GRAVATAR
@@ -113,6 +114,27 @@ UserSchema.statics.findOneByApellido = function (req, callback) {
     }   
     this.find({ apellido:req.apellido }, callback).skip(skip).limit(limit).sort({apellido:order,nombre:order});    
 };
+
+UserSchema.statics.getRol = function (userid,callback){
+	console.log('Obteniendo Rol')
+	//console.log(userid)		
+	//console.log(callback)		
+	this.findById(userid, (err,user) => {
+		if(err) {
+			//console.log('muchos errores')
+			return callback('error')
+		}
+
+		if(!user){
+			//console.log('no encontro el usuario')
+			return callback('noExiste')
+		} 
+		//console.log('encontro el usuario')
+		//console.log(user)
+		return callback(user.role)
+	})
+}
+
 
 module.exports = mongoose.model('User',UserSchema)
 

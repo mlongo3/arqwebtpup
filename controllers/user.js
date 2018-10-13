@@ -43,7 +43,7 @@ function getUsuarios(req,res){
 			if (err)  return res.status(500).send({message:`Error al realizar la peticion: ${err}`})
 			if (!usuarios) return res.status(404).send({message: 'No existen usuarios'})
 			res.status(200).send({usuarios})
-		})
+		}).populate('manager','displayName')
 	}	
 }
 
@@ -92,8 +92,20 @@ function postUsuario(req,res){
 }
 
 function putUsuario(req,res){
-	let userId = req.params.userId  
-	let updateObject = req.body
+	let userId = req.params.userId  	
+	//Remuevo los campos que me quiero asegurar que no sean actualizados.
+	if(req.body.email){delete req.body.email}
+	if(req.body.displayName){delete req.body.displayName}	
+	if(req.body.email){delete req.body.email}
+	if(req.body.password){
+		//aca agregar que haga el hash y luego la sobre escriba
+	}
+
+	let updateObject = req.body	
+	console.log(updateObject)
+	
+	//Asegurarse de que no esté incluido el email.
+	//Verificar que no incluye la Displayname,manager, password y el rol, salvo casos a analizar.
 	User.findByIdAndUpdate(userId, updateObject, (err,userUpdated) => {
 		if(err) return res.status(500).send({message: `Error al actualizar el usuario: ${err}`})
 
@@ -117,11 +129,33 @@ function deleteUsuario(req,res){
 		res.status(200).send({message: 'El usuario ha sido eliminado'})		
 	})
 }
+/*
+function getUsuarioRol(userid,callback){
+	console.log('getUserRolByID')
+	//console.log(userid)		
+	//console.log(callback)		
+	User.findById(userid, (err,user) => {
+		if(err) {
+			//console.log('muchos errores')
+			return callback('error')
+		}
+
+		if(!user){
+			//console.log('no encontro el usuario')
+			return callback('noExiste')
+		} 
+		//console.log('encontro el usuario')
+		//console.log(user)
+		return callback(user.role)
+	})
+}
+*/
 
 module.exports = {
 	getUsuarios,
 	getUsuario,
 	postUsuario,
 	putUsuario,	
-	deleteUsuario
+	deleteUsuario,
+	//getUsuarioRol
 }
