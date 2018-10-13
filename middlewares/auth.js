@@ -1,6 +1,8 @@
 'use strict'
 
 const services = require('../services/index.js')
+//const usuarios = require('../controllers/user.js')
+//const usuarios = require('../models/user.js')
 
 //Como es un middleware, hay que agregarle next para que pase al controlador final.
 function isAuth(req,res,next){			
@@ -17,6 +19,30 @@ function isAuth(req,res,next){
 		.then(response => {
 			req.user = response
 			next()
+			//usuarios.getUsuarioRol(req.user, (rol) => {
+			/*
+			usuarios.getRol(req.user, (rol) => {
+				
+				if(rol == 'error') {
+					res.status(500).send({message: 'Se produjo un error al verificar el rol del usuario'})	
+				}
+				if(rol == 'noExiste'){
+					res.status(404).send({message: 'El usuario ya no existe. Petición denegada'})		
+				}
+				else{
+					//Ahora verifico si tiene o no permisos para la petición.
+					//El rol puede estar en basic que seria el default, manager o admin
+					console.log(`El rol asignado para este usuario es ${rol}`)
+					//produjooceso lo que sea necesario de validación o salgo.	
+					next()	
+				}							
+			})			
+			*/
+			//console.log(req.route)
+			//if(req.route.path == '/usuarios'){console.log('quiere usuarios')}
+			//console.log(req.route.methods)
+			//if(req.route.methods.get){console.log('quiere get')}else{console.log('quiere otra cosa')}
+			
 		})
 		.catch(response =>{
 			//console.log(`${response.status}`) //me devuelve el numero del codigo.

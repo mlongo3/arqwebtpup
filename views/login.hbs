@@ -28,7 +28,9 @@
 		.then(data =>{			
 			console.log(data)
 			localStorage.setItem('token', data.token)
-			location.assign('/api/recursos');
+			localStorage.setItem('rol', data.rol)
+			localStorage.setItem('displayName', data.displayName)
+			location.assign('/listausuarios');
 		})
 		.catch((error) =>{
 		console.log(`Error durante los Fetch de login: ${error}`)

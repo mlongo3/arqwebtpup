@@ -1,7 +1,7 @@
 'use strict'
 //LISTO COMPLETAMENTE FUNCIONAL EN commando, fallo en Require.
 const Gpio = require('onoff').Gpio; 
-
+const luces = require('./luz.js')
 
 // Constructor
 function Porton() {
@@ -73,6 +73,7 @@ Porton.prototype.AbrirPorton = function(){
 		console.log('Abriendo porton')		
 		this.enProceso = 'abriendo';	
 		this.EncenderLuzRoja()
+		luces.EncenderTodasLasLuces( (callback) => { console.log(`${callback}`)})
 		this.abriendo.writeSync(1);
 		this.portonAbierto.watch( (err,value) =>{
 			if (err) {throw err;}
