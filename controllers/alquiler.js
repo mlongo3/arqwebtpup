@@ -50,8 +50,8 @@ function getAlquiler(req,res){
 function postAlquiler(req,res){		
 	const alquiler = new Alquiler({
 		nombre: req.body.nombre,
-		fechaValidez: req.body.fechaValidez,
-		usuarioResp: req.body.usuarioResp		
+		fechaValidez: req.body.fechaValidez, //si no se incluye, le da 30 dias. 
+		managerId: req.body.managerId		
 	})
 
 	alquiler.save( (err,alquilerStored) => {		

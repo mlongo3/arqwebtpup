@@ -4,6 +4,7 @@ const porton = require('../models/porton.js')
 const luces = require('../models/luz.js')
 const camara = require('./camara.js')
 
+
 function activarPorton(req,res){
 	//Verificar estado para ver si enciendo o no las luces y el tema del tiempo.	
 	//luces.EncenderTodasLasLuces( (callback) => { console.log(`${callback}`)})

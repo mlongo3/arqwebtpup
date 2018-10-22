@@ -23,7 +23,7 @@ const UserSchema = Schema({
 	dlocalidad: { type: String, uppercase:true},
 	telefono: { type:Number, default: 0},
 	celular: { type:Number, default: 0},	
-	signupDate: {type: Date, default: Date.now(), required: true},
+	signupDate: {type: Date, default: Date.now, required: true},
 	manager: { type: mongoose.Schema.Types.ObjectId, ref: 'User'},
 	role: {type: String, enum: ['admin','manager','basic'],default: 'basic'}, //Admin del sistema, Manager de alquiler, basico de acceso.
 	alquiler: { type: mongoose.Schema.Types.ObjectId, ref: 'Alquiler'}, //el alquiler con el que quedará registro por asociación cualquier acto.
@@ -71,6 +71,7 @@ UserSchema.methods.comparePassword = function (candidatePassword, cb) {
   });
 }
 
+
 UserSchema.statics.findOneByEmail = function (email, callback) {    
     this.findOne({ email:email }, callback);
 };
@@ -115,6 +116,29 @@ UserSchema.statics.findOneByApellido = function (req, callback) {
     this.find({ apellido:req.apellido }, callback).skip(skip).limit(limit).sort({apellido:order,nombre:order});    
 };
 
+UserSchema.statics.findDependientesManager = function (usr,req, callback) {    
+	let skip = 0;
+    let limit = 20;
+    let order = 1;
+    console.log('aca va')
+    console.log(usr)
+    console.log(req)
+
+    if(req.skip){    	    	    	
+    	skip = parseInt(req.skip);    	
+    	if(skip < 0) skip=0;
+    }
+    if(req.limit){
+    	limit = parseInt(req.limit);    	
+    }
+    if(req.order){
+    	if(req.order == 'DSC'){
+    		order = -1;
+    	}
+    }   
+    this.find({ manager:usr }, callback).skip(skip).limit(limit).sort({apellido:order,nombre:order});    
+};
+
 UserSchema.statics.getRol = function (userid,callback){
 	console.log('Obteniendo Rol')
 	//console.log(userid)		
@@ -135,6 +159,31 @@ UserSchema.statics.getRol = function (userid,callback){
 	})
 }
 
+UserSchema.statics.getManager = function (userid,callback){
+	console.log('Obteniendo Manager')	
+	this.findById(userid, (err,user) => {
+		if(err) {			
+			return callback('error')
+		}
+		if(!user){		
+			return callback('noExiste')
+		} 		
+		return callback(user.manager)
+	})
+}
+
+UserSchema.statics.getUsuario = function (userid,callback){
+	console.log('Obteniendo Usuario')	
+	this.findById(userid, (err,user) => {
+		if(err) {			
+			return callback('error')
+		}
+		if(!user){		
+			return callback('noExiste')
+		} 		
+		return callback(user)
+	}).populate('alquiler')
+}
 
 module.exports = mongoose.model('User',UserSchema)
 

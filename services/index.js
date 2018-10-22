@@ -8,7 +8,7 @@ function createToken(user){
 	const payload = {
 		sub: user._id,
 		iat: moment().unix(),
-		exp: moment().add(32400,'seconds').unix(),//add(14,'days') - ahora esta en 32400 9 horas
+		exp: moment().add(14,'days').unix(),//add(14,'days') - ahora esta en 32400 9 horas
 	}
 
 	//codifico con la palabra secreta	

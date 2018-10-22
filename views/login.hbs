@@ -21,7 +21,8 @@
 		//.then(res => res.json())
 		.then(res => {
 			if (res.status >= 400 && res.status < 600) {
-	      		throw new Error("No podes por algun error");
+	      		console.log(res)
+	      		throw new Error(res.msg);
 		    }
 		    return res.json();
 		})
@@ -30,10 +31,11 @@
 			localStorage.setItem('token', data.token)
 			localStorage.setItem('rol', data.rol)
 			localStorage.setItem('displayName', data.displayName)
+			localStorage.setItem('_id', data._id)
 			location.assign('/listausuarios');
 		})
 		.catch((error) =>{
-		console.log(`Error durante los Fetch de login: ${error}`)
-	})
+			console.log(`Error en el fetch de signin: ${error}`)
+		})
 	})	
 </script>

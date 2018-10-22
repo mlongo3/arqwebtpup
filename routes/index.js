@@ -8,66 +8,78 @@ const AccesoCtrl = require('../controllers/acceso.js')
 const RecursoCtrl = require('../controllers/recurso.js')
 const PortonCtrl = require('../controllers/porton.js')
 const CamaraCtrl = require('../controllers/camara.js')
+const LectorCtrl = require('../controllers/lectortarjeta.js')
 const MovimientoCtrl = require('../controllers/movimiento.js')
-const auth = require('../middlewares/auth.js')
+const RegistroCtrl = require('../controllers/registro.js')
+const authe = require('../middlewares/authentication.js')
 const autho = require('../middlewares/authorization.js')
 const api = express.Router()
 
 
+//Lector
+api.get('/lector/leer',LectorCtrl.LeerTarjeta)
+
+
+//Registro
+api.get('/registros',authe, RegistroCtrl.getRegistros)
+api.post('/registros',authe, RegistroCtrl.postRegistro)
+
+
 //Movimiento
-api.get('/movimiento/estado', MovimientoCtrl.getEstado)
-api.post('/movimiento/desactivar', MovimientoCtrl.Desactivar)
-api.post('/movimiento/activar', MovimientoCtrl.Activar)
+api.get('/movimiento/estado', authe, autho,MovimientoCtrl.getEstado)
+api.post('/movimiento/desactivar', authe, autho,MovimientoCtrl.Desactivar)
+api.post('/movimiento/activar', authe, autho,MovimientoCtrl.Activar)
 
 //camara
-api.post('/camara/capturar',CamaraCtrl.capturarFotos)
+api.post('/camara/capturar',authe, autho,CamaraCtrl.capturarFotos)
 
 //porton - Una vez finalizado cambiar por POST
-api.post('/porton/activar',PortonCtrl.activarPorton)
-api.get('/porton/getestado',PortonCtrl.getEstado)
-api.post('/porton/detener',PortonCtrl.detenerPorton)
+api.post('/porton/activar',authe, autho,PortonCtrl.activarPorton)
+api.get('/porton/getestado',authe, autho,PortonCtrl.getEstado)
+api.post('/porton/detener',authe, autho,PortonCtrl.detenerPorton)
 
 //auth
 api.post('/signup', AuthCtrl.signUp)
 api.post('/signin', AuthCtrl.signIn)
 
 //usuario 
-api.get('/usuarios/:userId', auth, UserCtrl.getUsuario )
-api.get('/usuarios', UserCtrl.getUsuarios )
-api.post('/usuarios', auth, autho, UserCtrl.postUsuario )
-api.put('/usuarios/:userId', auth, autho, UserCtrl.putUsuario)
-api.patch('/usuarios/:userId', auth, UserCtrl.putUsuario)
-api.delete('/usuarios/:userId', auth, UserCtrl.deleteUsuario)
+api.get('/usuarios/:userId', authe, autho, UserCtrl.getUsuario )
+api.get('/usuarios', authe, autho,UserCtrl.getUsuarios ) //Visibilidad condicional según permisos en Authorization basado en el rol.
+api.post('/usuarios', authe, autho, UserCtrl.postUsuario )
+api.put('/usuarios/:userId', authe, autho, UserCtrl.putUsuario)
+api.patch('/usuarios/:userId', authe, autho, UserCtrl.putUsuario)
+api.delete('/usuarios/:userId', authe, autho, UserCtrl.deleteUsuario)
+api.patch('/usuarios/:userId/password', authe, autho, UserCtrl.setPassword) 
 
 //recurso
-api.get('/recursos', auth,RecursoCtrl.getRecursos )
-api.get('/recursos/:recursoId', auth,RecursoCtrl.getRecurso)
-api.post('/recursos', auth, RecursoCtrl.postRecurso)
-api.put('/recursos/:recursoId', auth, RecursoCtrl.putRecurso)
-api.patch('/recursos/:recursoId', auth, RecursoCtrl.putRecurso)
-api.delete('/recursos/:recursoId',auth, RecursoCtrl.deleteRecurso)
+api.get('/recursos', authe, autho,RecursoCtrl.getRecursos )
+api.get('/recursos/:recursoId', authe, autho,RecursoCtrl.getRecurso)
+api.post('/recursos', authe, autho, RecursoCtrl.postRecurso)
+api.put('/recursos/:recursoId', authe, autho, RecursoCtrl.putRecurso)
+api.patch('/recursos/:recursoId', authe, autho, RecursoCtrl.putRecurso)
+api.delete('/recursos/:recursoId',authe, autho, RecursoCtrl.deleteRecurso)
 
 //acceso
-api.get('/accesos', auth,AccesoCtrl.getAccesos )
-api.get('/accesos/:accesoId',auth,AccesoCtrl.getAcceso)
-api.post('/accesos', auth, AccesoCtrl.postAcceso)
-api.put('/accesos/:accesoId', auth, AccesoCtrl.putAcceso)
-api.delete('/accesos/:accesoId',auth, AccesoCtrl.deleteAcceso)
+api.get('/accesos', authe, autho,AccesoCtrl.getAccesos )
+api.get('/accesos/:accesoId',authe, autho,AccesoCtrl.getAcceso)
+api.post('/accesos', authe, autho, AccesoCtrl.postAcceso)
+api.put('/accesos/:accesoId', authe, autho, AccesoCtrl.putAcceso)
+api.delete('/accesos/:accesoId',authe, autho, AccesoCtrl.deleteAcceso)
 
 
 
 //alquiler
-api.get('/alquileres', auth,AlquilerCtrl.getAlquileres )
-api.get('/alquileres/:alquilerId',AlquilerCtrl.getAlquiler)
+api.get('/alquileres', authe, autho,AlquilerCtrl.getAlquileres )
+api.get('/alquileres/:alquilerId',authe, autho, AlquilerCtrl.getAlquiler)
 //api.get('/alquileres/:alquilerId/usuarios',AlquilerCtrl.getAlquilerUsuarios) //Todos los usuarios de un alquiler
-api.post('/alquileres', auth, AlquilerCtrl.postAlquiler)
-api.put('/alquileres/:alquilerId', auth, AlquilerCtrl.putAlquiler)
-api.patch('/alquileres/:alquilerId', auth, AlquilerCtrl.putAlquiler)
-api.delete('/alquileres/:alquilerId',auth, AlquilerCtrl.deleteAlquiler)
+api.post('/alquileres', authe, autho, AlquilerCtrl.postAlquiler)
+api.put('/alquileres/:alquilerId', authe, autho, AlquilerCtrl.putAlquiler)
+api.patch('/alquileres/:alquilerId', authe, autho, AlquilerCtrl.putAlquiler)
+api.delete('/alquileres/:alquilerId',authe, autho, AlquilerCtrl.deleteAlquiler)
 
 
 //Prueba para testear una ruta privada de acceso con token
-api.get('/private', auth , (req,res) => {
+api.get('/private', authe, autho, (req,res) => {
 	res.status(200).send({message: 'Tenes acceso'})
 }) //esta ruta es para testear el acceso autorizado.
 
