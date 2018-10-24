@@ -42,7 +42,7 @@ function signIn(req,res){
     user.comparePassword(req.body.password, (err, isMatch) => {
       if (err) return res.status(500).send({ msg: `Error al ingresar: ${err}` })
       if (!isMatch) return res.status(406).send({ msg: `Error de contraseña: ${req.body.email}` })      
-      return res.status(200).send({ msg: 'Te has logueado correctamente', token: service.createToken(user), rol: `${user.role}`, displayName: `${user.displayName}`})
+      return res.status(200).send({ msg: 'Te has logueado correctamente', token: service.createToken(user), rol: `${user.role}`, displayName: `${user.displayName}`, _id:`${user._id}`})
     });
    	})	
 }
