@@ -90,7 +90,9 @@ function newRegistro(user,recurso,accion,auth,tipo,descr,evtid){
 			}
 
 			//parametros esperados. recurso,accion,auth,tipo,descr,evtid 
-			
+			if(!usuario.alquiler){usuario.alquiler = null}
+			console.log(`el registro tendra como alquiler:${usuario.alquiler}`)
+		
 			const registro = new Record({
 				userId: usuario._id, 
 				email: usuario.email,	
