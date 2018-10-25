@@ -120,9 +120,9 @@ UserSchema.statics.findDependientesManager = function (usr,req, callback) {
 	let skip = 0;
     let limit = 20;
     let order = 1;
-    console.log('aca va')
+    console.log('Consultando usuarios dependientes de:')
     console.log(usr)
-    console.log(req)
+    //console.log(req)
 
     if(req.skip){    	    	    	
     	skip = parseInt(req.skip);    	
