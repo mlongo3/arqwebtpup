@@ -1,0 +1,93 @@
+<h1>PORTON</h1>
+<p>Click para activar/desactivar monitoreo del porton.</p>
+<button id="btnMonitoreo" onclick="activarMonitoreo()">Activar monitoreo</button>
+<br><br><br>
+<button id="btnPorton" onclick="activarPorton()">Accionar Porton</button>
+<br>
+<label id="lblEstado">Estado del porton:</label>
+
+<!--<label id="lblEstado">TextoInicial</label>-->
+<script type="text/javascript">
+	//let userList = document.createElement('ul')	
+	let monitoreoActivo = false
+	let intervaloEstado;
+	let estadoBox = document.createElement('LABEL')
+	estadoBox.innerHTML = 'Sin revisión'
+	document.body.appendChild(estadoBox) 
+	//estadoBox.setAttribute('hola','lalala')
+	
+	const myHeaders = new Headers();
+	myHeaders.append('authorization',`Bearer ${localStorage.token}`)
+
+
+	
+
+	function activarPorton() {
+	  fetch('/api/porton/activar',{
+		method: 'GET',
+		headers: myHeaders
+		})
+	  		  	
+	  	if(!monitoreoActivo){
+	  		activarMonitoreo()
+  		}
+	}
+
+
+	function activarMonitoreo() {
+		if(!monitoreoActivo){
+		  	document.getElementById("btnMonitoreo").style.background='#00FF00';	  	
+		  	var btn = document.getElementById("btnMonitoreo");
+		  	btn.firstChild.data = "Monitoreo Activado"
+
+		  	monitoreoActivo = true;
+		  	intervaloEstado = setInterval( function (){
+				fetch('/api/porton/getestado',{
+				method: 'GET',
+				headers: myHeaders
+				})
+				.then(res => {		
+					if (res.status >= 400 && res.status < 600) {      		
+			      		throw new Error(`Fallo con status: ${res.status}`);
+				    } 
+				    return res.json();	    
+				})
+				.then(json =>{			
+					console.log('Procesnado chequeo de esado')
+					let valEstado = json.message;	
+					console.log(`El estado acutal es: ${valEstado}`)			
+					estadoBox.innerHTML = `${valEstado}`
+					
+					if(valEstado == 'detenido'){
+						//clearInterval(intervaloEstado);
+						estadoBox.style.color = "white"
+						estadoBox.style.background = "green"
+						console.log('Fin de proceso, porque esta detenido')
+					}
+					else if(valEstado == 'esperando'){
+						estadoBox.style.color = "black"
+						estadoBox.style.background = "orange"
+					}
+					else{
+						estadoBox.style.color = "white"
+						estadoBox.style.background = "red"
+						console.log('Fin chequeo de estado')
+					}			
+					document.body.appendChild(estadoBox)		
+				})	
+				.catch((error) =>{	
+					console.log('catch')
+					clearInterval(intervaloEstado);	
+					console.log(`${error}`)
+				})
+			}, 1000)
+		}
+		else{
+			monitoreoActivo = false;
+			document.getElementById("btnMonitoreo").style.background='';	  	
+			var btn = document.getElementById("btnMonitoreo");
+			btn.firstChild.data = "Monitoreo Detenido"
+			clearInterval(intervaloEstado);
+		}
+	}	
+</script>

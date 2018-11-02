@@ -173,7 +173,7 @@ UserSchema.statics.getManager = function (userid,callback){
 }
 
 UserSchema.statics.getUsuario = function (userid,callback){
-	console.log('Obteniendo Usuario')	
+	//console.log('Obteniendo Usuario')	
 	this.findById(userid, (err,user) => {
 		if(err) {			
 			return callback('error')

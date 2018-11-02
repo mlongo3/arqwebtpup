@@ -23,15 +23,28 @@ function isAutho(req,res,next){
 				res.status(404).send({message: 'El token presentado es de un usuario que ya no existe. Petición denegada'})		
 			}			
 			else if(usr.role == 'admin'){
-				console.log('Es Admin pasa siempre')
+				//console.log('Es Admin pasa siempre')
 				
 				//Por si se requiere parsear, se puede modificar esto, para cargar datos especificos de la query si existen.
-				if(Object.keys(req.query).length > 0) {
-					
-					Record.newRegistro(req.user,req.url,req.method,true,'info','Tiene rol de Admin, accede directamente',202)
+				if(Object.keys(req.query).length > 0) {					
+					console.log(req.url)
+					if(!req.url == '/porton/getestado'){
+						Record.newRegistro(req.user,req.url,req.method,true,'info','Tiene rol de Admin, accede directamente',202)	
+				
+					}
+					else{
+				
+					}					
 				}
 				else{
-					Record.newRegistro(req.user,req.url,req.method,true,'info','Tiene rol de Admin, accede directamente',202)	
+				
+					if(!req.url == '/porton/getestado'){
+						Record.newRegistro(req.user,req.url,req.method,true,'info','Tiene rol de Admin, accede directamente',202)	
+				
+					}
+					else{
+				
+					}					
 				}				
 				next()	
 			}
@@ -58,7 +71,9 @@ function isAutho(req,res,next){
 						})
 					}
 					else{
-						Record.newRegistro(req.user,req.url,req.method,true,'info','Acceso permitido.',200)
+						if(!req.url == '/porton/getestado'){
+							Record.newRegistro(req.user,req.url,req.method,true,'info','Acceso permitido.',200)
+						}
 						next()
 					}
 				}
@@ -190,7 +205,9 @@ function isAutho(req,res,next){
 						})
 					}
 					else{
-						Record.newRegistro(req.user,req.url,req.method,true,'info','Acceso permitido',202)
+						if(!req.url == '/porton/getestado'){
+							Record.newRegistro(req.user,req.url,req.method,true,'info','Acceso permitido',202)
+						}						
 						next()
 					}
 				}

@@ -21,7 +21,7 @@ function isAuth(req,res,next){
 	services.decodeToken(token)		
 		.then(response => {
 			req.user = response //la respuesta es el ID del usuario.			
-			Record.newRegistro(req.user,req.url,req.method,true,'info','Usuario autenticado',202)
+			//Record.newRegistro(req.user,req.url,req.method,true,'info','Usuario autenticado',202) //Esto no se puede agregar, porque sinó cada vez que entra falla
 			next()
 			//usuarios.getUsuarioRol(req.user, (rol) => {
 			/*

@@ -27,7 +27,8 @@
     "moment": "^2.22.2",
     "mongoose": "^5.2.13",
     "node-rfid": "^1.0.7",
-    "node-webcam": "^0.4.5"
+    "node-webcam": "^0.4.5",
+    "onoff": "^3.2.1"
   },
   "devDependencies": {
     "nodemon": "^1.18.4"

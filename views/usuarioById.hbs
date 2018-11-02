@@ -1,0 +1,301 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+	<!-- Google Tag Manager -->
+	<script>(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', 'GTM-W7WJ8TR');</script>
+	<!-- End Google Tag Manager -->
+
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<title>Garage Longo S.A.</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+	<link rel="manifest" href="site.webmanifest">
+	<link rel="apple-touch-icon" href="icon.png">
+	<!-- Place favicon.ico in the root directory -->
+	<link href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,600,700" rel="stylesheet">
+
+	<link rel="stylesheet" href="../css/normalize.css">
+	<link rel="stylesheet" href="../css/bootstrap.min.css">
+	<link rel="stylesheet" href="../css/animate.css">
+	<link rel="stylesheet" href="../css/icons.css">
+	<link rel="stylesheet" href="../css/select2.css">
+	<link rel="stylesheet" href="../css/datepicker.css">
+	<link rel="stylesheet" href="../css/main.css">
+	<style>
+		.wow {
+			visibility: hidden;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="overlay-nav"></div>
+	<header class="flex">
+		<a href="javascript:void(0);" class="logo"><img src="../img/logo.png" alt="AAP"></a>
+		<h3 class="title-admin-head">Panel de administración</h3>
+
+		<div class="header-right">
+			<div class="user-top">
+				<a href="javascript:void(0);" class="dropdown">
+					<div class="user-pic" style="background-image: url('../img/avatars/avatar-user1.png')"></div>
+					<h4 class='nameUser'></h4>
+				</a>
+				<ul>
+					<li><a href="/perfilUsuario" data-icon="&#xe005;">Editar mi perfil</a></li>
+					<li><a href="javascript:void(0)" data-icon="&#xe036;" onclick="signOut()">Cerrar sesión</a></li>
+				</ul>
+			</div>
+		</div>
+
+		<div class="burger open-nav pull-right">
+			<span></span>
+			<span></span>
+			<span></span>
+		</div>
+	</header>
+
+	<aside class="admin-nav">
+		<div class="user-top show-mobile">
+			<a href="javascript:void(0);" class="dropdown">
+				<div class="user-pic" style="background-image: url('img/avatars/avatar-user1.png')"></div>
+				<h4 class="nameUser"></h4>
+			</a>
+			<ul>
+				<li><a href="/perfilUsuario" data-icon="&#xe005;">Editar mi perfil</a></li>
+				<li><a href="javascript:void(0)" data-icon="&#xe036;" onclick="signOut()">Cerrar sesión</a></li>
+			</ul>
+		</div>
+
+		<ul>
+			<li class="current"><a href="/listausuarios" ng-show="rol != 'basic'"><i class="icon-user"></i> Usuarios</a></li>
+			<li><a href="Alquiler.html"><i class="icon-user"></i> Alquiler</a></li>
+			<li><a href="/porton"><i class="icon-key"></i> Porton</a></li>
+		</ul>
+	</aside>
+
+	<div class="admin-container" ng-app="Usuario">
+		<div class="col-md-12" ng-controller="usuarioByIdCtrl as ctrl">
+			<div class="panel panel-profile" ng-init="init()">
+				<div class="panel-body">
+					<h1 class="title-admin pull-left">Cargar usuario</h1>
+					<a href="/listausuarios" class="btn btn-lightblue pull-right m-t-0" data-modal="confirmarSalir"><i class="icon-arrow-thin-left"></i>
+						Volver al listado</a>
+
+					<div class="clearfix"></div>
+
+					<form name="crearUsuarioForm" class="form-default">
+						<div class="row clearfix">
+							<div class="col-md-12">
+								<h3>Información personal</h3>
+							</div>
+
+							<div class="col-md-4">
+								<label for="nombre">Nombre</label>
+								<input type="text" name="nombre" ng-model="user.nombre" id="nombre" required>
+							</div>
+
+							<div class="col-md-4">
+								<label for="apellido">Apellido</label>
+								<input type="text" ng-model="user.apellido" required>
+							</div>
+
+							<div class="col-md-4" ng-show="idSearch == 'undefined'">
+								<label for="password">Password</label>
+								<input type="password" ng-model="user.password" required>
+							</div>
+
+							<div class="col-md-4" ng-show="idSearch == 'undefined'">
+								<label for="repassword">Repetir password</label>
+								<input type="password" ng-model="user.repassword" required>
+							</div>
+
+							<div class="col-md-12">
+								<h3>Datos de contacto</h3>
+							</div>
+
+							<div class="col-md-4">
+								<label for="email">Email</label>
+								<input type="mail" name="email" id="email" ng-model="user.email" ng-disabled="rol != 'admin'">
+							</div>
+
+							<div class="col-md-4">
+								<label for="telefono">Teléfono</label>
+								<input type="number" name="telefono" id="telefono" ng-model="user.telefono" required>
+							</div>
+
+							<div class="col-md-4">
+								<label for="celular">Celular</label>
+								<input type="number" name="celular" id="celular" ng-model="user.celular" required>
+							</div>
+
+							<div class="col-md-12">
+								<h3>Datos del domicilio</h3>
+							</div>
+
+							<div class="col-md-4">
+								<label for="domicilio">Domicilio</label>
+								<input type="text" name="domicilio" id="domicilio" ng-model="user.dcalle">
+							</div>
+
+							<div class="col-md-4">
+								<label for="numero">Número</label>
+								<input type="number" name="numero" id="numero" ng-model="user.dnumero">
+							</div>
+
+							<div class="col-md-4">
+								<label for="Piso">Piso</label>
+								<input type="text" name="Piso" id="Piso" ng-model="user.dpiso">
+							</div>
+
+							<div class="col-md-4">
+								<label for="departamento">Departamento</label>
+								<input type="text" name="departamento" id="departamento" ng-model="user.ddepartamento">
+							</div>
+
+							<div class="col-md-4">
+								<label for="codigoPostal">Código postal</label>
+								<input type="text" name="codigoPostal" id="codigoPostal" ng-model="user.dcodigopostal">
+							</div>
+
+							<div class="col-md-12" ng-show="rol == 'admin'">
+								<h3>Datos administrativos</h3>
+							</div>
+
+							<div class="col-md-4" ng-show="rol == 'admin'">
+								<label for="manager">Manager</label>
+								<select class="select2-basic" name="manager" id="manager" ng-model="user.manager" ng-options="user._id as user.nombre + ' ' +  user.apellido for user in managers | filter : {'_id' :  '!' + idSearch}">
+									<option value="" selected>Seleccioná un manager</option>
+								</select>
+							</div>
+
+							<div class="col-md-4">
+								<label for="rol">Rol</label>
+								<select class="select2-basic" name="rol" id="rol" ng-model="user.role" required>
+									<option value="" selected disabled>Seleccioná un rol</option>
+									<option value="basic">Básico</option>
+									<option value="manager">Manager</option>
+									<option value="admin">Administrador</option>
+								</select>
+							</div>
+
+							<div class="col-md-4">
+								<label for="alquiler">Alquiler</label>
+								<select class="select2-basic" name="alquiler" id="alquiler" ng-model="user.alquiler" 
+								ng-options="alquiler._id as alquiler.nombre for alquiler in alquileres">
+									<option value="" selected disabled>Seleccioná un alquiler</option>
+								</select>
+							</div>
+
+							<div class="col-md-4 col-md-offset-8">
+								<button class="btn btn-xl btn-full btn-lightblue text-left m-t-20" ng-disabled="crearUsuarioForm.$invalid" ng-click="saveOrUpdate()"
+								 data-modal="exito">Guardar cambios <i class="icon-arrow-thin-right pull-right"></i></button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+			<div class="modal" id="confirmarSalir">
+				<div class="modal-overlay" data-dismiss="confirmarSalir" onclick='closeModal()'></div>
+
+				<div class="modal-dialogo modal-dialogo-600">
+					<div class="modal-header">
+						<h2 data-icon="&#xe063;">¿Estás seguro?</h2>
+						<i class="icon-cross" data-dismiss="confirmarSalir" onclick='closeModal()'></i>
+					</div>
+
+					<div class="modal-contenido clearfix">
+						<div class="col-md-12 clearfix">
+							<p>Si abandonás esta página ahora, perderás los cambios que no hayas guardado. ¿Estás seguro de que querés salir?</p>
+
+							<div class="modal-opciones text-right">
+								<a href="/listausuarios" class="btn btn-red m-t-0" data-dismiss="confirmarSalir">Salir y descartar cambios</a>
+								<a href="javascript:void(0);" class="btn btn-lightblue m-t-0" data-dismiss="confirmarSalir">Continuar editando</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="modal" id="exito">
+				<div class="modal-overlay" data-dismiss="exito" onclick='closeModal()'></div>
+
+				<div class="modal-dialogo modal-dialogo-600">
+					<div class="modal-header">
+						<h2 data-icon="&#xe04e;">¡Operación exitosa!</h2>
+						<i class="icon-cross" data-dismiss="exito" onclick='closeModal()'></i>
+					</div>
+
+					<div class="modal-contenido clearfix">
+						<div class="col-md-12 clearfix">
+							<p>Has realizado la operación exitosamente. Recordá que puedes editarlo más tarde desde el panel de administración.</p>
+
+							<div class="modal-opciones text-right">
+								<a href="/listausuarios" class="btn btn-red m-t-0" data-dismiss="exito">Volver al listado</a>
+								<a href="/usuarios/undefined" class="btn btn-lightblue m-t-0" data-dismiss="exito">Crear un usuario</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="modal" id="error">
+				<div class="modal-overlay" data-dismiss="error" onclick='closeModal()'></div>
+
+				<div class="modal-dialogo modal-dialogo-600">
+					<div class="modal-header">
+						<h2 data-icon="&#xe04d;">¡Error!</h2>
+						<i class="icon-cross" data-dismiss="error" onclick='closeModal()'></i>
+					</div>
+
+					<div class="modal-contenido clearfix">
+						<div class="col-md-12 clearfix">
+							<p>{[{error}]}</p>
+							<div class="modal-opciones text-right">
+								<a href="javascript:void(0)" class="btn btn-red m-t-0" onclick='closeModal()' data-dismiss="error">Cerrar</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+
+	<!-- Add your site or application content here -->
+	<script src="../js/vendor/modernizr-3.5.0.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<script>window.jQuery || document.write('<script src="js/vendor/jquery-3.2.1.min.js"><\/script>')</script>
+	<script src="../js/plugins.js"></script>
+	<script src="../js/select2.full.min.js"></script>
+	<script src="../js/wow.min.js"></script>
+	<script src="../js/jquery.easing.1.3.js"></script>
+	<script src="../js/tooltip.js"></script>
+	<script src="../js/bootstrap.js"></script>
+	<script src="../js/slick.min.js"></script>
+	<script src="../js/main.js"></script>
+	<script src="../js/Angular/angular.min.js"></script>
+	<script src="../js/Angular/angular-route.js"></script>
+	<script src="../js/Angular/angular-sanitize.min.js"></script>
+	<script src="../js/Angular/angular-strap.min.js"></script>
+	<script src="../js/Angular/angular-strap.tpl.min.js"></script>
+	<script src="../js/Angular/angular-messages.min.js"></script>
+	<script src="../js/Angular/angular-animate.min.js"></script>
+	<script src="../js/Angular/angular-aria.min.js"></script>
+	<script src="../js/app.js"></script>
+	<script src="../js/Angular/angular-locale_es-ar.js"></script>
+	<script src="../js/Angular-Modules/Usuario/usuarioModule.js"></script>
+	<script src="../js/Angular-Modules/Usuario/usuarioCtrl.js"></script>
+	<script src="../js/Angular-Modules/Usuario/usuarioByIdCtrl.js"></script>
+	<script src="../js/Angular-Modules/Services/usuarioService.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-filter/0.5.8/angular-filter.min.js"></script>
+
+	<script>
+		$(".nameUser").text("" + localStorage.getItem('displayName'));
+	</script>
+</body>
+
+</html>

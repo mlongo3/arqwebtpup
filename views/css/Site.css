@@ -1,0 +1,11 @@
+﻿.block {
+    display:block;
+}
+
+.section-bg, .section-white {
+    height: 215px;
+}
+
+section.sponsors {
+    height: 130px;
+}

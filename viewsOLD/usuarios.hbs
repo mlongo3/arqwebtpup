@@ -1,0 +1,72 @@
+<script type="text/javascript">
+	let userList = document.createElement('ul')	
+
+	const myHeaders = new Headers();
+	myHeaders.append('authorization',`Bearer ${localStorage.token}`)
+
+	fetch('/api/usuarios',{
+		method: 'GET',
+		headers: myHeaders
+	})
+	.then(res => {		
+		if (res.status >= 400 && res.status < 600) {      		
+      		throw new Error(`Fallo con status: ${res.status}`);
+	    }
+	    return res.json();
+	})
+	.then(data =>{			
+			console.log(data)
+			//Si es array, devuevo el MAP de todos, sino solo uno. Cambia la llamada interna.
+			if(Object.prototype.toString.call(data.usuarios) === '[object Array]'){
+				//console.log('si')
+				data.usuarios.map(usuario => {
+					let text0 = document.createTextNode('......')			
+					let text4 = document.createTextNode('......')			
+					let text7 = document.createTextNode('......')			
+					let text8 = document.createTextNode('......')			
+					let text1 = document.createTextNode(usuario.displayName)			
+					let text2 = document.createTextNode(usuario._id)
+					let text3 = document.createTextNode(usuario.email)
+					
+					let text6 = document.createTextNode(usuario.role)
+					let elem = document.createElement('li')
+					elem.appendChild(text2)			
+					elem.appendChild(text0)			
+					elem.appendChild(text6)
+					elem.appendChild(text4)			
+					elem.appendChild(text3)			
+					elem.appendChild(text7)						
+					elem.appendChild(text1)			
+					elem.appendChild(text8)
+					userList.appendChild(elem)
+				})
+			}
+			else{
+				//console.log('no	')
+				let text0 = document.createTextNode('......')			
+				let text4 = document.createTextNode('......')			
+				let text7 = document.createTextNode('......')			
+				let text8 = document.createTextNode('......')			
+				let text1 = document.createTextNode(data.usuarios.displayName)			
+				let text2 = document.createTextNode(data.usuarios._id)
+				let text3 = document.createTextNode(data.usuarios.email)
+				
+				let text6 = document.createTextNode(data.usuarios.role)
+				let elem = document.createElement('li')
+				elem.appendChild(text2)			
+				elem.appendChild(text0)			
+				elem.appendChild(text6)
+				elem.appendChild(text4)			
+				elem.appendChild(text3)			
+				elem.appendChild(text7)						
+				elem.appendChild(text1)			
+				elem.appendChild(text8)
+				userList.appendChild(elem)
+			}		
+		document.body.appendChild(userList)			
+	})	
+	.catch((error) =>{	
+		//console.log('catch')	
+		console.log(`${error}`)
+	})
+</script>

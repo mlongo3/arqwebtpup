@@ -83,6 +83,4 @@ api.get('/private', authe, autho, (req,res) => {
 	res.status(200).send({message: 'Tenes acceso'})
 }) //esta ruta es para testear el acceso autorizado.
 
-
-
 module.exports = api 

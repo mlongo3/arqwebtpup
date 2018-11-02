@@ -13,7 +13,7 @@ const AlquilerSchema = Schema({
 	nombre: {type: String, required: true, index: { unique: true }, uppercase:true },	
 	fechaAlta: {type: Date, default: Date.now},
 	fechaValidez: {type: Date, default: masDias ,required: true},
-	managerId: { type: mongoose.Schema.Types.ObjectId, ref: 'User',required: true} //Usuario responsable	
+	usuarioResp: { type: mongoose.Schema.Types.ObjectId, ref: 'User',required: true} //Usuario responsable	
 })
 
 module.exports = mongoose.model('Alquiler',AlquilerSchema)

@@ -1,41 +1,174 @@
-<form id="myForm" method="post">
-	<input type="email" name="email" placeholder="Tu Email">
-	<br><br>
-	<input type="password" name="password" placeholder="Tu Contraseña">
-	<br>
-	<input type="submit" name="submit" value="Login">	
-</form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Garage Longo S.A.</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->	
+	<link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../fonts/iconic/css/material-design-iconic-font.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../vendor/animate/animate.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="../vendor/css-hamburgers/hamburgers.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../vendor/animsition/css/animsition.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../vendor/select2/select2.min.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="../vendor/daterangepicker/daterangepicker.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../css/util.css">
+	<link rel="stylesheet" type="text/css" href="../css/mainLogin.css">
+<!--===============================================================================================-->
 
-<script type="text/javascript">	
-	const formLogin = document.getElementById('myForm');
-	//console.log("formLogin", formLogin);
+    <script src="../js/Angular/angular.min.js"></script>
+    <script src="../js/Angular/angular-route.js"></script>
+    <script src="../js/Angular/angular-sanitize.min.js"></script>
+    <script src="../js/Angular/angular-strap.min.js"></script>
+    <script src="../js/Angular/angular-strap.tpl.min.js"></script>
+    <script src="../js/Angular/angular-messages.min.js"></script>
+    <script src="../js/Angular/angular-animate.min.js"></script>
+    <script src="../js/Angular/angular-aria.min.js"></script>
+    <script src="../js/app.js"></script>
+    <script src="../js/Angular/angular-locale_es-ar.js"></script>
+	<script src="../js/Angular-Modules/Login/loginModule.js"></script>
+	<script src="../js/Angular-Modules/Login/loginCtrl.js"></script>
+	<script src="../js/Angular-Modules/Services/loginService.js"></script>
+    <script src="../js/Angular/ng-file-upload.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-filter/0.5.8/angular-filter.min.js"></script>
+</head>
+<body>	
+	<div class="limiter" ng-app="Login">
+		<div class="container-login100" ng-controller="loginCtrl as ctrl">
+			<div class="wrap-login100">
+				<div class="loginForm">
+				<div id="cover-spin"></div>
+					<form class="login100-form validate-form">
+						<span class="login100-form-title p-b-26">
+							Bienvenido
+						</span>
+						<span class="login100-form-title p-b-48">
+							<img src='../img/logo.png'>
+						</span>
+
+						<div class="wrap-input100 validate-input" data-validate = "Un email valido es: JuanPerez@garage.com">
+							<input class="input100" type="text" name="email" ng-model="user.email">
+							<span class="focus-input100" data-placeholder="Email"></span>
+						</div>
+
+						<div class="wrap-input100 validate-input" data-validate="Ingresa el password">
+							<span class="btn-show-pass">
+								<i class="zmdi zmdi-eye"></i>
+							</span>
+							<input class="input100" type="password" name="pass" ng-model="user.password">
+							<span class="focus-input100" data-placeholder="Password"></span>
+						</div>
+
+						<div class="container-login100-form-btn">
+							<div class="wrap-login100-form-btn">
+								<div class="login100-form-bgbtn"></div>
+								<button class="login100-form-btn" ng-click="login()">
+									Login
+								</button>
+							</div>
+						</div>
+
+						<div class="text-center p-t-55">
+							<span class="txt1">
+								¿No tenés cuenta?
+							</span>
+
+							<a class="txt2" href="#" onclick="showRegister()">
+								¡Registrate!
+							</a>
+						</div>
+					</form>
+				</div>
+				<div class="nonDisplay" style='display:none;'>
+					<form name='registerLogin'> 
+						<span class="login100-form-title p-b-26">
+							Bienvenido
+						</span>
+						<span class="login100-form-title p-b-48">
+							<img src='../img/logo.png'>
+						</span>
+
+						<div class="wrap-input100 validate-input" data-validate = "Un email valido es: JuanPerez@garage.com">
+							<input class="input100" type="text" name="email">
+							<span class="focus-input100" data-placeholder="Email" ng-model="register.email"></span>
+						</div>
+
+						<div class="wrap-input100 validate-input" data-validate="Ingresa el password">
+							<span class="btn-show-pass">
+								<i class="zmdi zmdi-eye"></i>
+							</span>
+							<input class="input100" type="password" name="pass">
+							<span class="focus-input100" data-placeholder="Password" ng-model="register.password"></span>
+						</div>
+						
+						<div class="wrap-input100 validate-input" data-validate="Ingresa el password">
+							<span class="btn-show-pass">
+								<i class="zmdi zmdi-eye"></i>
+							</span>
+							<input class="input100" type="password" name="pass" ng-model="register.repassword">
+							<span class="focus-input100" data-placeholder="Repetí el password"></span>
+						</div>
+
+						<div class="container-login100-form-btn">
+							<div class="wrap-login100-form-btn">
+								<div class="login100-form-bgbtn"></div>
+								<button class="login100-form-btn" ng-click="register()">
+									Registrarme
+								</button>
+							</div>
+						</div>
+						
+						<div class="text-center p-t-15">
+							<a class="txt2" href="#" onclick="showLogin()">
+								Volver al login
+							</a>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>	
 	
+<!--===============================================================================================-->
+	<script src="../vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+	<script src="../vendor/animsition/js/animsition.min.js"></script>
+<!--===============================================================================================-->
+	<script src="../vendor/bootstrap/js/popper.js"></script>
+	<script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+	<script src="../vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+	<script src="../vendor/daterangepicker/moment.min.js"></script>
+	<script src="../vendor/daterangepicker/daterangepicker.js"></script>
+<!--===============================================================================================-->
+	<script src="../vendor/countdowntime/countdowntime.js"></script>
+<!--===============================================================================================-->
+	<script src="../js/mainLogin.js"></script>
 
-	formLogin.addEventListener('submit', function(event) {
-		event.preventDefault()		
-		const formData = new URLSearchParams(new FormData(formLogin));
-		fetch('/api/signin', {
-			method: 'POST',
-			body: formData
-		})
-		//.then(res => res.json())
-		.then(res => {
-			if (res.status >= 400 && res.status < 600) {
-	      		console.log(res)
-	      		throw new Error(res.msg);
-		    }
-		    return res.json();
-		})
-		.then(data =>{			
-			console.log(data)
-			localStorage.setItem('token', data.token)
-			localStorage.setItem('rol', data.rol)
-			localStorage.setItem('displayName', data.displayName)
-			localStorage.setItem('_id', data._id)
-			location.assign('/listausuarios');
-		})
-		.catch((error) =>{
-			console.log(`Error en el fetch de signin: ${error}`)
-		})
-	})	
-</script>
+	<script>
+
+		function showRegister(){
+			$(".nonDisplay").slideDown(500);
+			$(".loginForm").slideUp(500);
+		}
+		
+		function showLogin(){
+			$(".nonDisplay").slideUp(500);
+			$(".loginForm").slideDown(500);
+		}
+	</script>
+	
+</body>
+</html>

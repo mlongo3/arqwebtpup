@@ -15,7 +15,7 @@ app.use(bodyParser.json())
 
  
 app.engine('.hbs', hbs({
-	defaultLayout: 'default',
+	//defaultLayout: 'default',
 	extname: '.hbs'
 }))
 
@@ -47,7 +47,21 @@ app.get('/paradaemergencia',(req,res) =>{
 	res.render('paradaemergencia')
 })
 
+app.get('/usuarios/:id',(req,res) =>{
+	res.render('usuarioById')
+})
 
+app.get('/perfilUsuario',(req,res) =>{
+	res.render('perfilUsuario')
+})
+
+app.get('/listaAlquiler',(req,res) =>{
+	res.render('alquileres')
+})
+
+app.get('/alquileres/:idAlquiler',(req,res) =>{
+	res.render('alquilerById')
+})
 
 /*==============================
 =            verbos            =
@@ -58,6 +72,6 @@ app.post('/api/product',ProductCtrl.saveProduct)
 app.put('/api/product/:productId',ProductCtrl.updateProduct)
 app.delete('/api/product/:productId',ProductCtrl.deleteProduct)
 ==============================*/
- 
+ app.use(express.static(__dirname + '/views'));
 
 module.exports = app
