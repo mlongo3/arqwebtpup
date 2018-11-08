@@ -32,7 +32,7 @@
                 },
                 patchUsuario: function (user) {
                     return $http({
-                        method: 'PATCH',
+                        method: 'PUT',
                         url: '/api/usuarios/'+ user._id,                        
                         data : user,
                         headers: {

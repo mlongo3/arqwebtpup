@@ -8,7 +8,7 @@ const moment = require('moment');
 // Constructor
 function Movimiento() {  	
 	//cambiar por definitiva
-	this.sensorMovimiento = new Gpio(21, 'in', 'rising', {debounceTimeout: 2000}); //2 segundos estable
+	this.sensorMovimiento = new Gpio(22, 'in', 'rising', {debounceTimeout: 2000}); //2 segundos estable
 	this.activo = true;
 	this.ultimaFotoCapturada = moment().add(-50,'seconds')
 	this.tiempoEntreFotos = 50 //segundos -- El sensor, al detectar un movimiento, mantiene un 1 logico por 31 segundos.

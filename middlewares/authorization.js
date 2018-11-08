@@ -8,6 +8,7 @@ function isAutho(req,res,next){
 	User.getUsuario(req.user, (usr) => {
 		//console.log(usr)		
 		//Verifico si el usuario está habilitado
+		//console.log(req.method)
 		if(!usr.habilitado){
 			console.log('Usuario deshabilitado')
 			Record.newRegistro(req.user,req.url,req.method,false,'advertencia','El usuario está deshabilitado',404)
@@ -27,8 +28,8 @@ function isAutho(req,res,next){
 				
 				//Por si se requiere parsear, se puede modificar esto, para cargar datos especificos de la query si existen.
 				if(Object.keys(req.query).length > 0) {					
-					console.log(req.url)
-					if(!req.url == '/porton/getestado'){
+					//console.log(req.url)
+					if( !req.url == '/porton/getestado' || !req.url == '/luces/estadoPrimarias' || !req.url == '/luces/estadoSecundarias' ) {
 						Record.newRegistro(req.user,req.url,req.method,true,'info','Tiene rol de Admin, accede directamente',202)	
 				
 					}
@@ -38,7 +39,7 @@ function isAutho(req,res,next){
 				}
 				else{
 				
-					if(!req.url == '/porton/getestado'){
+					if(!req.url == '/porton/getestado' || !req.url == '/luces/estadoPrimarias' || !req.url == '/luces/estadoSecundarias'){
 						Record.newRegistro(req.user,req.url,req.method,true,'info','Tiene rol de Admin, accede directamente',202)	
 				
 					}
@@ -51,7 +52,7 @@ function isAutho(req,res,next){
 			else if(usr.role == 'manager'){
 				console.log('Es Manager')
 				if(req.method == 'GET'){
-					console.log('Es GET')
+					//console.log('Es GET')
 					//Si pide usuarios, limito que puede ver.
 					if(req.route.path == '/usuarios'){						
 						//Devuelve todos los usuarios que lo tienen como manager.
@@ -71,7 +72,7 @@ function isAutho(req,res,next){
 						})
 					}
 					else{
-						if(!req.url == '/porton/getestado'){
+						if(!req.url == '/porton/getestado' || !req.url == '/luces/estadoPrimarias' || !req.url == '/luces/estadoSecundarias'){
 							Record.newRegistro(req.user,req.url,req.method,true,'info','Acceso permitido.',200)
 						}
 						next()
@@ -137,6 +138,11 @@ function isAutho(req,res,next){
 						Record.newRegistro(req.user,req.url,req.method,true,'info','El usuario tiene permisos para detener el porton',202)
 						next()
 					}
+					else if (req.route.path == '/luces/activarPrimarias' || req.route.path ==  '/luces/activarSecundarias'){
+						console.log('El usuario tiene permisos para encender luces')
+						Record.newRegistro(req.user,req.url,req.method,true,'info','El usuario tiene permisos para encender las luces',202)
+						next()
+					}
 					else{
 						console.log('No tiene autorizacion para crear')
 						Record.newRegistro(req.user,req.url,req.method,false,'advertencia','No tiene autorización para crear',403)
@@ -159,7 +165,7 @@ function isAutho(req,res,next){
 								}
 								else{
 									console.log(`el manager del usuario  es ${manag}`)	
-									console.log('ahora verifico si es manager de ese usuario')
+									console.log('verificando permisos de manager')
 
 									if(req.user == manag){
 										console.log('El reseteo es solicitado por el manager')
@@ -184,7 +190,7 @@ function isAutho(req,res,next){
 			else if(usr.role == 'basic'){
 				console.log('Es Basic')
 				if(req.method == 'GET'){
-					console.log('Es GET')
+					//console.log('Es GET')
 					//Si pide usuarios, limito a si mismo.
 					if(req.route.path == '/usuarios'){						
 						//Devuelve todos los usuarios que lo tienen como manager.						
@@ -205,7 +211,7 @@ function isAutho(req,res,next){
 						})
 					}
 					else{
-						if(!req.url == '/porton/getestado'){
+						if(!req.url == '/porton/getestado' || !req.url == '/luces/estadoPrimarias' || !req.url == '/luces/estadoSecundarias'){
 							Record.newRegistro(req.user,req.url,req.method,true,'info','Acceso permitido',202)
 						}						
 						next()
@@ -222,6 +228,11 @@ function isAutho(req,res,next){
 						Record.newRegistro(req.user,req.url,req.method,true,'info','El usuario tiene permisos para detener el porton',202)
 						next()
 					}
+					else if (req.route.path == '/luces/activarPrimarias' || req.route.path ==  '/luces/activarSecundarias'){
+						console.log('El usuario tiene permisos para encender luces')
+						Record.newRegistro(req.user,req.url,req.method,true,'info','El usuario tiene permisos para encender las luces',202)
+						next()
+					}
 					else{
 						console.log('El usuario no tiene autorizacion para ejecturar lo solicitado')
 						Record.newRegistro(req.user,req.url,req.method,false,'advertencia','El usuario no tiene autorizacion para ejecturar lo solicitado',403)
@@ -230,7 +241,8 @@ function isAutho(req,res,next){
 				}
 				else if (req.method == 'PUT'){
 					//Solo si es si mismo.
-					//console.log(req.user)					
+					//console.log(req.user)
+					//console.log(req.params.userId)					
 					var userToModif = req.params.userId // a mano es  req.url.split('/')[2]
 					//console.log(userToModif)
 					if(req.user == userToModif){

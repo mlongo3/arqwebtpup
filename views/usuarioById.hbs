@@ -31,7 +31,7 @@
 	</style>
 </head>
 
-<body>
+<body ng-app="Usuario">
 	<div class="overlay-nav"></div>
 	<header class="flex">
 		<a href="javascript:void(0);" class="logo"><img src="../img/logo.png" alt="AAP"></a>
@@ -57,7 +57,7 @@
 		</div>
 	</header>
 
-	<aside class="admin-nav">
+	<aside class="admin-nav" ng-controller="menuCtrl as ctrl">
 		<div class="user-top show-mobile">
 			<a href="javascript:void(0);" class="dropdown">
 				<div class="user-pic" style="background-image: url('img/avatars/avatar-user1.png')"></div>
@@ -71,12 +71,13 @@
 
 		<ul>
 			<li class="current"><a href="/listausuarios" ng-show="rol != 'basic'"><i class="icon-user"></i> Usuarios</a></li>
-			<li><a href="Alquiler.html"><i class="icon-user"></i> Alquiler</a></li>
+			<li><a href="/listaAlquiler" ng-show="rol == 'admin'"><i class="icon-user"></i> Alquiler</a></li>
 			<li><a href="/porton"><i class="icon-key"></i> Porton</a></li>
+			<li><a href="/listacamaras"><i class="icon-user"></i> Camaras</a></li>
 		</ul>
 	</aside>
 
-	<div class="admin-container" ng-app="Usuario">
+	<div class="admin-container">
 		<div class="col-md-12" ng-controller="usuarioByIdCtrl as ctrl">
 			<div class="panel panel-profile" ng-init="init()">
 				<div class="panel-body">
@@ -118,7 +119,8 @@
 
 							<div class="col-md-4">
 								<label for="email">Email</label>
-								<input type="mail" name="email" id="email" ng-model="user.email" ng-disabled="rol != 'admin'">
+								<input type="mail" name="email" id="email" ng-model="user.email"
+								 ng-disabled="rol != 'admin' && idSearch != 'undefined'">
 							</div>
 
 							<div class="col-md-4">
@@ -166,14 +168,16 @@
 
 							<div class="col-md-4" ng-show="rol == 'admin'">
 								<label for="manager">Manager</label>
-								<select class="select2-basic" name="manager" id="manager" ng-model="user.manager" ng-options="user._id as user.nombre + ' ' +  user.apellido for user in managers | filter : {'_id' :  '!' + idSearch}">
+								<select class="select2-basic" name="manager" id="manager" ng-model="user.manager" 
+								ng-options="user._id as user.nombre + ' ' +  user.apellido for user in managers">
 									<option value="" selected>Seleccioná un manager</option>
 								</select>
 							</div>
 
 							<div class="col-md-4">
 								<label for="rol">Rol</label>
-								<select class="select2-basic" name="rol" id="rol" ng-model="user.role" required>
+								<select class="select2-basic" name="rol" id="rol" ng-model="user.role"
+								 ng-show="rol == 'admin'" ng-required="rol == 'admin'">
 									<option value="" selected disabled>Seleccioná un rol</option>
 									<option value="basic">Básico</option>
 									<option value="manager">Manager</option>
@@ -290,6 +294,7 @@
 	<script src="../js/Angular-Modules/Usuario/usuarioModule.js"></script>
 	<script src="../js/Angular-Modules/Usuario/usuarioCtrl.js"></script>
 	<script src="../js/Angular-Modules/Usuario/usuarioByIdCtrl.js"></script>
+    <script src="../js/Angular-Modules/Menu/menuCtrl.js"></script>
 	<script src="../js/Angular-Modules/Services/usuarioService.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-filter/0.5.8/angular-filter.min.js"></script>
 

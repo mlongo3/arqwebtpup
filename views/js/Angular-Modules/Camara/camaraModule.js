@@ -1,7 +1,6 @@
-﻿angular.module('Usuario', [
-    'usuario.service',
-    'usuario.ctrl',
-    'usuarioById.ctrl',
+﻿angular.module('Camara', [
+    'camara.service',
+    'camara.ctrl',
     'menu.ctrl',
     'ngRoute',
     'ngAnimate',

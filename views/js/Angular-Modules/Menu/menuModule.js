@@ -1,7 +1,4 @@
-﻿angular.module('Usuario', [
-    'usuario.service',
-    'usuario.ctrl',
-    'usuarioById.ctrl',
+angular.module('Menu', [
     'menu.ctrl',
     'ngRoute',
     'ngAnimate',

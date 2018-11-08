@@ -2,6 +2,7 @@
     'alquiler.service',
     'alquiler.ctrl',
     'alquilerById.ctrl',
+    'menu.ctrl',
     'ngRoute',
     'ngAnimate',
     'mgcrea.ngStrap',

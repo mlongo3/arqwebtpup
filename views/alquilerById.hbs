@@ -31,7 +31,7 @@
     </style>
 </head>
 
-<body>
+<body ng-app="Alquiler">
     <div class="overlay-nav"></div>
     <header class="flex">
         <a href="javascript:void(0);" class="logo"><img src="../img/logo.png" alt="AAP"></a>
@@ -57,7 +57,7 @@
         </div>
     </header>
 
-    <aside class="admin-nav">
+    <aside class="admin-nav" ng-controller="menuCtrl as ctrl">
         <div class="user-top show-mobile">
             <a href="javascript:void(0);" class="dropdown">
                 <div class="user-pic" style="background-image: url('img/avatars/avatar-user1.png')"></div>
@@ -70,13 +70,14 @@
         </div>
 
         <ul>
-            <li class="current"><a href="/listausuarios" ng-show="rol != 'basic'"><i class="icon-user"></i> Usuarios</a></li>
-            <li><a href="Alquiler.html"><i class="icon-user"></i> Alquiler</a></li>
+            <li><a href="/listausuarios" ng-show="rol != 'basic'"><i class="icon-user"></i> Usuarios</a></li>
+            <li class="current" ng-show="rol == 'admin'"><a href="/listaAlquiler"><i class="icon-user"></i> Alquiler</a></li>
             <li><a href="/porton"><i class="icon-key"></i> Porton</a></li>
+			<li><a href="/listacamaras"><i class="icon-user"></i> Camaras</a></li>
         </ul>
     </aside>
 
-    <div class="admin-container" ng-app="Alquiler">
+    <div class="admin-container">
         <div class="col-md-12" ng-controller="alquilerByIdCtrl as ctrl">
             <div class="panel panel-profile" ng-init="init()">
                 <div class="panel-body">
@@ -219,6 +220,7 @@
     <script src="../js/Angular-Modules/Alquiler/alquilerModule.js"></script>
     <script src="../js/Angular-Modules/Alquiler/alquilerCtrl.js"></script>
     <script src="../js/Angular-Modules/Alquiler/alquilerByIdCtrl.js"></script>
+    <script src="../js/Angular-Modules/Menu/menuCtrl.js"></script>
     <script src="../js/Angular-Modules/Services/alquilerService.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-filter/0.5.8/angular-filter.min.js"></script>
 

@@ -24,8 +24,8 @@ const optsExt = {
 };
 
 const optsInt = {
-    width: 640,
-    height: 480,
+    width: 1280, //640
+    height: 720, //480
     quality: 50,
     delay: 0,
     saveShots: true,
@@ -35,7 +35,7 @@ const optsInt = {
     callbackReturn: "location",
     verbose: true,
 	bottomBanner: true,
-	saturation: "15%"
+	//saturation: "15%"
 };
 
 const WebcamExt = NodeWebcam.create( optsExt );
@@ -63,7 +63,7 @@ function capturarFotos(req,res){
 				else{						
 					//saco la foto interna
 					console.log('saque la foto interna')
-					res.status(201).send({fotoInterna:`${fne}`,fotoExterna:''})		
+					res.status(201).send({fotoInterna:`${fni}`,fotoExterna:''})		
 				}						
 			})	
 		}

@@ -8,7 +8,7 @@ const passLength = 8
 
 function getUsuarios(req,res){	
 	if(req.query.email){
-		console.log('getUserByEmail')
+		//console.log('getUserByEmail')
 		let email = req.query.email	
 		User.findOneByEmail(email, function (err,user) {
 			if(err) return res.status(500).send({message:`Error al realizar la peticion: ${err}`})
@@ -17,7 +17,7 @@ function getUsuarios(req,res){
 		})
 	}
 	else if(req.query.apellido){
-		console.log('getUserByApellido')
+		//console.log('getUserByApellido')
 		let apellido = req.query.apellido	
 		User.findOneByApellido(req.query, function (err,user) {
 			if(err) return res.status(500).send({message:`Error al realizar la peticion: ${err}`})
@@ -26,7 +26,7 @@ function getUsuarios(req,res){
 		})
 	}
 	else if(req.query.role){
-		console.log('getUserByRole')
+		//console.log('getUserByRole')
 		let role = req.query.role
 		User.findOneByRole(req.query, function (err,user) {
 			if(err) return res.status(500).send({message:`Error al realizar la peticion: ${err}`})
@@ -35,7 +35,7 @@ function getUsuarios(req,res){
 		})
 	}
 	else{
-		console.log('getAllUsers')
+		//console.log('getAllUsers')
 		User.find({}, (err,usuarios) => {		
 			if (err)  return res.status(500).send({message:`Error al realizar la peticion: ${err}`})
 			if (!usuarios) return res.status(404).send({message: 'No existen usuarios'})
@@ -46,7 +46,7 @@ function getUsuarios(req,res){
 
 
 function getUsuario(req,res){		
-		console.log('getUserByID')		
+		//console.log('getUserByID')		
 		let userId = req.params.userId
 		User.findById(userId, (err,user) => {
 			if(err) return res.status(500).send({message:`Error al realizar la peticion: ${err}`})
@@ -96,7 +96,7 @@ function putUsuario(req,res){
 	}
 
 	let updateObject = req.body	
-	console.log(updateObject)
+	//console.log(updateObject)
 	
 	//Asegurarse de que no esté incluido el email.
 	//Verificar que no incluye la Displayname,manager, password y el rol, salvo casos a analizar.

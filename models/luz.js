@@ -3,25 +3,38 @@ const Gpio = require('onoff').Gpio;
 
 // Constructor
 function Luces() {  	
-	this.primarias = new Gpio(12, 'out'); 
-	this.secundarias = new Gpio(16, 'out'); 	
+	this.primarias = new Gpio(18, 'out');
+	this.primarias.writeSync(1) 
+	this.secundarias = new Gpio(23, 'out'); 	
+	this.secundarias.writeSync(1)
 	this.timeoutEncendidoPrimarias = '';
 	this.timeoutEncendidoSecundarias = '';	
-	this.tiempoEncendidasPrimarias = 10000; //10 segundos	
-	this.tiempoEncendidasSecundarias = 5000; //5 segundos	- Las secundarias, estarán encendidas la mitad del tiempo que las primarias.	
+	this.tiempoEncendidasPrimarias = 50000; //50 segundos	
+	this.tiempoEncendidasSecundarias = 30000; //30 segundos	- Las secundarias, estarán encendidas hasta que empieza a bajar el porton.
 }
 
 // class methods - si es necesario ponerlo en el Porton.prototype.cambiar....
 Luces.prototype.GetEstadoPrimarias = function(callback){	
-	return callback(this.primarias.readSync())
+	if(this.primarias.readSync() ^ 1){
+		return  callback(1)
+	}
+	else{
+		return callback(0)
+	}	
 }
 
 Luces.prototype.GetEstadoSecundarias = function(callback){	
-	return callback(this.secundarias.readSync())
+	//return callback(this.secundarias.readSync() ^ 1)
+	if(this.secundarias.readSync() ^ 1){
+		return  callback(1)
+	}
+	else{
+		return callback(0)
+	}	
 }
 
 Luces.prototype.EncenderPrimarias = function(callback){	
-	this.primarias.writeSync(1)
+	this.primarias.writeSync(0)//cableado al revez
 	this.timeoutEncendidoPrimarias = setTimeout( () => this.ApagarPrimarias(
 		(cb) => {
 			if(cb){ 
@@ -36,13 +49,13 @@ Luces.prototype.EncenderPrimarias = function(callback){
 }
 
 Luces.prototype.ApagarPrimarias = function(callback){	
-	this.primarias.writeSync(0)
+	this.primarias.writeSync(1)//cableado al revez
 	clearTimeout(this.timeoutEncendidoPrimarias);	
 	return callback('Apagando luces primarias')
 }
 
 Luces.prototype.EncenderSecundarias = function(callback){	
-	this.secundarias.writeSync(1)
+	this.secundarias.writeSync(0) //cableado al revez
 	this.timeoutEncendidoSecundarias = setTimeout( () => this.ApagarSecundarias(
 		(cb) => {
 			if(cb){ 
@@ -57,7 +70,7 @@ Luces.prototype.EncenderSecundarias = function(callback){
 }
 
 Luces.prototype.ApagarSecundarias = function(callback){	
-	this.secundarias.writeSync(0)
+	this.secundarias.writeSync(1) //cableado al revez
 	clearTimeout(this.timeoutEncendidoSecundarias);	
 	return callback('Apagando luces secundarias')
 }
@@ -81,7 +94,6 @@ Luces.prototype.ApagarTodasLasLuces = function(callback){
 
 module.exports = new Luces();
 
-var l = new Luces()
 /*
 //Para test
 l.EncenderPrimarias( (cb) => {console.log(`${cb}`)})

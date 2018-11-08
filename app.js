@@ -27,6 +27,25 @@ app.get('/auth/login', (req,res) =>{
 	res.render('login')
 })
 
+/*
+Ejemplo del profesor
+
+app.get('/', function (req,res) {
+	res.render('home', {
+		title: 'Template engines',
+		images: ['jade.png','handlebars.png']
+	})
+})
+
+
+En el HTML HOME deberia tener
+
+<ul>
+	{{#each images}}
+		<li><img= srv="/static/images/{{this}}"> </li>
+</ul>
+*/
+
 app.get('/auth/register', (req,res) =>{
 	res.render('register')
 })
@@ -63,6 +82,9 @@ app.get('/alquileres/:idAlquiler',(req,res) =>{
 	res.render('alquilerById')
 })
 
+app.get('/listacamaras',(req,res) =>{
+	res.render('camaras')
+})
 /*==============================
 =            verbos            =
 
@@ -72,6 +94,14 @@ app.post('/api/product',ProductCtrl.saveProduct)
 app.put('/api/product/:productId',ProductCtrl.updateProduct)
 app.delete('/api/product/:productId',ProductCtrl.deleteProduct)
 ==============================*/
- app.use(express.static(__dirname + '/views'));
+ //	app.use(express.static(__dirname + '/views')); 
+ app.use(express.static(__dirname + '/test'));
+ app.use('/js', express.static(__dirname + '/views/js'));
+ app.use('/vendor', express.static(__dirname + '/views/vendor'));
+ app.use('/css', express.static(__dirname + '/views/css'));
+ app.use('/img', express.static(__dirname + '/views/img'));
+ app.use('/fonts', express.static(__dirname + '/views/fonts'));
+ app.use('/layouts', express.static(__dirname + '/views/layouts'));
+ app.use('/fotos', express.static(__dirname + '/fotos'));
 
 module.exports = app

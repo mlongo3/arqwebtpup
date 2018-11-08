@@ -9,6 +9,7 @@ const RecursoCtrl = require('../controllers/recurso.js')
 const PortonCtrl = require('../controllers/porton.js')
 const CamaraCtrl = require('../controllers/camara.js')
 const LectorCtrl = require('../controllers/lectortarjeta.js')
+const LucesCtrl = require('../controllers/luces.js')
 const MovimientoCtrl = require('../controllers/movimiento.js')
 const RegistroCtrl = require('../controllers/registro.js')
 const authe = require('../middlewares/authentication.js')
@@ -16,6 +17,17 @@ const autho = require('../middlewares/authorization.js')
 const api = express.Router()
 
 
+//Luces
+api.get('/luces/activar',LucesCtrl.activarLuces)
+api.get('/luces/desactivar',LucesCtrl.desactivarLuces)
+api.get('/luces/activarPrimarias',LucesCtrl.activarLucesPrimarias)
+api.get('/luces/desactivarPrimarias',LucesCtrl.desactivarLucesPrimarias)
+api.get('/luces/activarSecundarias',LucesCtrl.activarLucesSecundarias)
+api.get('/luces/desactivarSecundarias',LucesCtrl.desactivarLucesSecundarias)
+api.get('/luces/estadoPrimarias',LucesCtrl.estadoLucesPrimarias)
+api.get('/luces/estadoSecundarias',LucesCtrl.estadoLucesSecundarias)
+
+	
 //Lector
 api.get('/lector/leer',LectorCtrl.LeerTarjeta)
 

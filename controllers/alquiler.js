@@ -4,7 +4,7 @@ const Alquiler = require('../models/alquiler.js')
 
 function getAlquileres(req,res){	
 	if(req.query.usuario){
-		console.log('getAlquileresByUsuarioResp')
+		//console.log('getAlquileresByUsuarioResp')
 		let usuarioResp = req.query.usuarioResp	
 		Alquiler.findByUsuarioResp(usuarioResp, function (err,alquiler) {
 			if(err) return res.status(500).send({message:`Error al realizar la peticion: ${err}`})
@@ -15,7 +15,7 @@ function getAlquileres(req,res){
 		})
 	}	
 	else if(req.query.nombre){
-		console.log('getAlquileresByNombre')
+		//console.log('getAlquileresByNombre')
 		let nombre = req.query.nombre
 		Alquiler.findOneByIdPublico(idPublico, function (err,alquiler) {
 			if(err) return res.status(500).send({message:`Error al realizar la peticion: ${err}`})
@@ -26,7 +26,7 @@ function getAlquileres(req,res){
 		})
 	}
 	else{
-		console.log('getAllAlquileres')
+		//console.log('getAllAlquileres')
 		Alquiler.find({}, (err,Alquileres) => {		
 			if (err)  return res.status(500).send({message:`Error al realizar la peticion: ${err}`})
 			if (!Alquileres) return res.status(404).send({message: 'No existen Alquileres'})
@@ -36,7 +36,7 @@ function getAlquileres(req,res){
 }
 
 function getAlquiler(req,res){		
-		console.log('getAlquilerByID')		
+		//console.log('getAlquilerByID')		
 		let alquilerId = req.params.alquilerId
 		Alquiler.findById(alquilerId, (err,alquiler) => {
 			if(err) return res.status(500).send({message:`Error al realizar la peticion: ${err}`})

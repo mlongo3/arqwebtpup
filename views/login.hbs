@@ -137,6 +137,26 @@
 					</form>
 				</div>
 			</div>
+			
+			<div class="modal" id="error">
+                <div class="modal-overlay" data-dismiss="error" onclick='closeModal()'></div>
+
+                <div class="modal-dialogo modal-dialogo-600">
+                    <div class="modal-header">
+                        <h2 data-icon="&#xe04d;">¡Error!</h2>
+                        <i class="icon-cross" data-dismiss="error" onclick='closeModal()'></i>
+                    </div>
+
+                    <div class="modal-contenido clearfix">
+                        <div class="col-md-12 clearfix">
+                            <p>{[{error}]}</p>
+                            <div class="modal-opciones text-right">
+                                <a href="javascript:void(0)" class="btn btn-red m-t-0" onclick='closeModal()' data-dismiss="error">Cerrar</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 		</div>
 	</div>	
 	

@@ -6,12 +6,15 @@ const luces = require('./luz.js')
 // Constructor
 function Porton() {
   	this.portonCerrado = new Gpio(19, 'in', 'rising', {debounceTimeout: 100}); 
-	this.portonAbierto = new Gpio(21, 'in', 'rising', {debounceTimeout: 100}); 
-	this.fotoCelula = new Gpio(5, 'in', 'rising', { debounceTimeout : 100 }); 
+	this.portonAbierto = new Gpio(13, 'in', 'rising', {debounceTimeout: 100}); 
+	this.fotoCelula = new Gpio(5, 'in', 'rising', { debounceTimeout : 100 });
+	//this.paradaEmergencia = new Gpio(6,'in','rising'); 
 	this.abriendo = new Gpio(20, 'out'); 
-	this.cerrando = new Gpio(26, 'out'); 
-	this.luzVerde = new Gpio(23, 'out'); 
-	this.luzRoja = new Gpio(24, 'out');
+	this.abriendo.writeSync(1)
+	this.cerrando = new Gpio(21, 'out'); 
+	this.cerrando.writeSync(1)
+	this.luzVerde = new Gpio(16, 'out'); 
+	this.luzRoja = new Gpio(12, 'out');
 	var intervaloParpadeo;
 	//clearInterval(intervaloParpadeo); 	
 	this.tiempoDeEsperaApertura = 5000; //5 segundos
@@ -56,11 +59,12 @@ Porton.prototype.AccionarPorton = function(callback){
 }
 
 Porton.prototype.AbrirPorton = function(){	
-	if(this.portonAbierto.readSync() || this.abriendo.readSync() || this.cerrando.readSync()){		
+	if(this.portonAbierto.readSync() || (this.abriendo.readSync() ^ 1) || (this.cerrando.readSync() ^ 1)){		
 		if(this.portonAbierto.readSync()){		
-			console.log('Ya está abierto')				
+			console.log('Ya está abierto, asique lo cierro')				
+			this.CerrarPorton()
 		}
-		else if(this.abriendo.readSync()){
+		else if(this.abriendo.readSync() ^ 1){
 			console.log('Ya está abriendo')
 			this.stop()				
 		}
@@ -74,11 +78,11 @@ Porton.prototype.AbrirPorton = function(){
 		this.enProceso = 'abriendo';	
 		this.EncenderLuzRoja()
 		luces.EncenderTodasLasLuces( (callback) => { console.log(`${callback}`)})
-		this.abriendo.writeSync(1);
+		this.abriendo.writeSync(0);
 		this.portonAbierto.watch( (err,value) =>{
 			if (err) {throw err;}
 			console.log('Porton Abierto')
-			this.abriendo.writeSync(0);
+			this.abriendo.writeSync(1);
 			this.portonAbierto.unwatch();
 			this.ApagarLuzRoja();			
 			console.log(`Tiempo de espera ${this.tiempoDeEsperaApertura / 1000} segundos....`)		
@@ -92,11 +96,11 @@ Porton.prototype.AbrirPorton = function(){
 }
 
 Porton.prototype.CerrarPorton = function(){
-	if(this.portonCerrado.readSync() || this.abriendo.readSync() || this.cerrando.readSync()){		
+	if(this.portonCerrado.readSync() || (this.abriendo.readSync() ^ 1)|| (this.cerrando.readSync() ^ 1 ) ){		
 		if(this.portonCerrado.readSync()){		
 			console.log('Ya está cerrado')				
 		}
-		else if(this.cerrando.readSync()){
+		else if( this.cerrando.readSync() ^ 1 ){
 			console.log('Ya está cerrando')
 			this.stop()				
 		}
@@ -114,7 +118,7 @@ Porton.prototype.CerrarPorton = function(){
 		this.fotoCelula.watch( (err,value) =>{
 			if (err) {throw err;}			
 			console.log('FOTOCELULA ACTIVADA')			
-			if(this.cerrando.readSync()){				
+			if(this.cerrando.readSync() ^ 1 ){				
 				console.log('PARO TODO!!! ESTA BAJANDO')				
 				this.ApagarLuzRoja()
 				this.stop();			
@@ -124,15 +128,15 @@ Porton.prototype.CerrarPorton = function(){
 			}
 		})
 
-		this.cerrando.writeSync(1);
+		this.cerrando.writeSync(0);
 		this.portonCerrado.watch( (err,value) =>{
 			if (err) {throw err;}			
 			
-			if(this.cerrando.readSync()){
+			if(this.cerrando.readSync() ^ 1 ){
 				console.log('Porton Cerrado')
 				this.enProceso = 'cerrado';
 				this.ApagarLuzRoja();
-				this.cerrando.writeSync(0);
+				this.cerrando.writeSync(1);
 				this.portonCerrado.unwatch();		
 				this.EncenderLuzVerde();
 				this.timeoutPortonCerrado = setTimeout( () => this.stop(), `${this.tiempoDeEsperaCierre}`);				
@@ -182,8 +186,8 @@ Porton.prototype.GetEstadoLuzVerde =function () {
 }
 
 Porton.prototype.stop = function(){
-	this.abriendo.writeSync(0);
-	this.cerrando.writeSync(0);
+	this.abriendo.writeSync(1);
+	this.cerrando.writeSync(1);
 	this.ApagarLuzVerde();
 	this.ApagarLuzRoja();	
 	clearTimeout(this.timeoutPortonCerrado);	
@@ -210,6 +214,7 @@ Porton.prototype.banner = function(texto){
 		console.log('ERROR: texto no suministrado')
 	}
 }
+
 
 // export the class
 module.exports = new Porton();

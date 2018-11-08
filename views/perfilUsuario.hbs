@@ -27,7 +27,7 @@
     </style>
 </head>
 
-<body>
+<body ng-app="PerfilUsuario">
     <div class="overlay-nav"></div>
     <header class="flex">
         <a href="javascript:void(0);" class="logo"><img src="../img/logo.png" alt="AAP"></a>
@@ -53,7 +53,7 @@
         </div>
     </header>
 
-    <aside class="admin-nav">
+    <aside class="admin-nav" ng-controller="menuCtrl as ctrl">
         <div class="user-top show-mobile">
             <a href="javascript:void(0);" class="dropdown">
                 <div class="user-pic" style="background-image: url('../img/avatars/avatar-user1.png')"></div>
@@ -66,13 +66,14 @@
         </div>
 
         <ul>
-            <li><a href="/listaUsuarios"><i class="icon-user"></i> Usuarios</a></li>
-            <li><a href="/listaAlquiler"><i class="icon-user"></i> Alquiler</a></li>
+            <li><a href="/listaUsuarios"  ng-show="rol != 'basic'"><i class="icon-user"></i> Usuarios</a></li>
+            <li><a href="/listaAlquiler"  ng-show="rol == 'admin'"><i class="icon-user"></i> Alquiler</a></li>
             <li><a href="/porton"><i class="icon-user"></i> Portón</a></li>
+			<li><a href="/listacamaras"><i class="icon-user"></i> Camaras</a></li>
         </ul>
     </aside>
 
-    <div class="admin-container" ng-app="PerfilUsuario">
+    <div class="admin-container">
         <div class="col-md-10" ng-controller='perfilUsuarioCtrl as ctrl' ng-init="init()">
             <div class="panel panel-profile">
                 <div class="panel-header">
@@ -244,12 +245,12 @@
                                     <dt>Código Postal</dt>
                                     <dd>
                                         <div class="info-editable">
-                                            <span class="info-actual">{[{user.dcalle}]}</span>
+                                            <span class="info-actual">{[{user.dcodigopostal}]}</span>
                                             <a href="javascript:void()" class="edit-info has-tooltip change-data" title="Editar"><i
                                                     class="icon-pencil"></i></a>
                                         </div>
                                         <div class="info-editar">
-                                            <input type="text" ng-model="user.dcalle">
+                                            <input type="text" ng-model="user.dcodigopostal">
                                             <a href="javascript:void()" class="edit-info has-tooltip background-green change-accept" title="Aceptar"><i
                                                     class="icon-checkmark" ng-click="patchUsuario()"></i></a>
                                             <a href="javascript:void()" class="edit-info has-tooltip background-red change-cancel" ng-click="copyUser()" title="Cancelar"><i
@@ -292,6 +293,7 @@
     <script src="../js/Angular-Modules/PerfilUsuario/perfilUsuarioModule.js"></script>
     <script src="../js/Angular-Modules/PerfilUsuario/perfilUsuarioCtrl.js"></script>
     <script src="../js/Angular-Modules/Services/perfilUsuarioService.js"></script>
+    <script src="../js/Angular-Modules/Menu/menuCtrl.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-filter/0.5.8/angular-filter.min.js"></script>
     <script>
         $(".nameUser").text("" + localStorage.getItem('displayName'));

@@ -1,6 +1,7 @@
 ﻿angular.module('PerfilUsuario', [
     'perfilUsuario.service',
     'perfilUsuario.ctrl',
+    'menu.ctrl',
     'ngRoute',
     'ngAnimate',
     'mgcrea.ngStrap',
