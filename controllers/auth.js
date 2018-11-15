@@ -41,7 +41,7 @@ function signIn(req,res){
     //console.log(`Estos son los datos del user que tengo ${user}`)
     user.comparePassword(req.body.password, (err, isMatch) => {
       if (err) return res.status(500).send({ msg: `Error al ingresar: ${err}` })
-      if (!isMatch) return res.status(401).send('Error de contraseña')      
+      if (!isMatch) return res.status(401).send({ msg: 'Error de contraseña'})      
       //console.log(`${user}`)
       return res.status(200).send({ 
       	msg: 'Te has logueado correctamente', 

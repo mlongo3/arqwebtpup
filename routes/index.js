@@ -18,18 +18,18 @@ const api = express.Router()
 
 
 //Luces
-api.get('/luces/activar',LucesCtrl.activarLuces)
-api.get('/luces/desactivar',LucesCtrl.desactivarLuces)
-api.get('/luces/activarPrimarias',LucesCtrl.activarLucesPrimarias)
-api.get('/luces/desactivarPrimarias',LucesCtrl.desactivarLucesPrimarias)
-api.get('/luces/activarSecundarias',LucesCtrl.activarLucesSecundarias)
-api.get('/luces/desactivarSecundarias',LucesCtrl.desactivarLucesSecundarias)
+api.post('/luces/activar',LucesCtrl.activarLuces)
+api.post('/luces/desactivar',LucesCtrl.desactivarLuces)
+api.post('/luces/activarPrimarias',LucesCtrl.activarLucesPrimarias)
+api.post('/luces/desactivarPrimarias',LucesCtrl.desactivarLucesPrimarias)
+api.post('/luces/activarSecundarias',LucesCtrl.activarLucesSecundarias)
+api.post('/luces/desactivarSecundarias',LucesCtrl.desactivarLucesSecundarias)
 api.get('/luces/estadoPrimarias',LucesCtrl.estadoLucesPrimarias)
 api.get('/luces/estadoSecundarias',LucesCtrl.estadoLucesSecundarias)
 
 	
 //Lector
-api.get('/lector/leer',LectorCtrl.LeerTarjeta)
+api.get('/lector/leer',LectorCtrl.LeerTarjeta) 
 
 
 //Registro

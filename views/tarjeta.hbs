@@ -22,8 +22,8 @@
 	<link rel="stylesheet" href="../css/animate.css">
 	<link rel="stylesheet" href="../css/icons.css">
 	<link rel="stylesheet" href="../css/select2.css">
+	<link rel="stylesheet" href="../css/datepicker.css">
 	<link rel="stylesheet" href="../css/main.css">
-
 	<style>
 		.wow {
 			visibility: hidden;
@@ -31,10 +31,10 @@
 	</style>
 </head>
 
-<body ng-app="Usuario">
+<body ng-app="Tarjeta">
 	<div class="overlay-nav"></div>
 	<header class="flex">
-		<a href="javascript:void(0);" class="logo"><img src="../img/logo.png" alt="Garage"></a>
+		<a href="javascript:void(0);" class="logo"><img src="../img/logo.png" alt="AAP"></a>
 		<h3 class="title-admin-head">Panel de administración</h3>
 
 		<div class="header-right">
@@ -61,7 +61,7 @@
 		<div class="user-top show-mobile">
 			<a href="javascript:void(0);" class="dropdown">
 				<div class="user-pic" style="background-image: url('img/avatars/avatar-user1.png')"></div>
-				<h4 class='nameUser'></h4>
+				<h4 class="nameUser"></h4>
 			</a>
 			<ul>
 				<li><a href="/perfilUsuario" data-icon="&#xe005;">Editar mi perfil</a></li>
@@ -70,76 +70,40 @@
 		</div>
 
 		<ul>
-			<li class="current"><a href="/listausuarios" ng-show="rol != 'basic'"><i class="icon-user"></i> Usuarios</a></li>
+			<li><a href="/listausuarios" ng-show="rol != 'basic'"><i class="icon-user" !='basic'></i> Usuarios</a></li>
 			<li><a href="/listaAlquiler" ng-show="rol == 'admin'"><i class="icon-user"></i> Alquileres</a></li>
 			<li><a href="/porton"><i class="icon-user"></i> Control Remoto</a></li>
-			<li><a href="/listacamaras" ng-show="rol == 'admin'"><i class="icon-user"></i> Camaras</a></li>			
+			<li><a href="/listacamaras" ng-show="rol == 'admin'"><i class="icon-user"></i> Camaras</a></li>
 			<li class=""><a href="/tarjeta"><i class="icon-user"></i> Tarjetas</a></li>
 			<li><a href="/registro"><i class="icon-user"></i> Registros</a></li>
 		</ul>
 	</aside>
 
 	<div class="admin-container">
-		<div class="col-md-12" ng-controller="usuarioCtrl as ctrl">
-			<div class="panel panel-profile" ng-init="init()">
-				<div class="panel-body">
-					<h1 class="title-admin pull-left">Usuarios</h1>
-					<a href="/usuarios/undefined" ng-show="userRol != 'basic'" class="btn btn-lightblue pull-right m-t-0"><i class="icon-plus"></i>
-						Cargar usuario</a>
-
-					<div class="clearfix"></div>
-
-					<table class="table-default table-admin">
-						<thead>
-							<tr>
-								<th>Nombre y apellido</th>
-								<th>Email</th>
-								<th>Rol</th>
-								<th>Teléfono</th>
-								<th>Celular</th>
-								<th>Dirección</th>
-								<th>Fecha de alta</th>
-								<th ng-show="userRol == 'admin'">Habilitado</th>
-								<th ng-show="userRol != 'basic'"></th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr ng-repeat="user in users">
-								<td data-label="Nombre y apellido"><a href="/usuarios/{[{user._id}]}">{[{user.nombre}]} {[{user.apellido}]}</a></td>
-								<td data-label="Email">{[{user.email}]}</td>
-								<td data-label="Rol">{[{user.role}]}</td>
-								<td data-label="Teléfono">{[{user.telefono}]}</td>
-								<td data-label="Celular">{[{user.celular}]}</td>
-								<td data-label="Dirección">{[{user.dcalle}]} {[{user.dnumero}]}</td>
-								<td data-label="Fecha de alta">{[{user.signupDate | date:'dd/MM/yyyy HH:mm'}]}</td>
-								<td data-label="Habilitado" ng-show="userRol == 'admin'">
-									<div class="toggle" ng-class="{'toggle-active': user.habilitado}" title="Activo" data-off="Inactivo" onclick="toggle(this)"
-									 ng-click="inhabilitar(user)">
-										<div class="toggle-inner"></div>
-									</div>
-								</td>
-								<td data-label="Editar perfil" class="text-right" ng-show="userRol != 'basic'">
-									<a href="/usuarios/{[{user._id}]}" class="btn btn-lightblue btn-small">Editar perfil</a>
-									<a href="javascript:void(0)" ng-click='delete(user._id)' style="margin-top: 10px !important;" class="btn btn-lightblue btn-small">Borrar</a>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-
-					{{!--
-					<ul class="pagination">
-						<li class="current"><a href="javascript:void(0);">1</a></li>
-						<li><a href="javascript:void(0);">2</a></li>
-						<li><a href="javascript:void(0);">3</a></li>
-						<li><a href="javascript:void(0);">4</a></li>
-						<li><a href="javascript:void(0);">5</a></li>
-						<li><a href="javascript:void(0);">6</a></li>
-						<li><a href="javascript:void(0);">7</a></li>
-						<li><a href="javascript:void(0);">8</a></li>
-						<li><a href="javascript:void(0);">9</a></li>
-						<li><a href="javascript:void(0);">10</a></li>
-					</ul> --}}
+		<div class="col-md-12" ng-controller="tarjetaCtrl as ctrl">
+			<div class="panel panel-profile">
+				<h1 class="title-admin pull-left">Lector</h1>
+				<div class="col-md-12" style="text-align: center">
+					<h3>Click para leer la tarjeta.</h3>
 				</div>
+				<div class="clearfix"></div>
+				<div class="col-md-12">
+					<button id="btnLeerTarjeta" class="btn btn-xl btn-full btn-lightblue text-left m-t-20" ng-click="leerTarjeta()">Leer
+						tarjeta</button>
+				</div>
+				<div class="clearfix"></div>
+				<div class="col-md-12" style="text-align: center" >
+					<h3>Respuesta:</h3>
+					<div ng-if="respuesta.message == 'ok'"> 
+						<p>Id Tarjeta: {[{respuesta.Id}]}</p>
+						<p>Id Usuario: {[{respuesta.Usuario}]}</p>
+					</div>
+					<div ng-if="respuesta.message != 'ok'">
+						<p>{[{respuesta.message}]}</p>	
+					</div>					
+				</div>
+				<div class="clearfix"></div>
+
 			</div>
 		</div>
 	</div>
@@ -167,16 +131,16 @@
 	<script src="../js/Angular/angular-aria.min.js"></script>
 	<script src="../js/app.js"></script>
 	<script src="../js/Angular/angular-locale_es-ar.js"></script>
-	<script src="../js/Angular-Modules/Usuario/usuarioModule.js"></script>
-	<script src="../js/Angular-Modules/Usuario/usuarioCtrl.js"></script>
-	<script src="../js/Angular-Modules/Usuario/usuarioByIdCtrl.js"></script>
-	<script src="../js/Angular-Modules/Services/usuarioService.js"></script>
-    <script src="../js/Angular-Modules/Menu/menuCtrl.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-filter/0.5.8/angular-filter.min.js"></script>
-	<script>
-		$(".nameUser").text("" + localStorage.getItem('displayName'));
-	</script>
+	<script src="../js/Angular-Modules/Tarjeta/tarjetaModule.js"></script>
+	<script src="../js/Angular-Modules/Tarjeta/tarjetaCtrl.js"></script>
+	<script src="../js/Angular-Modules/Services/tarjetaService.js"></script>
+	<script src="../js/Angular-Modules/Menu/menuCtrl.js"></script>
 
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-filter/0.5.8/angular-filter.min.js"></script>
 </body>
 
 </html>
+
+<script>
+	$(".nameUser").text("" + localStorage.getItem('displayName'));
+</script>

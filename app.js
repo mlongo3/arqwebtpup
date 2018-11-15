@@ -85,6 +85,13 @@ app.get('/alquileres/:idAlquiler',(req,res) =>{
 app.get('/listacamaras',(req,res) =>{
 	res.render('camaras')
 })
+app.get('/tarjeta',(req,res) =>{
+	res.render('tarjeta')
+})
+
+app.get('/registro',(req,res) =>{
+	res.render('registros')
+})
 /*==============================
 =            verbos            =
 
@@ -95,8 +102,7 @@ app.put('/api/product/:productId',ProductCtrl.updateProduct)
 app.delete('/api/product/:productId',ProductCtrl.deleteProduct)
 ==============================*/
  //	app.use(express.static(__dirname + '/views')); 
- app.use(express.static(__dirname + '/test'));
- app.use('/js', express.static(__dirname + '/views/js'));
+  app.use('/js', express.static(__dirname + '/views/js'));
  app.use('/vendor', express.static(__dirname + '/views/vendor'));
  app.use('/css', express.static(__dirname + '/views/css'));
  app.use('/img', express.static(__dirname + '/views/img'));

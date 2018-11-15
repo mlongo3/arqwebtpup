@@ -34,7 +34,6 @@ const UserSchema = Schema({
 
 UserSchema.pre('save', function (next) { //ACA SI DEFINIS UN ARROW FUNCTION FALLA 
 	var user = this;
-	console.log('estoy pasando por acá!!!!!')
 	//Si el usuario no modificó la contraseña, que siga. 
 	if (!user.isModified('password')) return next();
 	

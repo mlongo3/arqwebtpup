@@ -1,6 +1,7 @@
-﻿angular.module('Login', [
-    'login.service',
-    'login.ctrl',
+﻿angular.module('Tarjeta', [
+    'tarjeta.service',
+    'tarjeta.ctrl',
+    'menu.ctrl',
     'ngRoute',
     'ngAnimate',
     'mgcrea.ngStrap',

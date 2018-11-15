@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Garage Longo S.A.</title>
+    <title>Smart Garage - by Longo</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 
@@ -40,7 +40,7 @@
                     <h4 class="nameUser"></h4>
                 </a>
                 <ul>
-                    <li><a href="javascript:void(0);" data-icon="&#xe005;">Soporte</a></li>                    
+                    <li><a href="javascript:void(0);" data-icon="&#xe005;">Soporte</a></li>
                     <li><a href="javascript:void(0)" data-icon="&#xe036;" onclick="signOut()">Cerrar sesión</a></li>
                 </ul>
             </div>
@@ -66,10 +66,12 @@
         </div>
 
         <ul>
-            <li><a href="/listaUsuarios"  ng-show="rol != 'basic'"><i class="icon-user"></i> Usuarios</a></li>
-            <li><a href="/listaAlquiler"  ng-show="rol == 'admin'"><i class="icon-user"></i> Alquiler</a></li>
-            <li><a href="/porton"><i class="icon-user"></i> Portón</a></li>
-			<li><a href="/listacamaras"><i class="icon-user"></i> Camaras</a></li>
+            <li><a href="/listaUsuarios" ng-show="rol != 'basic'"><i class="icon-user"></i> Usuarios</a></li>
+            <li><a href="/listaAlquiler" ng-show="rol == 'admin'"><i class="icon-user"></i> Alquileres</a></li>
+            <li><a href="/porton"><i class="icon-user"></i> Control Remoto</a></li>
+            <li><a href="/listacamaras"><i class="icon-user"></i> Camaras</a></li>
+            <li><a href="/tarjeta"><i class="icon-user"></i> Tarjetas</a></li>
+            <li><a href="/registro"><i class="icon-user"></i> Registros</a></li>
         </ul>
     </aside>
 
@@ -79,7 +81,8 @@
                 <div class="panel-header">
                     <div class="user-profile-pic">
                         <div class="user-pic" style="background-image: url('../img/avatars/avatar-user1.png')"></div>
-                        <a href="javascript:void()" class="edit-info has-tooltip" title="Cambiar imagen de perfil"><i class="icon-pencil"></i></a>
+                        <a href="javascript:void()" class="edit-info has-tooltip" title="Cambiar imagen de perfil"><i
+                                class="icon-pencil"></i></a>
                     </div>
 
                     <hgroup class="user-profile-title">
@@ -125,10 +128,10 @@
                                         </div>
                                         <div class="info-editar">
                                             <input type="text" ng-model="user.email">
-                                            <a href="javascript:void()" class="edit-info has-tooltip background-green change-accept" title="Aceptar"><i
-                                                    class="icon-checkmark" ng-click="patchUsuario()"></i></a>
-                                            <a href="javascript:void()" class="edit-info has-tooltip background-red change-cancel" ng-click="copyUser()" title="Cancelar"><i
-                                                    class="icon-cross"></i></a>
+                                            <a href="javascript:void()" class="edit-info has-tooltip background-green change-accept"
+                                                title="Aceptar"><i class="icon-checkmark" ng-click="patchUsuario()"></i></a>
+                                            <a href="javascript:void()" class="edit-info has-tooltip background-red change-cancel"
+                                                ng-click="copyUser()" title="Cancelar"><i class="icon-cross"></i></a>
                                         </div>
                                     </dd>
                                 </div>
@@ -143,10 +146,10 @@
                                         </div>
                                         <div class="info-editar">
                                             <input type="text" ng-model="user.telefono">
-                                            <a href="javascript:void()" class="edit-info has-tooltip background-green change-accept" title="Aceptar"><i
-                                                    class="icon-checkmark" ng-click="patchUsuario()"></i></a>
-                                            <a href="javascript:void()" class="edit-info has-tooltip background-red change-cancel" ng-click="copyUser()" title="Cancelar"><i
-                                                    class="icon-cross"></i></a>
+                                            <a href="javascript:void()" class="edit-info has-tooltip background-green change-accept"
+                                                title="Aceptar"><i class="icon-checkmark" ng-click="patchUsuario()"></i></a>
+                                            <a href="javascript:void()" class="edit-info has-tooltip background-red change-cancel"
+                                                ng-click="copyUser()" title="Cancelar"><i class="icon-cross"></i></a>
                                         </div>
                                     </dd>
                                 </div>
@@ -161,10 +164,10 @@
                                         </div>
                                         <div class="info-editar">
                                             <input type="text" ng-model='user.celular'>
-                                            <a href="javascript:void()" class="edit-info has-tooltip background-green change-accept" title="Aceptar"><i
-                                                    class="icon-checkmark" ng-click="patchUsuario()"></i></a>
-                                            <a href="javascript:void()" class="edit-info has-tooltip background-red change-cancel" ng-click="copyUser()" title="Cancelar"><i
-                                                    class="icon-cross"></i></a>
+                                            <a href="javascript:void()" class="edit-info has-tooltip background-green change-accept"
+                                                title="Aceptar"><i class="icon-checkmark" ng-click="patchUsuario()"></i></a>
+                                            <a href="javascript:void()" class="edit-info has-tooltip background-red change-cancel"
+                                                ng-click="copyUser()" title="Cancelar"><i class="icon-cross"></i></a>
                                         </div>
                                     </dd>
                                 </div>
@@ -179,10 +182,10 @@
                                         </div>
                                         <div class="info-editar">
                                             <input type="text" ng-model="user.dcalle">
-                                            <a href="javascript:void()" class="edit-info has-tooltip background-green change-accept" title="Aceptar"><i
-                                                    class="icon-checkmark" ng-click="patchUsuario()"></i></a>
-                                            <a href="javascript:void()" class="edit-info has-tooltip background-red change-cancel" ng-click="copyUser()" title="Cancelar"><i
-                                                    class="icon-cross"></i></a>
+                                            <a href="javascript:void()" class="edit-info has-tooltip background-green change-accept"
+                                                title="Aceptar"><i class="icon-checkmark" ng-click="patchUsuario()"></i></a>
+                                            <a href="javascript:void()" class="edit-info has-tooltip background-red change-cancel"
+                                                ng-click="copyUser()" title="Cancelar"><i class="icon-cross"></i></a>
                                         </div>
                                     </dd>
                                 </div>
@@ -197,10 +200,10 @@
                                         </div>
                                         <div class="info-editar">
                                             <input type="text" ng-model="user.dnumero">
-                                            <a href="javascript:void()" class="edit-info has-tooltip background-green change-accept" title="Aceptar"><i
-                                                    class="icon-checkmark" ng-click="patchUsuario()"></i></a>
-                                            <a href="javascript:void()" class="edit-info has-tooltip background-red change-cancel" ng-click="copyUser()" title="Cancelar"><i
-                                                    class="icon-cross"></i></a>
+                                            <a href="javascript:void()" class="edit-info has-tooltip background-green change-accept"
+                                                title="Aceptar"><i class="icon-checkmark" ng-click="patchUsuario()"></i></a>
+                                            <a href="javascript:void()" class="edit-info has-tooltip background-red change-cancel"
+                                                ng-click="copyUser()" title="Cancelar"><i class="icon-cross"></i></a>
                                         </div>
                                     </dd>
                                 </div>
@@ -215,10 +218,10 @@
                                         </div>
                                         <div class="info-editar">
                                             <input type="text" ng-model="user.dpiso">
-                                            <a href="javascript:void()" class="edit-info has-tooltip background-green change-accept" title="Aceptar"><i
-                                                    class="icon-checkmark" ng-click="patchUsuario()"></i></a>
-                                            <a href="javascript:void()" class="edit-info has-tooltip background-red change-cancel" ng-click="copyUser()" title="Cancelar"><i
-                                                    class="icon-cross"></i></a>
+                                            <a href="javascript:void()" class="edit-info has-tooltip background-green change-accept"
+                                                title="Aceptar"><i class="icon-checkmark" ng-click="patchUsuario()"></i></a>
+                                            <a href="javascript:void()" class="edit-info has-tooltip background-red change-cancel"
+                                                ng-click="copyUser()" title="Cancelar"><i class="icon-cross"></i></a>
                                         </div>
                                     </dd>
                                 </div>
@@ -233,10 +236,10 @@
                                         </div>
                                         <div class="info-editar">
                                             <input type="text" ng-model="user.ddepartamento">
-                                            <a href="javascript:void()" class="edit-info has-tooltip background-green change-accept" title="Aceptar"><i
-                                                    class="icon-checkmark" ng-click="patchUsuario()"></i></a>
-                                            <a href="javascript:void()" class="edit-info has-tooltip background-red change-cancel" ng-click="copyUser()" title="Cancelar"><i
-                                                    class="icon-cross"></i></a>
+                                            <a href="javascript:void()" class="edit-info has-tooltip background-green change-accept"
+                                                title="Aceptar"><i class="icon-checkmark" ng-click="patchUsuario()"></i></a>
+                                            <a href="javascript:void()" class="edit-info has-tooltip background-red change-cancel"
+                                                ng-click="copyUser()" title="Cancelar"><i class="icon-cross"></i></a>
                                         </div>
                                     </dd>
                                 </div>
@@ -251,10 +254,10 @@
                                         </div>
                                         <div class="info-editar">
                                             <input type="text" ng-model="user.dcodigopostal">
-                                            <a href="javascript:void()" class="edit-info has-tooltip background-green change-accept" title="Aceptar"><i
-                                                    class="icon-checkmark" ng-click="patchUsuario()"></i></a>
-                                            <a href="javascript:void()" class="edit-info has-tooltip background-red change-cancel" ng-click="copyUser()" title="Cancelar"><i
-                                                    class="icon-cross"></i></a>
+                                            <a href="javascript:void()" class="edit-info has-tooltip background-green change-accept"
+                                                title="Aceptar"><i class="icon-checkmark" ng-click="patchUsuario()"></i></a>
+                                            <a href="javascript:void()" class="edit-info has-tooltip background-red change-cancel"
+                                                ng-click="copyUser()" title="Cancelar"><i class="icon-cross"></i></a>
                                         </div>
                                     </dd>
                                 </div>

@@ -12,10 +12,14 @@ function activarPorton(req,res){
 	var intervaloParpadeo = setInterval( function (){
 		var estado = verEstado();
 		if(estado == 'detenido'){
+			camara.capturar('detenido')
 			clearInterval(intervaloParpadeo);
 		}
+		if(estado == 'esperando'){  
+			camara.capturar('esperando')
+		}		
 		console.log( estado )
-	}, 1000)
+	}, 1500)
 
 	porton.AccionarPorton( (callback) => {
 		

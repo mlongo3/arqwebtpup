@@ -17,9 +17,11 @@
                     localStorage.setItem('_id', response.data._id)
                     location.assign('/porton');
                 }).catch(function (error) {
-                    $scope.error = error.data.message;
-                    clickModal("error");
-                    console.log(error);
+                    //console.log("este es el error")
+                    //console.log(error.data.msg)
+                    $scope.error = error.data.msg;
+                    //clickModal("error");
+                    //console.log(mierror);
                 });
             }
         }]);
