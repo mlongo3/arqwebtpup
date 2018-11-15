@@ -93,6 +93,7 @@
 								<th>Email</th>
 								<th>Fecha</th>
 								<th>Acción</th>
+								<th>Recurso</th>
 								<th>Alquiler</th>
 								<th>Resultado</th>
 								<th>Tipo</th>
@@ -102,15 +103,16 @@
 						</thead>
 						<tbody>
 							<tr ng-repeat="registro in registros">
-								<td data-label="Nombre">{[{registro.displayName}]}</td>
+								<td data-label="Nombre">{[{registro.userId.displayName}]}</td>
 								<td data-label="Email">{[{registro.email}]}</td>
 								<td data-label="Fecha">{[{registro.time | date:'dd/MM/yyyy'}]}</td>
 								<td data-label="Acción">{[{registro.accion}]}</td>
-								<td data-label="Alquiler">{[{registro.alquiler}]}</td>
-								<td data-label="Resultado">{[{registro.resultado}]}</td>
+								<td data-label="Recurso">{[{registro.recursoNombre}]}</td>
+								<td data-label="Alquiler">{[{registro.alquilerId.nombre}]}</td>
+								<td data-label="Resultado">{[{registro.autorizado}]}</td>
 								<td data-label="Tipo">{[{registro.tipo}]}</td>
 								<td data-label="Descripción">{[{registro.descripcion}]}</td>
-								<td data-label="Manager">{[{registro.manager}]}</td>
+								<td data-label="Manager">{[{registro.managerId.displayName}]}</td>
 							</tr>
 						</tbody>
 					</table>

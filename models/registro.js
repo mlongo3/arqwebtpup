@@ -7,10 +7,10 @@ const Schema = mongoose.Schema
 
 //Creamos el modelo.
 const RegistroSchema = Schema({
-	userId: { type: String, required: true}, 
+	userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User'}, 
 	email: {type: String, lowercase:true },	
-	managerId: { type: String, required: true}, //Manager del userId, al momento de la ejecución.
-	alquilerId: { type: String, required: true}, 
+	managerId: { type: mongoose.Schema.Types.ObjectId, ref: 'User'}, //Manager del userId, al momento de la ejecución.
+	alquilerId: { type: mongoose.Schema.Types.ObjectId, ref: 'Alquiler'}, 
 	time: {type: Date, default: Date.now, required: true},
 	recursoNombre: {type: String, lowercase:true , required: true},
 	accion: {type: String, lowercase:true , required: true},

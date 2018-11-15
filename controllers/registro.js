@@ -19,9 +19,9 @@ function getRegistros(req,res){
 	console.log('getRegistros')
 	Record.find({}, (err,registros) => {		
 			if (err)  return res.status(500).send({message:`Error al realizar la peticion: ${err}`})
-			if (!registros) return res.status(404).send({message: 'No existen registros'})
+			if (!registros) return res.status(404).send({message: 'No existen registros'})			
 			res.status(200).send({registros})
-		}).populate('userId','displayName')
+		}).populate('userId','displayName').populate('alquilerId','nombre').populate('managerId','displayName').sort({time: -1})
 }
 
 function postRegistro(req,res){
