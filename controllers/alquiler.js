@@ -55,9 +55,14 @@ function postAlquiler(req,res){
 	})
 
 	alquiler.save( (err,alquilerStored) => {		
-		if(err) return res.status(500).send({message:`Error al guardar en la base de datos: ${err}`})
-
-		res.status(200).send({alquiler: alquilerStored})
+		if(err){
+			if (err.name === 'MongoError' && err.code === 11000) {
+	        	// Duplicate
+	        	return res.status(409).send({message: 'Ya existe uno igual!'});
+	      	}
+	       return res.status(500).send({message:`Error al guardar en la base de datos: ${err}`})
+	   	}
+		res.status(201).send({alquiler: alquilerStored})
 	})
 }
 
@@ -67,9 +72,9 @@ function putAlquiler(req,res){
 	
 	Alquiler.findByIdAndUpdate(alquilerId, updateObject, (err,alquilerUpdated) => {
 		if(err) return res.status(500).send({message: `Error al actualizar el Alquiler: ${err}`})
-
+		if(!alquilerUpdated) return res.status(404).send({message: `El Alquiler no existe`})
 		console.log('Se actualizó correctamente el Alquiler')
-		res.status(200).send({alquiler:alquilerUpdated})
+		res.status(202).send({alquiler:alquilerUpdated})
 	})
 }
 
@@ -79,7 +84,7 @@ function deleteAlquiler(req,res){
 	Alquiler.findByIdAndDelete(alquilerId, (err,alquiler) => {
 		if(err) return res.status(500).send({message: `Error al borrar el Alquiler: ${err}`})
 
-		if(!alquiler) return res.status(401).send({message: 'El objeto no existia'})
+		if(!alquiler) return res.status(404).send({message: 'El Alquiler no existia'})
 
 		console.log('Se eliminó el Alquiler.')
 		res.status(200).send({message: 'El Alquiler ha sido eliminado'})		

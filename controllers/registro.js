@@ -50,6 +50,7 @@ function postRegistro(req,res){
 		})
 		registro.save( (err,recStored) => {		
 			if(err) return res.status(500).send({message:`Error al guardar en la base de datos: ${err}`})
+			
 			res.status(201).send({record: recStored})
 		}) 
 					

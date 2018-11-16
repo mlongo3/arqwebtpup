@@ -79,8 +79,14 @@ function postUsuario(req,res){
 	
 	//todos los campos que quiera.
 	user.save( (err,userStored) => {		
-		if(err) return res.status(500).send({message:`Error al guardar en la base de datos: ${err}`})
-		res.status(201).send({product: userStored})
+		if(err){
+			if (err.name === 'MongoError' && err.code === 11000) {
+	        	// Duplicate
+	        	return res.status(409).send({message: 'Ya existe uno igual!'});
+	      	}
+	       return res.status(500).send({message:`Error al guardar en la base de datos: ${err}`})
+		}
+		res.status(201).send({user: userStored})
 	}) 
 }
 
@@ -102,6 +108,7 @@ function putUsuario(req,res){
 	//Verificar que no incluye la Displayname,manager, password y el rol, salvo casos a analizar.
 	User.findByIdAndUpdate(userId, updateObject, (err,userUpdated) => {
 		if(err) return res.status(500).send({message: `Error al actualizar el usuario: ${err}`})
+		if(!userUpdated) return res.status(404).send({message: `El usuario no existe`})
 		console.log('Se actualizó correctamente el usuario')
 		res.status(202).send({user: userUpdated})
 	})
@@ -112,7 +119,7 @@ function deleteUsuario(req,res){
 
 	User.findByIdAndDelete(userId, (err,user) => {
 		if(err) return res.status(500).send({message: `Error al borrar el usuario: ${err}`})
-		if(!user) return res.status(401).send({message: 'El objeto no existia'})
+		if(!user) return res.status(401).send({message: 'El usuario no existia'})
 			
 		console.log('Se eliminó el usuario.')
 		res.status(200).send({message: 'El usuario ha sido eliminado'})		
@@ -143,6 +150,7 @@ function setPassword(req,res){
 						//actualizo la password.
 						User.findByIdAndUpdate(userId, {password:password} , (err,userUpdated) => {
 							if(err){
+								if(!userUpdated) return res.status(404).send({message: `El usuario no existe`})
 								return res.status(500).send({message: `Error al actualizar la passwrod del usuario: ${err}`})
 							}
 							else{

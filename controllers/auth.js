@@ -19,8 +19,13 @@ function signUp(req,res){
 	
 	
 	user.save(function(err){
-		if(err) 
+		if(err){
+			if (err.name === 'MongoError' && err.code === 11000) {
+	        	// Duplicate
+	        	return res.status(409).send({msg: 'Ya existe uno igual!'});
+	      	}
 			return res.status(500).send({msg:`Error al crear el usuario: ${err}`})
+		}
 
 		//else
 		return res.status(201).send({msg: 'usuario creado correctamente',token: service.createToken(user)}) //vamos a usar un servicio para crear un token para el usuario.

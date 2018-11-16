@@ -9,7 +9,7 @@ function getAccesos(req,res){
 		Acceso.findByUsuario(usuario, function (err,acceso) {
 			if(err) return res.status(500).send({message:`Error al realizar la peticion: ${err}`})
 
-			if(!acceso) return res.status(404).send({message:`Accesos para el usuario ${usuario} no existen`})
+			if(!acceso) return res.status(404).send({message:`No existen accesos para el usuario ${usuario}`})
 
 			res.status(200).send({acceso:acceso}) 
 		})
@@ -22,7 +22,7 @@ function getAccesos(req,res){
 
 			if(!Acceso) return res.status(404).send({message:`El idPublico ${idPublico} no existe`})
 
-			res.status(200).send({Acceso:Acceso}) 
+			res.status(200).send({acceso:acceso}) 
 		})
 	}
 	else{
@@ -56,7 +56,13 @@ function postAcceso(req,res){
 	})
 
 	acceso.save( (err,Accesostored) => {		
-		if(err) return res.status(500).send({message:`Error al guardar en la base de datos: ${err}`})
+		if(err){
+			if (err.name === 'MongoError' && err.code === 11000) {
+	        	// Duplicate
+	        	return res.status(409).send({message: 'Ya existe uno igual!'});
+	      	}
+			return res.status(500).send({message:`Error al guardar en la base de datos: ${err}`})
+		}
 
 		res.status(200).send({acceso: Accesostored})
 	})
@@ -68,9 +74,9 @@ function putAcceso(req,res){
 	
 	Acceso.findByIdAndUpdate(accesoId, updateObject, (err,AccesoUpdated) => {
 		if(err) return res.status(500).send({message: `Error al actualizar el Acceso: ${err}`})
-
+		if(!AccesoUpdated) return res.status(404).send({message: `El acceso no existe`})
 		console.log('Se actualizó correctamente el Acceso')
-		res.status(200).send({acceso:AccesoUpdated})
+		res.status(202).send({acceso:AccesoUpdated})
 	})
 }
 
@@ -80,7 +86,7 @@ function deleteAcceso(req,res){
 	Acceso.findByIdAndDelete(accesoId, (err,acceso) => {
 		if(err) return res.status(500).send({message: `Error al borrar el Acceso: ${err}`})
 
-		if(!acceso) return res.status(401).send({message: 'El objeto no existia'})
+		if(!acceso) return res.status(404).send({message: 'El acceso no existia'})
 
 		console.log('Se eliminó el Acceso.')
 		res.status(200).send({message: 'El Acceso ha sido eliminado'})		

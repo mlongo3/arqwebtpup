@@ -23,7 +23,7 @@ function Porton() {
 	this.timeoutApagarLuzVerde = '';
 	this.timeoutPortonCerrado = '';
 	this.timeoutBajarPorton = '';
-	this.enProceso = 'detenido'; //['detenido','accionando','abriendo','cerrando','espera']
+	this.enProceso = 'detenido'; //['detenido','accionando','abriendo','cerrando','esperando']
 }
 
 // class methods - si es necesario ponerlo en el Porton.prototype.cambiar....

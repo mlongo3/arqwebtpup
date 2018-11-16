@@ -17,7 +17,7 @@ const autho = require('../middlewares/authorization.js')
 const api = express.Router()
 
 
-//Luces
+//LUCES
 api.post('/luces/activar',LucesCtrl.activarLuces)
 api.post('/luces/desactivar',LucesCtrl.desactivarLuces)
 api.post('/luces/activarPrimarias',LucesCtrl.activarLucesPrimarias)
@@ -32,29 +32,29 @@ api.get('/luces/estadoSecundarias',LucesCtrl.estadoLucesSecundarias)
 api.get('/lector/leer',LectorCtrl.LeerTarjeta) 
 
 
-//Registro
+//REGISTROS
 api.get('/registros',authe, RegistroCtrl.getRegistros)
 api.post('/registros',authe, RegistroCtrl.postRegistro)
 
 
-//Movimiento
+//MOVIMIENTO
 api.get('/movimiento/estado', authe, autho,MovimientoCtrl.getEstado)
 api.post('/movimiento/desactivar', authe, autho,MovimientoCtrl.Desactivar)
 api.post('/movimiento/activar', authe, autho,MovimientoCtrl.Activar)
 
-//camara
+//CAMARA
 api.post('/camara/capturar',authe, autho,CamaraCtrl.capturarFotos)
 
-//porton - Una vez finalizado cambiar por POST
+//PORTON
 api.post('/porton/activar',authe, autho,PortonCtrl.activarPorton)
 api.get('/porton/getestado',authe, autho,PortonCtrl.getEstado)
 api.post('/porton/detener',authe, autho,PortonCtrl.detenerPorton)
 
-//auth
+//AUTH
 api.post('/signup', AuthCtrl.signUp)
 api.post('/signin', AuthCtrl.signIn)
 
-//usuario 
+//USUARIOS
 api.get('/usuarios/:userId', authe, autho, UserCtrl.getUsuario )
 api.get('/usuarios', authe, autho,UserCtrl.getUsuarios ) //Visibilidad condicional según permisos en Authorization basado en el rol.
 api.post('/usuarios', authe, autho, UserCtrl.postUsuario )
@@ -71,7 +71,7 @@ api.put('/recursos/:recursoId', authe, autho, RecursoCtrl.putRecurso)
 api.patch('/recursos/:recursoId', authe, autho, RecursoCtrl.putRecurso)
 api.delete('/recursos/:recursoId',authe, autho, RecursoCtrl.deleteRecurso)
 
-//acceso
+//ACCESOS
 api.get('/accesos', authe, autho,AccesoCtrl.getAccesos )
 api.get('/accesos/:accesoId',authe, autho,AccesoCtrl.getAcceso)
 api.post('/accesos', authe, autho, AccesoCtrl.postAcceso)
@@ -80,7 +80,7 @@ api.delete('/accesos/:accesoId',authe, autho, AccesoCtrl.deleteAcceso)
 
 
 
-//alquiler
+//ALQUILERES
 api.get('/alquileres', authe, autho,AlquilerCtrl.getAlquileres )
 api.get('/alquileres/:alquilerId',authe, autho, AlquilerCtrl.getAlquiler)
 //api.get('/alquileres/:alquilerId/usuarios',AlquilerCtrl.getAlquilerUsuarios) //Todos los usuarios de un alquiler
@@ -89,10 +89,5 @@ api.put('/alquileres/:alquilerId', authe, autho, AlquilerCtrl.putAlquiler)
 api.patch('/alquileres/:alquilerId', authe, autho, AlquilerCtrl.putAlquiler)
 api.delete('/alquileres/:alquilerId',authe, autho, AlquilerCtrl.deleteAlquiler)
 
-
-//Prueba para testear una ruta privada de acceso con token
-api.get('/private', authe, autho, (req,res) => {
-	res.status(200).send({message: 'Tenes acceso'})
-}) //esta ruta es para testear el acceso autorizado.
 
 module.exports = api 

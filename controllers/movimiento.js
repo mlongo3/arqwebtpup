@@ -9,12 +9,12 @@ function getEstado(req,res){
 
 function Desactivar(req,res){
 	movimiento.Desactivar()
-	return res.status(201).send({message:'desactivado'})
+	return res.status(202).send({message:'desactivado'})
 }
 
 function Activar(req,res){
 	movimiento.Activar()
-	return res.status(201).send({message:'activado'})
+	return res.status(202).send({message:'activado'})
 }
 
 module.exports = {
