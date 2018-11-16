@@ -15,6 +15,15 @@ Usualmente, estas soluciones están basadas en componentes de electrónica y alg
 Estos Garaje están constantemente cerrados (dado que no hay personal presente), y el acceso es por medio de portones automaticos. 
 
 
+## Node Modules ##
+Considerar que el modulo onoff puede instalarse en placas Linux como Raspberry. Si falla la instalación, para correrlo ejecutar el FakeModule existente dentro de la carpeta node_modules_ForNonRaspberry.
+
+>**onoff** <br/>
+GPIO access and interrupt detection with Node.js on Linux boards like the Raspberry Pi, C.H.I.P. or BeagleBone.<br/>
+onoff supports Node.js versions 4, 6, 8 and 10.<br/>
+[Link](https://www.npmjs.com/package/onoff)
+>
+
 *********
 # ENDPOINTS
 
