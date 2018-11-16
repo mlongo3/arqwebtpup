@@ -18,95 +18,83 @@ Estos Garaje están constantemente cerrados (dado que no hay personal presente),
 *********
 # ENDPOINTS
 
-
-#### Global del Handler
-`Posibles respuestas`
- - 200 Ok
- - 400 Bad Request 
- - 403 Forbidden
- - 404 Not Found
- - 409 Conflict - Si ya existe uno
- - 500 Internal Server Error
- - TBD
-  
- 
 ## ALQUILERES ##
 
-**GET** /api/alquileres
+**GET** /api/alquileres <br/>
 `Query String soportados`
-	?order=ASC&limit=10&offset=0 - Devuelve una lista paginada con los 10 primeros registros de forma ascendente.
-	usuarioResp - Usuario responsable del alquiler
-	nombre - Nombre designado para el alquiler
+   - ?order=ASC&limit=10&offset=0 - Devuelve una lista paginada con los 10 primeros registros de forma ascendente.
+   - usuarioResp - Usuario responsable del alquiler
+   - nombre - Nombre designado para el alquiler
 
 `Respuestas`
  - 200 OK
-	({alquiler:alquiler})
-	({Alquileres})
+   - ({alquiler:alquiler})
+   - ({Alquileres})
 	
- - 404 Not Found
-	({message:`Alquileres para el usuario ${usuario} no existen`})
-	({message:`El idPublico ${idPublico} no existe`})
-	({message: 'No existen Alquileres'})
-	({message:`El alquiler ${alquilerId} no existe`})
+ - 404 Not Found <br/>
+   - ({message:`Alquileres para el usuario ${usuario} no existen`})
+   - ({message:`El idPublico ${idPublico} no existe`})
+   - ({message: 'No existen Alquileres'})
+   - ({message:`El alquiler ${alquilerId} no existe`})
  
  - 500 Internal Server Error
-	({message:`Error al realizar la peticion: ${err}`})
+   - ({message:`Error al realizar la peticion: ${err}`})
   
-**GET** /api/alquileres/`<ID>` - Se obtiene uno especifico por su ID.
+**GET** /api/alquileres/`<ID>` - Se obtiene uno especifico por su ID. <br/>
 `Respuestas`
  - 200 OK
-	({alquiler:alquiler})
+   - ({alquiler:alquiler})
 	
  - 404 Not Found
-	({message:`El alquiler ${alquilerId} no existe`})
+   - ({message:`El alquiler ${alquilerId} no existe`})
 	
 - 500 Internal Server Error
-	({message:`Error al realizar la peticion: ${err}`})
+   - ({message:`Error al realizar la peticion: ${err}`})
   
-**POST** /api/alquileres - Se crea uno nuevo
+**POST** /api/alquileres - Se crea uno nuevo <br/>
 `Respuestas`
  - 201 Created
-	({alquiler: alquilerStored})
+   - ({alquiler: alquilerStored})
 	
  - 409 Conflict
-	({message: 'Ya existe uno igual!'})
+   - ({message: 'Ya existe uno igual!'})
 	
  - 500 Internal Server Error
-	({message:`Error al guardar en la base de datos: ${err}`})
+   - ({message:`Error al guardar en la base de datos: ${err}`})
 
-**DELETE** /api/alquileres/`<ID>` - Se elimina uno especifico
+**DELETE** /api/alquileres/`<ID>` - Se elimina uno especifico <br/>
 `Respuestas`
  - 200 Ok
-	({message: 'El Alquiler ha sido eliminado'})
+   - ({message: 'El Alquiler ha sido eliminado'})
 
  - 404 Not Found
-	({message: 'El Alquiler no existia'})
+   - ({message: 'El Alquiler no existia'})
 	
  - 500 Internal Server Error
-	({message: `Error al borrar el Alquiler: ${err}`})
+   - ({message: `Error al borrar el Alquiler: ${err}`})
   
-**PUT** /api/alquileres/`<ID>` - Se Actualiza por completo todos los atributos de uno especifico
+**PUT** /api/alquileres/`<ID>` - Se Actualiza por completo todos los atributos de uno especifico <br/>
  `Respuestas`
  - 202 Accepted
-	({alquiler:alquilerUpdated})
+   - ({alquiler:alquilerUpdated})
 	
  - 404 Not Found 
-	({message: `El Alquiler no existe`})
+   - ({message: `El Alquiler no existe`})
 	
  - 500 Internal Server Error
-	({message: `Error al actualizar el Alquiler: ${err}`})
+   - ({message: `Error al actualizar el Alquiler: ${err}`})
 
-**PATCH** /api/alquileres/`<ID>` 
+**PATCH** /api/alquileres/`<ID>`  <br/>
  `IDEM PUT, Dado que el manejo por Mongoose es similar al put, solo hace update de los campos pasados`
 
 
-## Usuario ##
+## Usuario ## <br/>
 **GET** - /api/usuarios - Devuelve un listado de usuarios
 `Query String soportados`
-	?order=ASC&limit=10&offset=0 - Devuelve una lista paginada con los 10 primeros registros de forma ascendente.
-	email - Devuelve un registro que coincida con el campo email
-	apellido - Devuelve un listado que coincida con el campo apellido
-	role - Devuelve un listado que coincida con el campo rol
+   - ?order=ASC&limit=10&offset=0 - Devuelve una lista paginada con los 10 primeros registros de forma ascendente.
+   - email - Devuelve un registro que coincida con el campo email
+   - apellido - Devuelve un listado que coincida con el campo apellido
+   - role - Devuelve un listado que coincida con el campo rol
 	
 `Popula: Para el manger, el displayName`	
 
@@ -115,184 +103,184 @@ Estos Garaje están constantemente cerrados (dado que no hay personal presente),
  - 500 Internal Server Error
 	
 
-**GET** - /api/usuarios?email=`<email>` - Devuelve el usuario con el email especificado
+**GET** - /api/usuarios?email=`<email>` - Devuelve el usuario con el email especificado <br/>
 `Respuestas`
  - 200 Ok 
-	({user:user})
+   - ({user:user})
 	
  - 404 Not Found
- ({message:`El email ${email} no existe`})
+   - ({message:`El email ${email} no existe`})
  
  - 500 Internal Server Error
-	({message:`Error al realizar la peticion: ${err}`})
+   - ({message:`Error al realizar la peticion: ${err}`})
 
-**GET** - /api/usuarios/`<ID>` - Devuelve un usuario
+**GET** - /api/usuarios/`<ID>` - Devuelve un usuario <br/>
 `Respuestas`
  - 200 Ok 
-	({user:user})
+   - ({user:user})
 	
  - 404 Not Found
-	({message:`El usuario ${userId} no existe`})
+   - ({message:`El usuario ${userId} no existe`})
  
  - 500 Internal Server Error
-	({message:`Error al realizar la peticion: ${err}`})
+   - ({message:`Error al realizar la peticion: ${err}`})
 
-**GET** - /api/usuarios?apellido=`<apellido>`&order=`<ASC o DSC>`&limit=`<int>`&skip=`<int>` - Devuelve una lista con los usuarios de sistema con el apellido especificado
+**GET** - /api/usuarios?apellido=`<apellido>`&order=`<ASC o DSC>`&limit=`<int>`&skip=`<int>` - Devuelve una lista con los usuarios de sistema con el apellido especificado <br/>
 `Respuestas`
  - 200 Ok 
-	({user:user})
+   - ({user:user})
 
  - 404 Not Found	
-	({message:`El apellido ${apellido} no existe`})
+   - ({message:`El apellido ${apellido} no existe`})
 	
  - 500 Internal Server Error
-	({message:`Error al realizar la peticion: ${err}`})
+   - ({message:`Error al realizar la peticion: ${err}`})
 
- **GET** - /api/usuarios?role=`<role>`&order=`<ASC o DSC>`&limit=`<int>`&skip=`<int>` - Devuelve una lista con los usuarios de sistema con el rol especificado
+ **GET** - /api/usuarios?role=`<role>`&order=`<ASC o DSC>`&limit=`<int>`&skip=`<int>` - Devuelve una lista con los usuarios de sistema con el rol especificado <br/>
 `Respuestas`
  - 200 Ok 
-	({user:user}) 
+   - ({user:user}) 
 	
  - 404 Not Found
-	({message:`El role ${role} no existe`})
+   - ({message:`El role ${role} no existe`})
 	
  - 500 Internal Server Error
-	({message:`Error al realizar la peticion: ${err}`})
+   - ({message:`Error al realizar la peticion: ${err}`})
  
 
-**POST** /api/usuarios - Se crea uno nuevo
+**POST** /api/usuarios - Se crea uno nuevo <br/>
 `Respuestas`
 - 201 Created
-	({user: userStored})
+   - ({user: userStored})
 	
  - 409 Conflict
-	({message: 'Ya existe uno igual!'})
+   - ({message: 'Ya existe uno igual!'})
 	
  - 500 Internal Server Error
-	({message:`Error al guardar en la base de datos: ${err}`})
+   - ({message:`Error al guardar en la base de datos: ${err}`})
 
 
-**DELETE** /api/usuarios/`<ID>` - Se elimina uno especifico
+**DELETE** /api/usuarios/`<ID>` - Se elimina uno especifico <br/>
 `Respuestas`
  - 200 Ok
-	({message: 'El usuario ha sido eliminado'})
+   - ({message: 'El usuario ha sido eliminado'})
 
  - 404 Not Found
-	({message: 'El usuario no existia'})
+   - ({message: 'El usuario no existia'})
 	
  - 500 Internal Server Error
-	({message: `Error al borrar el usuario: ${err}`})
+   - ({message: `Error al borrar el usuario: ${err}`})
 
-**PUT** /api/usuarios/`<ID>` - Se Actualiza por completo todos los atributos de uno especifico
+**PUT** /api/usuarios/`<ID>` - Se Actualiza por completo todos los atributos de uno especifico <br/>
 `Respuestas`
  - 202 Accepted
-	({user:userUpdated})
+   - ({user:userUpdated})
 	
  - 404 Not Found 
-	({message: `El usuario no existe`})
+   - ({message: `El usuario no existe`})
 	
  - 500 Internal Server Error
-	({message: `Error al actualizar el usuario: ${err}`})
+   - ({message: `Error al actualizar el usuario: ${err}`})
 
  
 
-**PATCH** /api/usuarios/`<ID>` - Se actualiza solo los atributos enviados dentro del JSON de uno especifico
+**PATCH** /api/usuarios/`<ID>` - Se actualiza solo los atributos enviados dentro del JSON de uno especifico <br/>
 `Respuestas`
  `IDEM PUT, Dado que el manejo por Mongoose es similar al put, solo hace update de los campos pasados`
 
 
- **PATCH** /api/usuarios/`<ID>`/password - Se actualiza la password
+ **PATCH** /api/usuarios/`<ID>`/password - Se actualiza la password <br/>
 `Respuestas`
 - 202 Accepted
-	({Se cambió la password existosamente})
+   - ({Se cambió la password existosamente})
 	
  - 404 Not Found 
-	({message: `El usuario no existe`})
+   - ({message: `El usuario no existe`})
 
 - 406 Not Acceptable
-	({message: `La password debe contener al menos ${passLength} caracteres.`})
+   - ({message: `La password debe contener al menos ${passLength} caracteres.`})
 	
  - 500 Internal Server Error
-	({message: `Error al actualizar la passwrod del usuario: ${err}`})
-	({message:'Error con el hash de la password'})
-	({message:'Error con el salt de la password'})
+   - ({message: `Error al actualizar la passwrod del usuario: ${err}`})
+   - ({message:'Error con el hash de la password'})
+   - ({message:'Error con el salt de la password'})
 
  
 ## ACCESOS: ##
-**GET** /api/accesos
+**GET** /api/accesos <br/>
 `Query String soportados`
-	?order=ASC&limit=10&offset=0 - Devuelve una lista paginada con los 10 primeros registros de forma ascendente.
-	usuario - Usuario responsable del acceso
-	idPublico - identificado publico de este acceso.
+   - ?order=ASC&limit=10&offset=0 - Devuelve una lista paginada con los 10 primeros registros de forma ascendente.
+   - usuario - Usuario responsable del acceso
+   - idPublico - identificado publico de este acceso.
 
 `Respuestas`
  - 200 OK
-	({acceso:acceso})
+   - ({acceso:acceso})
 	
  - 404 Not Found
-	({message:`No existen accesos para el usuario ${usuario}`})
-	({message:`El idPublico ${idPublico} no existe`})
-	({message: 'No existen Accesos'})
+   - ({message:`No existen accesos para el usuario ${usuario}`})
+   - ({message:`El idPublico ${idPublico} no existe`})
+   - ({message: 'No existen Accesos'})
  
  - 500 Internal Server Error
-	({message:`Error al realizar la peticion: ${err}`})
+   - ({message:`Error al realizar la peticion: ${err}`})
 
 `Popula: Para el usuario, displayName + habilitado y el usuario.alquieler` 
 
-**GET** /api/accesos/`<ID>` - Se obtiene uno especifico por su ID.
+**GET** /api/accesos/`<ID>` - Se obtiene uno especifico por su ID. <br/>
 `Respuestas`
  - 200 OK
-	({acceso:acceso}) 
+   - ({acceso:acceso}) 
 	
  - 404 Not Found
-	({message:`El acceso ${accesoId} no existe`})
+   - ({message:`El acceso ${accesoId} no existe`})
 	
 - 500 Internal Server Error
-	({message:`Error al realizar la peticion: ${err}`})
+   - ({message:`Error al realizar la peticion: ${err}`})
   
-**POST** /api/accesos - Se crea uno nuevo
+**POST** /api/accesos - Se crea uno nuevo <br/>
 `Respuestas`
  - 201 Created
-	({acceso: Accesostored})
+   - ({acceso: Accesostored})
 	
  - 409 Conflict
-	({message: 'Ya existe uno igual!'})
+   - ({message: 'Ya existe uno igual!'})
 	
  - 500 Internal Server Error
-	({message:`Error al guardar en la base de datos: ${err}`})
+   - ({message:`Error al guardar en la base de datos: ${err}`})
 
-**DELETE** /api/accesos/`<ID>` - Se elimina uno especifico
+**DELETE** /api/accesos/`<ID>` - Se elimina uno especifico <br/>
 `Respuestas`
  - 200 Ok
-	({message: 'El acceso ha sido eliminado'})
+   - ({message: 'El acceso ha sido eliminado'})
 
  - 404 Not Found
-	({message: 'El acceso no existia'})
+   - ({message: 'El acceso no existia'})
 	
  - 500 Internal Server Error
-	({message: `Error al borrar el acceso: ${err}`})
+   - ({message: `Error al borrar el acceso: ${err}`})
   
-**PUT** /api/accesos/`<ID>` - Se Actualiza por completo todos los atributos de uno especifico
+**PUT** /api/accesos/`<ID>` - Se Actualiza por completo todos los atributos de uno especifico <br/>
  `Respuestas`
  - 202 Accepted
-	({acceso:AccesoUpdated})
+   - ({acceso:AccesoUpdated})
 	
  - 404 Not Found 
-	({message: `El acceso no existe`})
+   - ({message: `El acceso no existe`})
 	
  - 500 Internal Server Error
-	({message: `Error al actualizar el acceso: ${err}`})
+   - ({message: `Error al actualizar el acceso: ${err}`})
 
-**PATCH** /api/accesos/`<ID>` 
+**PATCH** /api/accesos/`<ID>`  <br/>
  `IDEM PUT, Dado que el manejo por Mongoose es similar al put, solo hace update de los campos pasados`
 
 
  ## AUTH: ##
  
-**POST** /signin - Inicio de sesion
+**POST** /signin - Inicio de sesion <br/>
 `Respuestas`
  - 200 Ok
-	({ 
+   - ({ 
       	msg: 'Te has logueado correctamente', 
       	token: service.createToken(user), 
       	rol: `${user.role}`, 
@@ -301,160 +289,160 @@ Estos Garaje están constantemente cerrados (dado que no hay personal presente),
       })
 	
  - 401 Unauthorized
-	({ msg: 'Error de contraseña'}) 
+   - ({ msg: 'Error de contraseña'}) 
 
 - 404 Not Found
-	({ msg: `No existe el usuario: ${req.body.email}` })
+   - ({ msg: `No existe el usuario: ${req.body.email}` })
 	
  - 500 Internal Server Error
-	({msg: `Error al ingresar: ${err}`})
+   - ({msg: `Error al ingresar: ${err}`})
 	
-**POST** /signup - registración - No utilizado
+**POST** /signup - registración - No utilizado <br/>
 `Respuestas`
  - 201 Created
-	({msg: 'usuario creado correctamente',token: service.createToken(user)})
+   - ({msg: 'usuario creado correctamente',token: service.createToken(user)})
 	
  - 409 Conflict
-	({msg: 'Ya existe uno igual!'})
+   - ({msg: 'Ya existe uno igual!'})
 	
  - 500 Internal Server Error
-	({msg:`Error al crear el usuario: ${err}`})
+   - ({msg:`Error al crear el usuario: ${err}`})
 	
-## LUCES: ##
+## LUCES: ## <br/>
 
 **GET** /api/luces/estadoPrimarias
 `Respuestas`
  - 200 Ok - 0 apagadas / 1 encendidas
-	({estado:`${callback}`})
+   - ({estado:`${callback}`})
 
-**GET** /api/luces/estadoSecundarias
+**GET** /api/luces/estadoSecundarias <br/>
 `Respuestas`
  - 200 Ok - 0 apagadas / 1 encendidas
-	({estado:`${callback}`})
+   - ({estado:`${callback}`})
 
-**POST** /api/luces/activar
+**POST** /api/luces/activar <br/>
 `Respuestas`
  - 200 Ok
-	({"message": "Encendiendo luces primarias y Encendiendo luces secundarias"})
+   - ({"message": "Encendiendo luces primarias y Encendiendo luces secundarias"})
 
-**POST** /api/luces/desactivar
+**POST** /api/luces/desactivar <br/>
 `Respuestas`
  - 200 Ok
-	({"message": "Apagando luces primarias y Apagando luces secundarias"})
+   - ({"message": "Apagando luces primarias y Apagando luces secundarias"})
 
-**POST** /api/luces/activarPrimarias
+**POST** /api/luces/activarPrimarias <br/>
 `Respuestas`
  - 200 Ok
-	({"message": "Encendiendo luces primarias"})
+   - ({"message": "Encendiendo luces primarias"})
 	
-**POST** /api/luces/desactivarPrimarias
+**POST** /api/luces/desactivarPrimarias <br/>
 `Respuestas`
  - 200 Ok
-	({"message": "Apagando luces primarias"})
+   - ({"message": "Apagando luces primarias"})
 
-**POST** /api/luces/activarSecundarias
+**POST** /api/luces/activarSecundarias <br/>
 `Respuestas`
  - 200 Ok
-	({"message": "Encendiendo luces secundarias"})
+   - ({"message": "Encendiendo luces secundarias"})
 	
-**POST** /api/luces/desactivarSecundarias
+**POST** /api/luces/desactivarSecundarias <br/>
 `Respuestas`
  - 200 Ok
-	({"message": "Apagando luces secundarias"})
+   - ({"message": "Apagando luces secundarias"})
 
 
 ## PORTON: ##
 
-**GET** /api/porton/getestado
+**GET** /api/porton/getestado <br/>
 `Respuestas`
  - 200 Ok - estado = detenido, accionando, abriendo, esperando, cerrando, cerrado
-	({message:`${estado}`})
+   - ({message:`${estado}`})
 	
-**POST** /api/porton/activar - Acciona el porton independientemente el sentido.
+**POST** /api/porton/activar - Acciona el porton independientemente el sentido. <br/>
 `Respuestas`
  - 200 Ok
-	({"message": "Apagando luces primarias"})
+   - ({"message": "Apagando luces primarias"})
 	
-**POST** /api/porton/detener - Detiene cualquier proceso que esté haciendo el porton.
+**POST** /api/porton/detener - Detiene cualquier proceso que esté haciendo el porton. <br/>
 `Respuestas`
  - 200 Ok
-	({message:'Se detuvo el porton'})
-	({'Detengo todo por segunda activación'})
-	({'Accionando el porton...'})	
+   - ({message:'Se detuvo el porton'})
+   - ({'Detengo todo por segunda activación'})
+   - ({'Accionando el porton...'})	
 	
 ## CAMARA: ##
 
-**POST** /api/camara/capturar
+**POST** /api/camara/capturar <br/>
 `Query String soportados`
-	?camara=int o camara=ext
+   - ?camara=int o camara=ext
 
 `Respuestas`
  - 201 Created
-	({fotoInterna:`${fni}`,fotoExterna:`${fne}`}) - Ambas
-	({fotoInterna:'',fotoExterna:`${fne}`})	- Solo la externa
-	({fotoInterna:`${fni}`,fotoExterna:''})	- Sola la interna
+   - ({fotoInterna:`${fni}`,fotoExterna:`${fne}`}) - Ambas
+   - ({fotoInterna:'',fotoExterna:`${fne}`})	- Solo la externa
+   - ({fotoInterna:`${fni}`,fotoExterna:''})	- Sola la interna
 	
  - 400 Bad Request
-	({fotoInterna:'',fotoExterna:''})
+   - ({fotoInterna:'',fotoExterna:''})
 	
  - 500 Internal Server Error
-	({fotoInterna:'',fotoExterna:`${err}`}) - falló la externa
-	({fotoInterna:`${err}`,fotoExterna:''}) - falló la interna
-	({fotoInterna:`${err}`,fotoExterna:`${err}`}) - fallaron ambas
+   - ({fotoInterna:'',fotoExterna:`${err}`}) - falló la externa
+   - ({fotoInterna:`${err}`,fotoExterna:''}) - falló la interna
+   - ({fotoInterna:`${err}`,fotoExterna:`${err}`}) - fallaron ambas
 	
 ## MOVIMIENTO: ##
 
-**GET** /api/movimiento/estado
+**GET** /api/movimiento/estado <br/>
 `Respuestas`
  - 200 Ok 
-	({message:`${estado}`})
+   - ({message:`${estado}`})
 	
-**POST** /api/movimiento/activar
+**POST** /api/movimiento/activar <br/>
 `Respuestas`
  - 202 Accepted
-	({message:'activado'})
+   - ({message:'activado'})
 	
-**POST** /api/movimiento/desactivar
+**POST** /api/movimiento/desactivar <br/>
 `Respuestas`
  - 202 Accepted
-	({message:'desactivado'})	
+   - ({message:'desactivado'})	
 	
 ## REGISTROS: ##
 
-**GET** /api/registros
+**GET** /api/registros <br/>
 `Respuestas`
  - 200 OK
-	({registros})
+   - ({registros})
 
  - 404 Not Found
-	({message: 'No existen registros'})
+   - ({message: 'No existen registros'})
  
  - 500 Internal Server Error
-	({message:`Error al realizar la peticion: ${err}`})
+   - ({message:`Error al realizar la peticion: ${err}`})
 
 `Popula: Para el userId, el displayName, para el alquilerId, el nombre, para el managerId, el displayName y hace el sort Descendiente`	
 	
-**POST** /api/registros
+**POST** /api/registros <br/>
 `Respuestas`
  - 201 Created
-	({record: recStored})
+   - ({record: recStored})
 		
  - 500 Internal Server Error
-	({message:`Error al guardar en la base de datos: ${err}`})
+   - ({message:`Error al guardar en la base de datos: ${err}`})
 	
 ## LECTOR: ##
 
-**GET** /api/lector/leer
+**GET** /api/lector/leer <br/>
 `Respuestas`
  - 200 OK
-	({message: 'ok',Id: lectura,Usuario: acc.usuario}) 
+   - ({message: 'ok',Id: lectura,Usuario: acc.usuario}) 
 	
  - 404 Not Found
-	({message: 'ok',Id: lectura,Usuario: 'No asociado'}) 
+   - ({message: 'ok',Id: lectura,Usuario: 'No asociado'}) 
 	
  - 408 Request Time-out
-	({message: 'timeout',Id: null,Usuario: null})
+   - ({message: 'timeout',Id: null,Usuario: null})
 	
  - 500 Internal Server Error
-	({message: 'error',Id: null,Usuario: null})
-	({message: 'error',Id: lectura,Usuario: 'error'}) 
+   - ({message: 'error',Id: null,Usuario: null})
+   - ({message: 'error',Id: lectura,Usuario: 'error'}) 
