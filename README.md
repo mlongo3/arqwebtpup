@@ -88,16 +88,16 @@ Estos Garaje están constantemente cerrados (dado que no hay personal presente),
  `IDEM PUT, Dado que el manejo por Mongoose es similar al put, solo hace update de los campos pasados`
 
 
-## Usuario ## <br/>
-**GET** - /api/usuarios - Devuelve un listado de usuarios
+## Usuario ## 
+**GET** - /api/usuarios - Devuelve un listado de usuarios <br/>
 `Query String soportados`
    - ?order=ASC&limit=10&offset=0 - Devuelve una lista paginada con los 10 primeros registros de forma ascendente.
    - email - Devuelve un registro que coincida con el campo email
    - apellido - Devuelve un listado que coincida con el campo apellido
    - role - Devuelve un listado que coincida con el campo rol
 	
-`Popula: Para el manger, el displayName`	
-
+>`Popula: Para el manger, el displayName`	
+>
 `Respuestas`
  - 200 Ok 
  - 500 Internal Server Error
@@ -225,8 +225,8 @@ Estos Garaje están constantemente cerrados (dado que no hay personal presente),
  - 500 Internal Server Error
    - ({message:`Error al realizar la peticion: ${err}`})
 
-`Popula: Para el usuario, displayName + habilitado y el usuario.alquieler` 
-
+>`Popula: Para el usuario, displayName + habilitado y el usuario.alquieler` 
+>
 **GET** /api/accesos/`<ID>` - Se obtiene uno especifico por su ID. <br/>
 `Respuestas`
  - 200 OK
@@ -308,9 +308,9 @@ Estos Garaje están constantemente cerrados (dado que no hay personal presente),
  - 500 Internal Server Error
    - ({msg:`Error al crear el usuario: ${err}`})
 	
-## LUCES: ## <br/>
+## LUCES: ## 
 
-**GET** /api/luces/estadoPrimarias
+**GET** /api/luces/estadoPrimarias <br/>
 `Respuestas`
  - 200 Ok - 0 apagadas / 1 encendidas
    - ({estado:`${callback}`})
@@ -420,8 +420,8 @@ Estos Garaje están constantemente cerrados (dado que no hay personal presente),
  - 500 Internal Server Error
    - ({message:`Error al realizar la peticion: ${err}`})
 
-`Popula: Para el userId, el displayName, para el alquilerId, el nombre, para el managerId, el displayName y hace el sort Descendiente`	
-	
+>`Popula: Para el userId, el displayName, para el alquilerId, el nombre, para el managerId, el displayName y hace el sort Descendiente`	
+>	
 **POST** /api/registros <br/>
 `Respuestas`
  - 201 Created
