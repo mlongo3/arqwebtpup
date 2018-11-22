@@ -18,7 +18,7 @@ function activarPorton(req,res){
 		if(estado == 'esperando'){  
 			camara.capturar('esperando')
 		}		
-		console.log( estado )
+		console.log( `estado:${estado}`)
 	}, 1500)
 
 	porton.AccionarPorton( (callback) => {

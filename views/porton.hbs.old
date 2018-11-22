@@ -31,7 +31,7 @@
 	</style>
 </head>
 
-<body ng-app="Tarjeta">
+<body ng-app="Menu">
 	<div class="overlay-nav"></div>
 	<header class="flex">
 		<a href="javascript:void(0);" class="logo"><img src="../img/logo.png" alt="AAP"></a>
@@ -72,7 +72,7 @@
 		<ul>
 			<li><a href="/listausuarios" ng-show="rol != 'basic'"><i class="icon-user" !='basic'></i> Usuarios</a></li>
 			<li><a href="/listaAlquiler" ng-show="rol == 'admin'"><i class="icon-user"></i> Alquileres</a></li>
-			<li><a href="/porton"><i class="icon-user"></i> Control Remoto</a></li>
+			<li class="current"><a href="/porton"><i class="icon-user"></i> Control Remoto</a></li>
 			<li><a href="/listacamaras" ng-show="rol == 'admin'"><i class="icon-user"></i> Camaras</a></li>
 			<li class=""><a href="/tarjeta" ng-show="rol == 'admin'"><i class="icon-user"></i> Tarjetas</a></li>
 			<li><a href="/registro" ng-show="rol == 'admin'"><i class="icon-user"></i> Registros</a></li>
@@ -80,31 +80,32 @@
 	</aside>
 
 	<div class="admin-container">
-		<div class="col-md-12" ng-controller="tarjetaCtrl as ctrl">
+		<div class="col-md-12">
 			<div class="panel panel-profile">
-				<div class="panel-body">
-					<h1 class="title-admin pull-left">Lector</h1>
-					<div class="col-md-12" style="text-align: center">
-						<h3>Click para leer la tarjeta.</h3>
-					</div>
-					<div class="clearfix"></div>
-					<div class="col-md-12">
-						<button id="btnLeerTarjeta" class="btn btn-xl btn-full btn-lightblue text-left m-t-20" ng-click="leerTarjeta()">Leer
-							tarjeta</button>
-					</div>
-					<div class="clearfix"></div>
-					<div class="col-md-12" style="text-align: center" >
-						<h3>Respuesta:</h3>
-						<div ng-if="respuesta.message == 'ok'"> 
-							<p>Id Tarjeta: {[{respuesta.Id}]}</p>
-							<p>Id Usuario: {[{respuesta.Usuario}]}</p>
-						</div>
-						<div ng-if="respuesta.message != 'ok'">
-							<p>{[{respuesta.message}]}</p>	
-						</div>					
-					</div>
-					<div class="clearfix"></div>
+				<h1 class="title-admin pull-left">PORTON</h1>
+				<div class="col-md-12" style="text-align: center">
+					<h3>Click para activar/desactivar monitoreo del porton.</h3>
 				</div>
+				<div class="clearfix"></div>
+				<div class="col-md-12">
+					<button id="btnMonitoreo" class="btn btn-lightblue btn-small text-left m-t-20" onclick="activarMonitoreo()">Activar monitoreo</button>
+				</div>
+				<div class="clearfix"></div>
+				<div class="col-md-12" style="text-align: center">
+					<h3>Click para accionar el portón.</h3>
+				</div>
+				<div class="clearfix"></div>
+				<div class="col-md-12">
+					<button id="btnPorton" class="btn btn-xl btn-full btn-lightblue text-left m-t-20" onclick="activarPorton()">Accionar Porton</button>
+				</div>
+
+				<div class="clearfix"></div>
+				<div class="col-md-12" style="text-align: center">
+					<h3 id="lblEstado">Estado del porton: </h3>
+					<button id="btnestado" class="btn btn-lightblue">Sin revisión</button>
+				</div>
+
+				<div class="clearfix"></div>
 			</div>
 		</div>
 	</div>
@@ -132,15 +133,108 @@
 	<script src="../js/Angular/angular-aria.min.js"></script>
 	<script src="../js/app.js"></script>
 	<script src="../js/Angular/angular-locale_es-ar.js"></script>
-	<script src="../js/Angular-Modules/Tarjeta/tarjetaModule.js"></script>
-	<script src="../js/Angular-Modules/Tarjeta/tarjetaCtrl.js"></script>
-	<script src="../js/Angular-Modules/Services/tarjetaService.js"></script>
+	<script src="../js/Angular-Modules/Menu/menuModule.js"></script>
 	<script src="../js/Angular-Modules/Menu/menuCtrl.js"></script>
-
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-filter/0.5.8/angular-filter.min.js"></script>
 </body>
 
 </html>
+
+
+
+<!--<label id="lblEstado">TextoInicial</label>-->
+<script type="text/javascript">
+	//let userList = document.createElement('ul')	
+	let monitoreoActivo = false
+	let intervaloEstado;
+	let estadoBox = document.createElement('LABEL')
+	estadoBox.innerHTML = 'Sin revisión'
+	document.getElementById("lblEstado").appendChild(estadoBox)
+	//estadoBox.setAttribute('hola','lalala')
+
+	function activarPorton() {
+		fetch('/api/porton/activar', {
+			method: 'POST',
+			headers: {
+				'authorization': `Bearer ${localStorage.token}`
+			}
+		})
+
+		if (!monitoreoActivo) {
+			activarMonitoreo()
+		}
+	}
+
+
+	function activarMonitoreo() {
+		if (!monitoreoActivo) {
+			document.getElementById("btnMonitoreo").style.background = '#00FF00';
+			var btn = document.getElementById("btnMonitoreo");
+			btn.firstChild.data = "Monitoreo Activado"
+
+			monitoreoActivo = true;
+			intervaloEstado = setInterval(function () {
+				fetch('/api/porton/getestado?d=' + Date.now(), { //Para que no haga cache del status code
+					method: 'GET',
+					headers: {
+						'authorization': `Bearer ${localStorage.token}`
+					}
+				})
+					.then(res => {
+						if (res.status >= 400 && res.status < 600) {
+							throw new Error(`Fallo con status: ${res.status}`);
+						}
+						return res.json();
+					})
+					.then(json => {
+						console.log('Procesnado chequeo de estado')
+						let valEstado = json.message;
+						console.log(`El estado acutal es: ${valEstado}`)
+						estadoBox.innerHTML = `${valEstado}`
+						btnestado.firstChild.data = `${valEstado}`
+
+						if (valEstado == 'detenido') {
+							//clearInterval(intervaloEstado);
+							estadoBox.style.color = "white"
+							estadoBox.style.background = "green"
+							btnestado.style.color = "white"
+							btnestado.style.background = "green"
+							console.log('Fin de proceso, porque esta detenido')
+						}
+						else if (valEstado == 'esperando') {
+							estadoBox.style.color = "black"
+							btnestado.style.color = "black"
+							estadoBox.style.background = "orange"
+							btnestado.style.background = "orange"
+						}
+						else {
+							estadoBox.style.color = "white"
+							estadoBox.style.background = "red"
+							btnestado.style.color = "white"
+							btnestado.style.background = "red"
+							console.log('Fin chequeo de estado')
+						}
+						document.getElementById("lblEstado").appendChild(estadoBox)
+					})
+					.catch((error) => {
+						console.log('catch')
+						clearInterval(intervaloEstado);
+						console.log(`${error}`)
+					})
+			}, 1000)
+		}
+		else {
+			monitoreoActivo = false;
+			document.getElementById("btnMonitoreo").style.background = '#588cb8';
+			document.getElementById("btnestado").style.background = '#588cb8';
+			document.getElementById("btnMonitoreo").style.color = 'white';
+			document.getElementById("btnestado").style.color = 'white';
+			var btn = document.getElementById("btnMonitoreo");
+			btn.firstChild.data = "Monitoreo Detenido"
+			clearInterval(intervaloEstado);
+		}
+	}	
+</script>
 
 <script>
 	$(".nameUser").text("" + localStorage.getItem('displayName'));

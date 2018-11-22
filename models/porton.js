@@ -61,27 +61,29 @@ Porton.prototype.AccionarPorton = function(callback){
 Porton.prototype.AbrirPorton = function(){	
 	if(this.portonAbierto.readSync() || (this.abriendo.readSync() ^ 1) || (this.cerrando.readSync() ^ 1)){		
 		if(this.portonAbierto.readSync()){		
-			console.log('Ya está abierto, asique lo cierro')				
+			console.log('--Ya está abierto, asique lo cierro--')				
 			this.CerrarPorton()
 		}
 		else if(this.abriendo.readSync() ^ 1){
-			console.log('Ya está abriendo')
+			console.log('--Ya está abriendo--')
 			this.stop()				
 		}
 		else{
-			console.log('Está Cerrando... Detengo la marcha')					
+			console.log('--Está Cerrando... Detengo la marcha--')					
 			this.stop()
 		}
 	}
 	else{		
+		console.log('---------------')
 		console.log('Abriendo porton')		
+		console.log('---------------')
 		this.enProceso = 'abriendo';	
 		this.EncenderLuzRoja()
-		luces.EncenderTodasLasLuces( (callback) => { console.log(`${callback}`)})
+		luces.EncenderTodasLasLuces( (callback) => { console.log(`*** ${callback} ***`)})
 		this.abriendo.writeSync(0);
 		this.portonAbierto.watch( (err,value) =>{
 			if (err) {throw err;}
-			console.log('Porton Abierto')
+			console.log('--Porton Abierto--')
 			this.abriendo.writeSync(1);
 			this.portonAbierto.unwatch();
 			this.ApagarLuzRoja();			
@@ -98,33 +100,37 @@ Porton.prototype.AbrirPorton = function(){
 Porton.prototype.CerrarPorton = function(){
 	if(this.portonCerrado.readSync() || (this.abriendo.readSync() ^ 1)|| (this.cerrando.readSync() ^ 1 ) ){		
 		if(this.portonCerrado.readSync()){		
-			console.log('Ya está cerrado')				
+			console.log('--Ya está cerrado--')				
 		}
 		else if( this.cerrando.readSync() ^ 1 ){
-			console.log('Ya está cerrando')
+			console.log('--Ya está cerrando--')
 			this.stop()				
 		}
 		else{
-			console.log('Está cerrado... Detengo la marcha')								
+			console.log('--Está cerrado... Detengo la marcha--')								
 			this.stop()
 		}
 	}
 	else{
+		console.log('---------------')
 		console.log('Cerrando porton')
+		console.log('---------------')
 		this.enProceso = 'cerrando';	
 		this.EncenderLuzRoja()
 		
 		//Verifico con fotocelula este proceso
 		this.fotoCelula.watch( (err,value) =>{
 			if (err) {throw err;}			
+			console.log('-------------------')
 			console.log('FOTOCELULA ACTIVADA')			
+			console.log('-------------------')
 			if(this.cerrando.readSync() ^ 1 ){				
-				console.log('PARO TODO!!! ESTA BAJANDO')				
+				console.log('-------PARO TODO!!! ESTA BAJANDO--------')				
 				this.ApagarLuzRoja()
 				this.stop();			
 			}
 			else{				
-				console.log('EN ESTA COND. NO PASA NADA')				
+				console.log('--EN ESTA COND. NO PASA NADA--')				
 			}
 		})
 
@@ -133,7 +139,9 @@ Porton.prototype.CerrarPorton = function(){
 			if (err) {throw err;}			
 			
 			if(this.cerrando.readSync() ^ 1 ){
+				console.log('--------------')
 				console.log('Porton Cerrado')
+				console.log('--------------')
 				this.enProceso = 'cerrado';
 				this.ApagarLuzRoja();
 				this.cerrando.writeSync(1);
@@ -142,7 +150,7 @@ Porton.prototype.CerrarPorton = function(){
 				this.timeoutPortonCerrado = setTimeout( () => this.stop(), `${this.tiempoDeEsperaCierre}`);				
 			}
 			else{
-				console.log('No toquen el switch de cerrando!!!')
+				console.log('--No toquen el switch de cerrando!!!--')
 			}
 		})
 	}
@@ -211,7 +219,7 @@ Porton.prototype.banner = function(texto){
 		console.log(raya)
 		console.log('')
 	}catch(err){
-		console.log('ERROR: texto no suministrado')
+		console.log('--ERROR: texto no suministrado--')
 	}
 }
 

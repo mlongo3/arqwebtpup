@@ -104,7 +104,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr ng-repeat="user in users">
+							<tr ng-repeat="user in users" ng-show="user.apellido!='ANONIMO'">
 								<td data-label="Nombre y apellido"><a href="/usuarios/{[{user._id}]}">{[{user.nombre}]} {[{user.apellido}]}</a></td>
 								<td data-label="Email">{[{user.email}]}</td>
 								<td data-label="Rol">{[{user.role}]}</td>

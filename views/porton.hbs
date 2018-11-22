@@ -82,31 +82,68 @@
 	<div class="admin-container">
 		<div class="col-md-12">
 			<div class="panel panel-profile">
-				<h1 class="title-admin pull-left">PORTON</h1>
-				<div class="col-md-12" style="text-align: center">
-					<h3>Click para activar/desactivar monitoreo del porton.</h3>
-				</div>
-				<div class="clearfix"></div>
-				<div class="col-md-12">
-					<button id="btnMonitoreo" class="btn btn-xl btn-full btn-lightblue text-left m-t-20" onclick="activarMonitoreo()">Activar
-						monitoreo</button>
-				</div>
-				<div class="clearfix"></div>
-				<div class="col-md-12" style="text-align: center">
-					<h3>Click para accionar el portón.</h3>
-				</div>
-				<div class="clearfix"></div>
-				<div class="col-md-12">
-					<button id="btnPorton" class="btn btn-xl btn-full btn-lightblue text-left m-t-20" onclick="activarPorton()">Accionar
-						Porton</button>
-				</div>
+				<div class="panel-body">
+					<h1 class="title-admin pull-left">PORTON</h1>
+					
+					<div>
+						<table class="table-default">
+							<thead>
+								<tr>
+									<th style="text-align: center">Monitoreo</th>
+									<th style="text-align: center">Estado</th>
+									<th style="text-align: center">Accionador</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr style="text-align: center">
+									<td>
+										<button id="btnMonitoreo" class="btn btn-lightblue " onclick="activarMonitoreo()">Activar monitoreo</button>
+									</td>
+									<td>
+										<button id="btnestado" class="btn btn-lightblue">Estado desconocido</button>
+									</td>
+									<td>
+										<button id="btnPorton" class="btn btn-lightblue " onclick="activarPorton()">Accionar Porton</button>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>			
 
-				<div class="clearfix"></div>
-				<div class="col-md-12" style="text-align: center">
-					<h3 id="lblEstado">Estado del porton: </h3>
-				</div>
+					<div class="col-md-12" style="text-align: center" ng-show=false>
+						<h3 id="lblEstado">Estado del porton: </h3>					
+					</div>
+					<div class="col-md-12" style="text-align: center;padding: 20px" >
+						<button id="btnParadaEmergencia" class="btn btn-xl btn-full btn-lightblue" onclick="paradaEmergencia()" style="background-color: red;font-size: 18px">Parada de Emergencia</button>
+					</div>
 
-				<div class="clearfix"></div>
+					
+					<h1 class="title-admin pull-left">LUCES</h1>
+					<div>
+						<table class="table-default">						
+							<tbody>
+								<tr style="text-align: center">
+									<td>
+										<button id="btnActLuzP" class="btn btn-lightblue " onclick="activarLucesP()">Encender Luces Primarias</button>
+									</td>
+									<td>
+										<button id="btnActLuzS" class="btn btn-lightblue" onclick="activarLucesS()">Encender Luces Secundarias</button>
+									</td>
+								</tr>
+								<tr style="text-align: center">
+									<td>
+										<button id="btnDesLuzP" class="btn btn-lightblue " onclick="desactivarLucesP()">Apagar Luces Primarias</button>
+									</td>
+									<td>
+										<button id="btnDesLuzS" class="btn btn-lightblue" onclick="desactivarLucesS()">Apagar Luces Secundarias</button>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+
+					<div class="clearfix"></div>
+				</div>				
 			</div>
 		</div>
 	</div>
@@ -166,6 +203,53 @@
 		}
 	}
 
+	function paradaEmergencia() {
+		fetch('/api/paradaemergencia', {
+			method: 'POST',
+			headers: {
+				'authorization': `Bearer ${localStorage.token}`
+			}
+		})
+		if (monitoreoActivo) {
+			setTimeout( () => activarMonitoreo(),2000)			
+		}
+	}
+
+	function activarLucesP() {
+		fetch('/api/luces/activarPrimarias', {
+			method: 'POST',
+			headers: {
+				'authorization': `Bearer ${localStorage.token}`
+			}
+		})
+	}
+
+	function activarLucesS() {
+		fetch('/api/luces/activarSecundarias', {
+			method: 'POST',
+			headers: {
+				'authorization': `Bearer ${localStorage.token}`
+			}
+		})
+	}
+
+	function desactivarLucesP() {
+		fetch('/api/luces/desactivarPrimarias', {
+			method: 'POST',
+			headers: {
+				'authorization': `Bearer ${localStorage.token}`
+			}
+		})
+	}
+
+	function desactivarLucesS() {
+		fetch('/api/luces/desactivarSecundarias', {
+			method: 'POST',
+			headers: {
+				'authorization': `Bearer ${localStorage.token}`
+			}
+		})
+	}
 
 	function activarMonitoreo() {
 		if (!monitoreoActivo) {
@@ -175,7 +259,7 @@
 
 			monitoreoActivo = true;
 			intervaloEstado = setInterval(function () {
-				fetch('/api/porton/getestado', {
+				fetch('/api/porton/getestado?d=' + Date.now(), { //Para que no haga cache del status code
 					method: 'GET',
 					headers: {
 						'authorization': `Bearer ${localStorage.token}`
@@ -188,24 +272,31 @@
 						return res.json();
 					})
 					.then(json => {
-						console.log('Procesnado chequeo de esado')
+						console.log('Procesnado chequeo de estado')
 						let valEstado = json.message;
 						console.log(`El estado acutal es: ${valEstado}`)
 						estadoBox.innerHTML = `${valEstado}`
+						btnestado.firstChild.data = `${valEstado}`
 
 						if (valEstado == 'detenido') {
 							//clearInterval(intervaloEstado);
 							estadoBox.style.color = "white"
 							estadoBox.style.background = "green"
+							btnestado.style.color = "white"
+							btnestado.style.background = "green"
 							console.log('Fin de proceso, porque esta detenido')
 						}
 						else if (valEstado == 'esperando') {
 							estadoBox.style.color = "black"
+							btnestado.style.color = "black"
 							estadoBox.style.background = "orange"
+							btnestado.style.background = "orange"
 						}
 						else {
 							estadoBox.style.color = "white"
 							estadoBox.style.background = "red"
+							btnestado.style.color = "white"
+							btnestado.style.background = "red"
 							console.log('Fin chequeo de estado')
 						}
 						document.getElementById("lblEstado").appendChild(estadoBox)
@@ -219,7 +310,10 @@
 		}
 		else {
 			monitoreoActivo = false;
-			document.getElementById("btnMonitoreo").style.background = '';
+			document.getElementById("btnMonitoreo").style.background = '#588cb8';
+			document.getElementById("btnestado").style.background = '#588cb8';
+			document.getElementById("btnMonitoreo").style.color = 'white';
+			document.getElementById("btnestado").style.color = 'white';
 			var btn = document.getElementById("btnMonitoreo");
 			btn.firstChild.data = "Monitoreo Detenido"
 			clearInterval(intervaloEstado);

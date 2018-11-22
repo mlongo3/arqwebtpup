@@ -178,7 +178,9 @@ function accionarPorton(puerto,corte){
 	puerto.writeSync(1);
 	corte.watch( (err,value) =>{
 		if (err) {throw err;}
+		console.log('----------------')
 		console.log('Fin de recorrido')
+		console.log('----------------')
 		puerto.writeSync(0);						
 		corte.unwatch();	
 		detenerluzRoja();					
@@ -196,7 +198,9 @@ function abrirPorton(resu){
 		console.log('Ya se está abriendo')
 		return resu('Ya se está abriendo')
 
-	console.log('Abriendo porton')
+		console.log('---------------')
+		console.log('Abriendo porton')
+		console.log('---------------')
 	accionarPorton(abriendo,portonAbierto);
 
 	return resu('Abriendo porton')	
@@ -217,7 +221,9 @@ function cerrarPorton(resu){
 		console.log('Fotocelula activada no se puede cerrar')
 		return resu('Fotocelula activada no se puede cerrar')
 
-	console.log('Cerrando porton')
+		console.log('---------------')
+		console.log('Cerrando porton')
+		console.log('---------------')
 	accionarPorton(cerrando,portonCerrado);
 
 	return resu('Abriendo porton')	

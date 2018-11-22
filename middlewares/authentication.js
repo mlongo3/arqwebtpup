@@ -2,15 +2,20 @@
 
 const services = require('../services/index.js')
 const Record = require('../controllers/registro.js')
-//const usuarios = require('../controllers/user.js')
-//const usuarios = require('../models/user.js')
+
+
 
 //Como es un middleware, hay que agregarle next para que pase al controlador final.
 function isAuth(req,res,next){			
 	if(!req.headers.authorization || req.headers.authorization == 'Bearer undefined'){		
 		//si no existe
 		console.log('No presentó un token en authorization')
-		Record.newRegistro(null,req.url,req.method,false,'advertencia','No presentó un token en authorization',412)
+		if(req.body.email){
+			Record.newRegistro(null,req.body.email,req.url,req.method,false,'advertencia','No presentó un token en authorization',412)
+		}
+		else{
+			Record.newRegistro(null,null,req.url,req.method,false,'advertencia','No presentó un token en authorization',412)
+		}
 		return res.status(412).send({message: 'No tenes autorización'})
 	}
 	//si existe. hay que cortarlo, para que lo convierta un array.		
@@ -51,7 +56,7 @@ function isAuth(req,res,next){
 		.catch(response =>{
 			//console.log(`${response.status}`) //me devuelve el numero del codigo.
 			//console.log(response)
-			Record.newRegistro(req.user,req.url,req.method,false,'advertencia',response.message,response.status)
+			Record.newRegistro(req.user,null,req.url,req.method,false,'advertencia',response.message,response.status)
 			res.status(response.status).send({message: response.message})	
 		})
 }

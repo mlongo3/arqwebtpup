@@ -11,16 +11,16 @@ function isAutho(req,res,next){
 		//console.log(req.method)
 		if(!usr.habilitado){
 			console.log('Usuario deshabilitado')
-			Record.newRegistro(req.user,req.url,req.method,false,'advertencia','El usuario está deshabilitado',404)
+			Record.newRegistro(req.user,null,req.url,req.method,false,'advertencia','El usuario está deshabilitado',404)
 			res.status(404).send({message: 'El usuario está deshabilitado'})		
 		}
 		else{			
 			if(usr.role == 'error') {
-				Record.newRegistro(req.user,req.url,req.method,false,'error','No se puede obtener el rol',500)
+				Record.newRegistro(req.user,null,req.url,req.method,false,'error','No se puede obtener el rol',500)
 				res.status(500).send({message: 'Se produjo un error al verificar el rol del usuario'})	
 			}
 			else if(usr.role == 'noExiste'){
-				Record.newRegistro(req.user,req.url,req.method,false,'advertencia','El rol definido no existe',404)
+				Record.newRegistro(req.user,null,req.url,req.method,false,'advertencia','El rol definido no existe',404)
 				res.status(404).send({message: 'El token presentado es de un usuario que ya no existe. Petición denegada'})		
 			}			
 			else if(usr.role == 'admin'){
@@ -30,7 +30,7 @@ function isAutho(req,res,next){
 				if(Object.keys(req.query).length > 0) {					
 					//console.log(req.url)
 					if( !req.url == '/porton/getestado' || !req.url == '/luces/estadoPrimarias' || !req.url == '/luces/estadoSecundarias' ) {
-						Record.newRegistro(req.user,req.url,req.method,true,'info','Tiene rol de Admin, accede directamente',202)	
+						Record.newRegistro(req.user,null,req.url,req.method,true,'info','Tiene rol de Admin, accede directamente',202)	
 				
 					}
 					else{
@@ -40,7 +40,7 @@ function isAutho(req,res,next){
 				else{
 				
 					if(!req.url == '/porton/getestado' || !req.url == '/luces/estadoPrimarias' || !req.url == '/luces/estadoSecundarias'){
-						Record.newRegistro(req.user,req.url,req.method,true,'info','Tiene rol de Admin, accede directamente',202)	
+						Record.newRegistro(req.user,null,req.url,req.method,true,'info','Tiene rol de Admin, accede directamente',202)	
 				
 					}
 					else{
@@ -58,22 +58,22 @@ function isAutho(req,res,next){
 						//Devuelve todos los usuarios que lo tienen como manager.
 						User.findDependientesManager(req.user,req.query, function (err,usuario) {
 							if(err){
-								Record.newRegistro(req.user,req.url,req.method,false,'error','No se validar el manager',500)
+								Record.newRegistro(req.user,null,req.url,req.method,false,'error','No se validar el manager',500)
 								return res.status(500).send({message:`Error al realizar la peticion: ${err}`})	
 							} 
 							if(!usuario){
-								Record.newRegistro(req.user,req.url,req.method,false,'advertencia','El rol definido no existe',404)
+								Record.newRegistro(req.user,null,req.url,req.method,false,'advertencia','El rol definido no existe',404)
 								return res.status(404).send({message:`No hay usuarios dependientes de este manager`})
 							}
 							else{
-								Record.newRegistro(req.user,req.url,req.method,true,'info','Manager autorizado',202)
+								Record.newRegistro(req.user,null,req.url,req.method,true,'info','Manager autorizado',202)
 								res.status(202).send({usuarios:usuario}) 
 							}							
 						})
 					}
 					else{
 						if(!req.url == '/porton/getestado' || !req.url == '/luces/estadoPrimarias' || !req.url == '/luces/estadoSecundarias'){
-							Record.newRegistro(req.user,req.url,req.method,true,'info','Acceso permitido.',202)
+							Record.newRegistro(req.user,null,req.url,req.method,true,'info','Acceso permitido.',202)
 						}
 						next()
 					}
@@ -87,14 +87,14 @@ function isAutho(req,res,next){
 
 						if(req.user == req.params.userId){
 							console.log('El manager quiere modificarse a si mismo')
-							Record.newRegistro(req.user,req.url,req.method,true,'info','Acceso permitido.El manager quiere modificarse a si mismo',200)
+							Record.newRegistro(req.user,null,req.url,req.method,true,'info','Acceso permitido.El manager quiere modificarse a si mismo',200)
 							next()
 						}
 						else{
 							//Verifico si es manager del usuario a modificar.
 							User.getManager( req.params.userId, (manag) =>{
 								if(manag == 'error' || manag == 'noExiste'){
-									Record.newRegistro(req.user,req.url,req.method,false,'advertencia','No existe el manager',404)
+									Record.newRegistro(req.user,null,req.url,req.method,false,'advertencia','No existe el manager',404)
 									res.status(404).send({message: 'No existe el manager'})		
 								}
 								else{
@@ -103,12 +103,12 @@ function isAutho(req,res,next){
 
 									if(req.user == manag){
 										console.log('El que pide es manager del usuario a modificar')
-										Record.newRegistro(req.user,req.url,req.method,true,'info','Acceso permitido.El manager quiere está modificando',202)
+										Record.newRegistro(req.user,null,req.url,req.method,true,'info','Acceso permitido.El manager quiere está modificando',202)
 										next()
 									}
 									else{
 										console.log('No tiene permisos para modificar a este usuario')
-										Record.newRegistro(req.user,req.url,req.method,false,'advertencia','No tiene permisos para modificar a este usuario',404)
+										Record.newRegistro(req.user,null,req.url,req.method,false,'advertencia','No tiene permisos para modificar a este usuario',404)
 										res.status(404).send({message: 'No tiene permisos para modificar a este usuario'})		
 									}
 								}
@@ -117,7 +117,7 @@ function isAutho(req,res,next){
 					}
 					else{
 						console.log('No tiene autorizacion para modificar')
-						Record.newRegistro(req.user,req.url,req.method,false,'advertencia','No tiene autorización para modificar',403)
+						Record.newRegistro(req.user,null,req.url,req.method,false,'advertencia','No tiene autorización para modificar',403)
 						res.status(403).send({message: 'No tenes autorizacion para modificar'})
 					}				
 				}
@@ -125,27 +125,27 @@ function isAutho(req,res,next){
 					//Crear un usuario
 					if(req.route.path == '/usuarios'){
 						console.log('Tiene permisos para crear un usuario')
-						Record.newRegistro(req.user,req.url,req.method,true,'info','Creación de usuario',202)
+						Record.newRegistro(req.user,null,req.url,req.method,true,'info','Creación de usuario',202)
 						next()	
 					}
 					else if(req.route.path == '/porton/activar'){
 						console.log('Activacion de porton')
-						Record.newRegistro(req.user,req.url,req.method,true,'info','Activacion de porton',202)
+						Record.newRegistro(req.user,null,req.url,req.method,true,'info','Activacion de porton',202)
 						next()
 					}
 					else if (req.route.path ==  '/porton/detener'){
 						console.log('Detencion de porton')
-						Record.newRegistro(req.user,req.url,req.method,true,'info','Detencion de porton',202)
+						Record.newRegistro(req.user,null,req.url,req.method,true,'info','Detencion de porton',202)
 						next()
 					}
 					else if (req.route.path == '/luces/activarPrimarias' || req.route.path ==  '/luces/activarSecundarias'){
 						console.log('El usuario tiene permisos para encender luces')
-						Record.newRegistro(req.user,req.url,req.method,true,'info','Activacion de luces',202)
+						Record.newRegistro(req.user,null,req.url,req.method,true,'info','Activacion de luces',202)
 						next()
 					}
 					else{
 						console.log('No tiene autorizacion para crear')
-						Record.newRegistro(req.user,req.url,req.method,false,'advertencia','Creación no autorizada',403)
+						Record.newRegistro(req.user,null,req.url,req.method,false,'advertencia','Creación no autorizada',403)
 						res.status(403).send({message: 'No tenes autorizacion  para crear'})
 					}	
 				}
@@ -153,14 +153,14 @@ function isAutho(req,res,next){
 					//Verifico si es si mismo
 					if(req.user == req.params.userId){
 						console.log('Reset contraseña si mismo')
-						Record.newRegistro(req.user,req.url,req.method,true,'info','Reset de contraseña si mismo',202)
+						Record.newRegistro(req.user,null,req.url,req.method,true,'info','Reset de contraseña si mismo',202)
 						next()
 					}
 					else{
 						//Tengo que verificar si es manager.
 						User.getManager( req.params.userId, (manag) =>{
 								if(manag == 'error' || manag == 'noExiste'){
-									Record.newRegistro(req.user,req.url,req.method,false,'advertencia','Manager no disponible',404)
+									Record.newRegistro(req.user,null,req.url,req.method,false,'advertencia','Manager no disponible',404)
 									res.status(404).send({message: 'Manager no disponible'})		
 								}
 								else{
@@ -169,12 +169,12 @@ function isAutho(req,res,next){
 
 									if(req.user == manag){
 										console.log('Reset de contraseña por manager')
-										Record.newRegistro(req.user,req.url,req.method,true,'info','Reset de contraseña por manager',202)
+										Record.newRegistro(req.user,null,req.url,req.method,true,'info','Reset de contraseña por manager',202)
 										next()
 									}
 									else{
 										console.log('No tiene permisos para resetear la pass a este usuario')
-										Record.newRegistro(req.user,req.url,req.method,false,'advertencia','Reset de contraseña no autorizada',403)
+										Record.newRegistro(req.user,null,req.url,req.method,false,'advertencia','Reset de contraseña no autorizada',403)
 										res.status(403).send({message: 'No tiene permisos para resetear la pass a este usuario'})		
 									}
 								}
@@ -183,7 +183,7 @@ function isAutho(req,res,next){
 				}
 				else{
 					console.log('No tiene autorizacion')
-					Record.newRegistro(req.user,req.url,req.method,false,'advertencia','No tiene autorización',403)
+					Record.newRegistro(req.user,null,req.url,req.method,false,'advertencia','No tiene autorización',403)
 					res.status(403).send({message: 'No tene autorizacion'})
 				}
 			}			
@@ -196,15 +196,15 @@ function isAutho(req,res,next){
 						//Devuelve todos los usuarios que lo tienen como manager.						
 						User.findById(req.user, (err,usuario) => {
 							if(err){
-								Record.newRegistro(req.user,req.url,req.method,false,'error','Busqueda del usuario',500)
+								Record.newRegistro(req.user,null,req.url,req.method,false,'error','Busqueda del usuario',500)
 								return res.status(500).send({message:`Error al realizar la peticion: ${err}`})
 							} 
 							if(!usuario) {
-								Record.newRegistro(req.user,req.url,req.method,false,'advertencia','Usuario inexistente',404)
+								Record.newRegistro(req.user,null,req.url,req.method,false,'advertencia','Usuario inexistente',404)
 								return res.status(404).send({message:`El usuario ${req.user} no existe`})
 							}
 							else{
-								Record.newRegistro(req.user,req.url,req.method,true,'info','Acceso permitido',202)
+								Record.newRegistro(req.user,null,req.url,req.method,true,'info','Acceso permitido',202)
 								res.status(202).send({usuarios:usuario}) 	
 							}
 							
@@ -212,7 +212,7 @@ function isAutho(req,res,next){
 					}
 					else{
 						if(!req.url == '/porton/getestado' || !req.url == '/luces/estadoPrimarias' || !req.url == '/luces/estadoSecundarias'){
-							Record.newRegistro(req.user,req.url,req.method,true,'info','Acceso permitido',202)
+							Record.newRegistro(req.user,null,req.url,req.method,true,'info','Acceso permitido',202)
 						}						
 						next()
 					}
@@ -220,22 +220,22 @@ function isAutho(req,res,next){
 				else if (req.method == 'POST'){
 					if(req.route.path == '/porton/activar'){
 						console.log('Activacion de porton')
-						Record.newRegistro(req.user,req.url,req.method,true,'info','Activacion de porton',202)
+						Record.newRegistro(req.user,null,req.url,req.method,true,'info','Activacion de porton',202)
 						next()
 					}
 					else if (req.route.path ==  '/porton/detener'){
 						console.log('Detencion de porton')
-						Record.newRegistro(req.user,req.url,req.method,true,'info','Detencion de porton',202)
+						Record.newRegistro(req.user,null,req.url,req.method,true,'info','Detencion de porton',202)
 						next()
 					}
 					else if (req.route.path == '/luces/activarPrimarias' || req.route.path ==  '/luces/activarSecundarias'){
 						console.log('El usuario tiene permisos para encender luces')
-						Record.newRegistro(req.user,req.url,req.method,true,'info','Activacion de luces',202)
+						Record.newRegistro(req.user,null,req.url,req.method,true,'info','Activacion de luces',202)
 						next()
 					}
 					else{
 						console.log('El usuario no tiene autorizacion para ejecturar lo solicitado')
-						Record.newRegistro(req.user,req.url,req.method,false,'advertencia','El usuario no tiene autorizacion para ejecturar lo solicitado',403)
+						Record.newRegistro(req.user,null,req.url,req.method,false,'advertencia','El usuario no tiene autorizacion para ejecturar lo solicitado',403)
 						res.status(403).send({message: 'El usuario no tiene autorizacion para ejecturar lo solicitado'})
 					}					
 				}
@@ -247,12 +247,12 @@ function isAutho(req,res,next){
 					//console.log(userToModif)
 					if(req.user == userToModif){
 						console.log('El usuario tiene permisos para modificarse a si mismo')
-						Record.newRegistro(req.user,req.url,req.method,true,'info','Modificacion',202)
+						Record.newRegistro(req.user,null,req.url,req.method,true,'info','Modificacion',202)
 						next()
 					}
 					else{
 						console.log('No tiene permisos para modificar a otro usuario')
-						Record.newRegistro(req.user,req.url,req.method,false,'advertencia','Modificacion',403)
+						Record.newRegistro(req.user,null,req.url,req.method,false,'advertencia','Modificacion',403)
 						res.status(403).send({message: 'No tiene permisos para modificar a otro usuario'})
 					}
 				}
@@ -260,24 +260,24 @@ function isAutho(req,res,next){
 					var userToModif = req.params.userId
 					if(req.user == userToModif){
 						console.log('El usuario tiene permisos para resetearse tu password')
-						Record.newRegistro(req.user,req.url,req.method,true,'info','Reset de contraseña si mismo',202)
+						Record.newRegistro(req.user,null,req.url,req.method,true,'info','Reset de contraseña si mismo',202)
 						next()
 					}
 					else{
 						console.log('El usuario no tiene autorizacion resetearle la password a otro')
-						Record.newRegistro(req.user,req.url,req.method,false,'advertencia','Reset de contraseña no autorizado',403)
+						Record.newRegistro(req.user,null,req.url,req.method,false,'advertencia','Reset de contraseña no autorizado',403)
 						res.status(403).send({message: 'El usuario no tiene autorizacion resetearle la password a otro'})
 					}
 				}
 				else{
 					console.log('El usuario no tiene autorización')
-					Record.newRegistro(req.user,req.url,req.method,false,'advertencia','El usuario no tiene autorización',403)
+					Record.newRegistro(req.user,null,req.url,req.method,false,'advertencia','El usuario no tiene autorización',403)
 					res.status(403).send({message: 'El usuario no tiene autorización'})
 				}				
 			}
 			else{
 				console.log('El rol no es valido, no cuadra con los soportados')
-				Record.newRegistro(req.user,req.url,req.method,false,'error','El rol no es valido, no cuadra con los soportados',500)
+				Record.newRegistro(req.user,null,req.url,req.method,false,'error','El rol no es valido, no cuadra con los soportados',500)
 				res.status(500).send({message: 'El rol no es valido.'})
 			}		
 		}

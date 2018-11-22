@@ -12,6 +12,7 @@ const LectorCtrl = require('../controllers/lectortarjeta.js')
 const LucesCtrl = require('../controllers/luces.js')
 const MovimientoCtrl = require('../controllers/movimiento.js')
 const RegistroCtrl = require('../controllers/registro.js')
+const ParadaEmergenciaCtrl = require('../controllers/paradaEmergencia.js')
 const authe = require('../middlewares/authentication.js')
 const autho = require('../middlewares/authorization.js')
 const api = express.Router()
@@ -27,7 +28,10 @@ api.post('/luces/desactivarSecundarias',LucesCtrl.desactivarLucesSecundarias)
 api.get('/luces/estadoPrimarias',LucesCtrl.estadoLucesPrimarias)
 api.get('/luces/estadoSecundarias',LucesCtrl.estadoLucesSecundarias)
 
-	
+
+//PARADA EMERGENCIA
+api.post('/paradaemergencia',authe,ParadaEmergenciaCtrl.parada) 
+
 //Lector
 api.get('/lector/leer',LectorCtrl.LeerTarjeta) 
 

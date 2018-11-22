@@ -82,35 +82,37 @@
 	<div class="admin-container">
 		<div class="col-md-12" ng-controller="camaraCtrl as ctrl">
 			<div class="panel panel-profile">
-				<h1 class="title-admin pull-left">Cámara</h1>
-				<div class="col-md-12" style="text-align: center">
-					<h3>Capturar fotos</h3>
-				</div>
-				<div class="clearfix"></div>
-				<div class="col-md-4">
-					<button id="btnMonitoreo" class="btn btn-xl btn-full btn-lightblue text-left m-t-20" ng-click="capturarCamaraInternaOExterna('int')">
-						Capturar cámara interna</button>
-				</div>
-				<div class="col-md-4">
-					<button id="btnMonitoreo" class="btn btn-xl btn-full btn-lightblue text-left m-t-20" ng-click="capturarCamaraInternaOExterna('ext')">
-						Capturar cámara externa</button>
-				</div>
-                <div class="col-md-4">
-					<button id="btnMonitoreo" class="btn btn-xl btn-full btn-lightblue text-left m-t-20" ng-click="capturarAmbas()">
-						Capturar ambas</button>
-				</div>
-				<div class="clearfix"></div>
-				<div class="col-md-6" ng-show="imagenInternaBuscada != undefined">
-                    <h3>Foto interna</h3>
-				    <img ng-src="{[{imagenInternaBuscada}]}"/>
-				</div>
+				<div class="panel-body">
+					<h1 class="title-admin pull-left">Cámara</h1>
+					<div class="col-md-12" style="text-align: center">
+						<h3>Capturar fotos</h3>
+					</div>
+					<div class="clearfix"></div>
+					<div class="col-md-4">
+						<button id="btnMonitoreo" class="btn btn-xl btn-full btn-lightblue text-left m-t-20" ng-click="capturarCamaraInternaOExterna('int')">
+							Capturar cámara interna</button>
+					</div>
+					<div class="col-md-4">
+						<button id="btnMonitoreo" class="btn btn-xl btn-full btn-lightblue text-left m-t-20" ng-click="capturarCamaraInternaOExterna('ext')">
+							Capturar cámara externa</button>
+					</div>
+					<div class="col-md-4">
+						<button id="btnMonitoreo" class="btn btn-xl btn-full btn-lightblue text-left m-t-20" ng-click="capturarAmbas()">
+							Capturar ambas</button>
+					</div>
+					<div class="clearfix"></div>
+					<div class="col-md-6" ng-show="imagenInternaBuscada != undefined" style="text-align: center">
+						<h3 >Foto interna</h3>
+						<img ng-src="{[{imagenInternaBuscada}]}" style="max-width: 100%;height: auto"/>
+					</div>
 
-				<div class="clearfix"></div>
-                <div class="col-md-6" ng-show="imagenExternaBuscada != undefined">
-                    <h3>Foto externa</h3>                    
-				    <img ng-src="{[{imagenExternaBuscada}]}"/>
+					<div class="clearfix"></div>
+					<div class="col-md-6" ng-show="imagenExternaBuscada != undefined" style="text-align: center">
+						<h3>Foto externa</h3>                    
+						<img ng-src="{[{imagenExternaBuscada}]}" style="max-width: 100%;height: auto"/>
+					</div>
+					<div class="clearfix"></div>				
 				</div>
-				<div class="clearfix"></div>				
 			</div>
 		</div>
 	</div>

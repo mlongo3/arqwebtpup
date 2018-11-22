@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 const app = require('./app.js')
 const config = require ('./config.js')
+const pe = require('./models/paradaEmergencia.js')
 
 
 mongoose.connect(config.db ,{ useNewUrlParser: true },(err,res) =>{

@@ -31,7 +31,7 @@
             $scope.getAlquiler = function () {
                 if ($scope.user.alquiler != undefined) {
                     perfilUsuarioService.getAlquiler($scope.user.alquiler).then(function (response) {
-                        $scope.user.alquilerDesc = response.data.alquiler;
+                        $scope.user.alquilerDesc = response.data.alquiler.nombre;
                         $scope.getManager();
                     }).catch(function (error) {
                         console.log(error);
@@ -49,7 +49,8 @@
             $scope.getManager = function () {
                 if ($scope.user.manager != undefined) {
                     perfilUsuarioService.getManager($scope.user.manager).then(function (response) {
-                        $scope.user.managerDesc = response.data.manager;
+                        console.log(response.data);
+                        $scope.user.managerDesc = response.data.user.displayName;
                     }).catch(function (error) {
                         console.log(error);
                     });

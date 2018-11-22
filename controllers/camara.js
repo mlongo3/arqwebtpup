@@ -9,8 +9,8 @@ const dir = config.dirFotos
 
 
 const optsExt = {
-    width: 1280,
-    height: 720,
+    width: 640, //1280
+    height: 480, //720
     quality: 50,
     delay: 0,
     saveShots: true,
@@ -24,8 +24,8 @@ const optsExt = {
 };
 
 const optsInt = {
-    width: 1280, //640
-    height: 720, //480
+    width: 640, //640
+    height: 480, //480
     quality: 50,
     delay: 0,
     saveShots: true,
@@ -54,76 +54,82 @@ function capturarFotos(req,res){
 	if(req.query.camara){
 		if(req.query.camara == 'int'){
 			//http://192.168.3.3:3001/api/camara/capturar?camara=int
-			console.log('Capturo interna')
+			console.log('-----------------------')
+			console.log('Capturando foto interna')
+			console.log('-----------------------')
 			WebcamInt.capture( fni, function( err, cb ) { 		
 				if(err){
-					console.log('no pude guardar foto interna')
+					console.log('--no pude guardar foto interna--')
 					res.status(500).send({fotoInterna:`${err}`,fotoExterna:''})	
 				}
 				else{						
 					//saco la foto interna
-					console.log('saque la foto interna')
+					//console.log('saque la foto interna')
 					res.status(201).send({fotoInterna:`${fni}`,fotoExterna:''})		
 				}						
 			})	
 		}
 		else if(req.query.camara == 'ext'){
 			//externa
-			console.log('Capturo externa')
+			console.log('-----------------------')
+			console.log('Capturando foto externa')
+			console.log('-----------------------')
 
 			WebcamExt.capture( fne, function( err, cb ) { 		
 				if(err){
-					console.log('no pude guardar foto externa')
+					console.log('--no pude guardar foto externa--')
 					res.status(500).send({fotoInterna:'',fotoExterna:`${err}`})	
 				}
 				else{						
 					//saco la foto interna
-					console.log('saque la foto externa')
+					//console.log('saque la foto externa')
 					res.status(201).send({fotoInterna:'',fotoExterna:`${fne}`})		
 				}						
 			})			
 		}
 		else{
-			console.log('Parametros no validos, no capturo nada')
+			console.log('--Parametros no validos, no capturo nada--')
 			res.status(400).send({fotoInterna:'',fotoExterna:''})			
 		}
 	}
 	else{
 		//Todas
-		console.log('2.Capturo ambas camaras')		
+		console.log('------------------------')
+		console.log('Capturando ambas camaras')
+		console.log('------------------------')		
 		//primero la externa
 		WebcamExt.capture( fne, function( err, cb ) { 		
 			if(err){
-				console.log('no pude guardar foto externa')
+				console.log('--no pude guardar foto externa--')
 				//throw err						
 				//res.status(200).send({message:`Foto interna ${fni} y foto externa ${fne}`})	
 				fne = err
 				WebcamInt.capture( fni, function( err, cb ) { 		
 					if(err){
-						console.log('no pude guardar foto interna')
+						console.log('--no pude guardar foto interna--')
 						//throw err						
 						fni = err						
 						res.status(500).send({fotoInterna:`${fni}`,fotoExterna:`${fne}`})	
 
 					} 
 					else{							
-						console.log('saque la foto interna')											
+						//console.log('saque la foto interna')											
 						res.status(500).send({fotoInterna:`${fni}`,fotoExterna:`${fne}`})	
 					}					
 				})
 			}
 			else{						
 				//saco la foto interna
-				console.log('saque la foto externa')
+				//console.log('saque la foto externa')
 				WebcamInt.capture( fni, function( err, cb ) { 		
 					if(err){
-						console.log('no pude guardar foto interna')
+						console.log('--no pude guardar foto interna--')
 						//throw err						
 						fni = err
 						res.status(500).send({fotoInterna:`${fni}`,fotoExterna:`${fne}`})	
 					} 
 					else{							
-						console.log('saque la foto interna')											
+						//console.log('saque la foto interna')											
 						res.status(201).send({fotoInterna:`${fni}`,fotoExterna:`${fne}`})	
 					}					
 				})		
@@ -141,36 +147,38 @@ function capturar(motivo){
 	
 	
 	//Todas
-	console.log('2.Capturo ambas camaras')		
+	console.log('------------------------')
+	console.log('Capturando ambas camaras')		
+	console.log('------------------------')
 	//primero la externa
 	WebcamExt.capture( fne, function( err, cb ) { 		
 		if(err){
-			console.log('no pude guardar foto externa')
+			console.log('--no pude guardar foto externa--')
 			fne = err
 			WebcamInt.capture( fni, function( err, cb ) { 		
 				if(err){
-					console.log('no pude guardar foto interna')
+					console.log('--no pude guardar foto interna--')
 					fni = err						
 					
 					//CARGAR REGISTRO
 				} 
 				else{							
-					console.log('saque la foto interna')											
+					//console.log('saque la foto interna')											
 					//CARGAR REGISTRO 
 				}					
 			})
 		}
 		else{						
 			//saco la foto interna
-			console.log('saque la foto externa')
+			//console.log('saque la foto externa')
 			WebcamInt.capture( fni, function( err, cb ) { 		
 				if(err){
-					console.log('no pude guardar foto interna')					
+					console.log('--no pude guardar foto interna--')					
 					fni = err
 					//CARGAR REGISTRO
 				} 
 				else{							
-					console.log('saque la foto interna')																//CARGAR REGISTRO
+					//console.log('saque la foto interna')																//CARGAR REGISTRO
 				}					
 			})		
 		}						

@@ -100,7 +100,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr ng-repeat="alquiler in alquileres">
+							<tr ng-repeat="alquiler in alquileres" ng-show="alquiler.nombre!='--'">
 								<td data-label="Nombre"><a href="/alquileres/{[{alquiler._id}]}">{[{alquiler.nombre}]}</a></td>
 								<td data-label="Fecha de alta">{[{alquiler.fechaAlta | date:'dd/MM/yyyy'}]}</td>
 								<td data-label="Fecha de validez">{[{alquiler.fechaValidez | date:'dd/MM/yyyy'}]}</td>

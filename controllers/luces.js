@@ -5,56 +5,62 @@ const luces = require('../models/luz.js')
 
 
 
-function activarLuces(req,res){	
+function activarLuces(req,res){		
 	luces.EncenderTodasLasLuces( (callback) => { 
-		if(callback)
+		if(callback){
+			console.log(`*** ${callback} ***`)
 			return res.status(200).send({message:`${callback}`})
-
+		}
 		return res.status(200).send({message:`Respuesta de Activando Luces vacia`})
 	})	
 } 
 
 function desactivarLuces(req,res){	
 	luces.ApagarTodasLasLuces( (callback) => { 
-		if(callback)
+		if(callback){
+			console.log(`*** ${callback} ***`)	
 			return res.status(200).send({message:`${callback}`})
-
+		}
 		return res.status(200).send({message:`Respuesta de Desactivando Luces vacia`})
 	})	
 } 
 
 function activarLucesPrimarias(req,res){	
 	luces.EncenderPrimarias( (callback) => { 
-		if(callback)
+		if(callback){
+			console.log(`*** ${callback} ***`)
 			return res.status(200).send({message:`${callback}`})
-
+		}
 		return res.status(200).send({message:`Respuesta de Activando Luces vacia`})
 	})	
 } 
 
 function desactivarLucesPrimarias(req,res){	
 	luces.ApagarPrimarias( (callback) => { 
-		if(callback)
+		if(callback){
+			console.log(`*** ${callback} ***`)
 			return res.status(200).send({message:`${callback}`})
-
+		}
 		return res.status(200).send({message:`Respuesta de Desactivando Luces vacia`})
 	})	
 } 
 
 function activarLucesSecundarias(req,res){	
 	luces.EncenderSecundarias( (callback) => { 
-		if(callback)
+		if(callback){
+			console.log(`*** ${callback} ***`)
 			return res.status(200).send({message:`${callback}`})
-
+		}
 		return res.status(200).send({message:`Respuesta de Activando Luces vacia`})
 	})	
 } 
 
 function desactivarLucesSecundarias(req,res){	
 	luces.ApagarSecundarias( (callback) => { 
-		if(callback)
+		if(callback){
+			console.log(`*** ${callback} ***`)
 			return res.status(200).send({message:`${callback}`})
-
+		}
 		return res.status(200).send({message:`Respuesta de Desactivando Luces vacia`})
 	})	
 } 

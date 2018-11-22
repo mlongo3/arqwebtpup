@@ -38,7 +38,7 @@ Luces.prototype.EncenderPrimarias = function(callback){
 	this.timeoutEncendidoPrimarias = setTimeout( () => this.ApagarPrimarias(
 		(cb) => {
 			if(cb){ 
-				console.log(`${cb}`)
+				console.log(`*** ${cb} ***`)
 			}
 			else{
 				console.log('Apagando primarias sin callback recibido de apagar')
@@ -59,7 +59,7 @@ Luces.prototype.EncenderSecundarias = function(callback){
 	this.timeoutEncendidoSecundarias = setTimeout( () => this.ApagarSecundarias(
 		(cb) => {
 			if(cb){ 
-				console.log(`${cb}`)
+				console.log(`*** ${cb} ***`)
 			}
 			else{
 				console.log('Apagando secundarias sin callback recibido de apagar')

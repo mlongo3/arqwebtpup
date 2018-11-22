@@ -5107,7 +5107,7 @@ p + .download-doc {
 		background: rgba(0,0,0,.03);
 	}
 	.table-default td:first-child {
-		background: #588cb8;
+		
 		color: #fff;
 		text-align: center;
 		font-weight: bold;
